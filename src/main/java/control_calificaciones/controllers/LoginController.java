@@ -55,7 +55,6 @@ public class LoginController {
         }
 
         App.setRoot("primary");
-
     }
 
     public void setInputError(Label lbl, TextField txt, String message) {

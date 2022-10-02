@@ -1,9 +1,7 @@
 package control_calificaciones.models.usuarios;
 
 import java.util.ArrayList;
-
 public class Usuario {
-
     public int idUsuario;
     public String nombreUsuario;
     public String contrasenia;
@@ -21,7 +19,4 @@ public class Usuario {
                 "\nprivilegios: " + this.privilegios +
                 "}";
     }
-
-    
-
 }
