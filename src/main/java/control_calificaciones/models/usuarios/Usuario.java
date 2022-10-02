@@ -21,7 +21,4 @@ public class Usuario {
                 "\nprivilegios: " + this.privilegios +
                 "}";
     }
-
-    
-
 }
