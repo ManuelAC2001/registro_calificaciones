@@ -53,8 +53,7 @@ public class LoginController {
             setInputError(lblContrasenia, txtContrasenia, "Contraseña incorrecta");
             return;
         }
-
-        App.setRoot("primary");
+        App.setRoot("sesion");
     }
 
     public void setInputError(Label lbl, TextField txt, String message) {
@@ -63,4 +62,5 @@ public class LoginController {
         lbl.setText(message);
     }
 
+    
 }
