@@ -2,10 +2,19 @@ package control_calificaciones.data;
 
 import java.sql.*;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class Conexion {
 
-    public static final String DB_NAME = "registro_calificaciones", USER = "root", PASSWORD = "Toor248";
-    public static final String URL = "jdbc:mysql://localhost:3308/" + DB_NAME
+    static Dotenv env = Dotenv.configure().load();
+
+    public static final String HOST = env.get("DB_HOST");
+    public static final String PORT = env.get("DB_PORT");
+    public static final String DB_NAME = env.get("DB_NAME");
+    public static final String USER = env.get("DB_USERNAME");
+    public static final String PASSWORD = env.get("DB_PASSWORD");
+
+    public static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DB_NAME
             + "?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     
     public static Connection getConnection() throws SQLException {
