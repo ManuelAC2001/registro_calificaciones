@@ -24,7 +24,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="1002.0" text="INICIO DE SESIÓN" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font name="Times New Roman" size="35.0" />
+                  <Font name="Arial" size="35.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -164,7 +164,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <Hyperlink text="Recuperar" textFill="#001d72">
+                        <Hyperlink onAction="#btnRecuperar" text="Recuperar" textFill="#001d72">
                            <font>
                               <Font size="20.0" />
                            </font>

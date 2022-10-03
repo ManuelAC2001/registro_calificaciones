@@ -50,7 +50,6 @@ public class UsuarioDAO {
         return usuarioEncontrado;
     }
 
-
     public ArrayList<String> getPrivilegios(Usuario usuario){
         
         ArrayList<String> privilegios = new ArrayList<>();
@@ -80,7 +79,4 @@ public class UsuarioDAO {
         }
         return privilegios;
     }
-
-
-
 }
