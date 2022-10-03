@@ -164,7 +164,7 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <Hyperlink text="Recuperar" textFill="#001d72">
+                        <Hyperlink onAction="#btnRecuperar" text="Recuperar" textFill="#001d72">
                            <font>
                               <Font size="20.0" />
                            </font>

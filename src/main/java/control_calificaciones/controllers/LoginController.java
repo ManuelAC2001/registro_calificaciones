@@ -62,5 +62,9 @@ public class LoginController {
         lbl.setText(message);
     }
 
+    @FXML
+    public void btnRecuperar() throws IOException {
+        App.setRoot("recuperar");
+    }
     
 }
