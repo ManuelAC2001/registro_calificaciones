@@ -6,6 +6,8 @@ module control_calificaciones {
 
     requires java.mail;
 
+    requires java.dotenv;
+
     opens control_calificaciones.controllers to javafx.fxml;
     exports control_calificaciones;
 }
