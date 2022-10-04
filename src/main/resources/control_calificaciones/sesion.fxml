@@ -237,7 +237,7 @@
                                              </effect>
                                           </HBox>
                                           <HBox prefHeight="182.0" prefWidth="80.0" />
-                                          <HBox alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
+                                          <HBox fx:id="seccionPersonal" alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="242.0" prefWidth="192.0">
                                                    <children>
@@ -246,7 +246,7 @@
                                                             <Image url="@img/icons/personal.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="PERSONAL">
+                                                      <Button fx:id="btnPersonal" mnemonicParsing="false" onAction="#entrarPersonalSeccion" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="PERSONAL">
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>

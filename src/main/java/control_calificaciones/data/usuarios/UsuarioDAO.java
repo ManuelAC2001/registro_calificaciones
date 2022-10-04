@@ -9,7 +9,7 @@ import control_calificaciones.models.usuarios.*;
 public class UsuarioDAO {
     
     //Esta funcion almacena la informacion de la BD a un Objeto de tipo usuario
-    private void setInformacion(Usuario usuario, ResultSet rs) throws SQLException{
+    protected void setInformacion(Usuario usuario, ResultSet rs) throws SQLException{
         usuario.idUsuario = rs.getInt("id_usuario");
         usuario.nombreUsuario = rs.getString("nombre_usuario");
         usuario.contrasenia = rs.getString("contrasenia");
@@ -79,4 +79,77 @@ public class UsuarioDAO {
         }
         return privilegios;
     }
+
+    public ArrayList<Usuario> getUsuarios() {
+
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        String callProcedure = "{CALL getUsuarios()}";
+        
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(callProcedure);
+            rs = cstmt.executeQuery();
+
+            while(rs.next()){
+                Usuario usuario = new Usuario();
+                usuario.idUsuario = rs.getInt("id_usuario");
+                usuario.correo = rs.getString("correo");
+                usuario.nombreUsuario = rs.getString("nombre_usuario");
+                usuario.contrasenia = rs.getString("contrasenia");
+                usuario.idRol = rs.getInt("id_rol");
+
+                usuarios.add(usuario);
+            } 
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+        return usuarios;
+    }
+
+    public boolean nombreUsuarioExiste(String nombreUsuario){
+        return buscar(nombreUsuario) != null;
+    }
+
+    public boolean correoExiste(String correo){
+        
+        String callProcedure = "{CALL getCorreo(?)}";
+        
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(callProcedure);
+            cstmt.setString(1, correo);
+            rs = cstmt.executeQuery();
+
+            if(!rs.next()){
+                return false;
+            }
+            correo = rs.getString("correo");
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+
+        return true;
+    }
+
+    
 }
