@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.SesionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.PanelPersonalController">
    <children>
       <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
          <children>
@@ -182,7 +182,7 @@
                            </children>
                         </VBox>
                      </children></VBox>
-                  <VBox alignment="CENTER_RIGHT" prefHeight="636.0" prefWidth="69.0">
+                  <VBox alignment="CENTER_RIGHT" prefHeight="636.0" prefWidth="22.0">
                      <children>
                         <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="46.0" styleClass="btn__hide" text="&lt;" textFill="WHITE">
                            <font>
@@ -201,22 +201,40 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="633.0" prefWidth="703.0" styleClass="main__image">
+                        <HBox alignment="CENTER" prefHeight="546.0" prefWidth="761.0" styleClass="main__image">
                            <children>
                               <VBox prefHeight="546.0" prefWidth="723.0">
                                  <children>
                                     <HBox prefHeight="554.0" prefWidth="690.0">
                                        <children>
-                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="171.0">
+                                          <VBox alignment="CENTER" prefHeight="509.0" prefWidth="176.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/personal.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button fx:id="btnCrearPersonal" mnemonicParsing="false" onAction="#crearPersonal" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="CREAR" textFill="#f5f0f0">
+                                                <HBox alignment="CENTER" prefHeight="113.0" prefWidth="185.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER" prefHeight="132.0" prefWidth="112.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="129.0" prefWidth="154.0" style="-fx-background-color: #3599E3; -fx-background-radius: 300;">
+                                                               <children>
+                                                                  <ImageView fitHeight="66.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@img/icons/add_user.png" />
+                                                                     </image>
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                  </ImageView>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <Button mnemonicParsing="false" onAction="#crearUsuario" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="CREAR" textFill="#f5f0f0">
                                                    <VBox.margin>
-                                                      <Insets top="15.0" />
+                                                      <Insets top="20.0" />
                                                    </VBox.margin>
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
@@ -227,16 +245,34 @@
                                                 </Button>
                                              </children>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="172.0">
+                                          <VBox alignment="CENTER" prefHeight="509.0" prefWidth="176.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/personal.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button fx:id="btnEliminarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="ELIMINAR" textFill="#f5f0f0">
+                                                <HBox alignment="CENTER" prefHeight="113.0" prefWidth="185.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER" prefHeight="132.0" prefWidth="112.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="129.0" prefWidth="154.0" style="-fx-background-color: #3599E3; -fx-background-radius: 300;">
+                                                               <children>
+                                                                  <ImageView fitHeight="66.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@img/icons/delete_user.png" />
+                                                                     </image>
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                  </ImageView>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <Button fx:id="btnCrearPersonal1" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="ELIMINAR" textFill="#f5f0f0">
                                                    <VBox.margin>
-                                                      <Insets top="15.0" />
+                                                      <Insets top="20.0" />
                                                    </VBox.margin>
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
@@ -247,16 +283,34 @@
                                                 </Button>
                                              </children>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="176.0">
+                                          <VBox alignment="CENTER" prefHeight="509.0" prefWidth="176.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/personal.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button fx:id="btnModificarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="MODIFICAR" textFill="#f5f0f0">
+                                                <HBox alignment="CENTER" prefHeight="113.0" prefWidth="185.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER" prefHeight="132.0" prefWidth="112.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="129.0" prefWidth="154.0" style="-fx-background-color: #3599E3; -fx-background-radius: 300;">
+                                                               <children>
+                                                                  <ImageView fitHeight="66.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@img/icons/edit_user.png" />
+                                                                     </image>
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                  </ImageView>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <Button fx:id="btnCrearPersonal2" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="MODIFICAR" textFill="#f5f0f0">
                                                    <VBox.margin>
-                                                      <Insets top="15.0" />
+                                                      <Insets top="20.0" />
                                                    </VBox.margin>
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
@@ -267,16 +321,34 @@
                                                 </Button>
                                              </children>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="171.0">
+                                          <VBox alignment="CENTER" prefHeight="509.0" prefWidth="176.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/personal.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button fx:id="btnConsultarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="CONSULTAR" textFill="#f5f0f0">
+                                                <HBox alignment="CENTER" prefHeight="113.0" prefWidth="185.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER" prefHeight="132.0" prefWidth="112.0">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="129.0" prefWidth="154.0" style="-fx-background-color: #3599E3; -fx-background-radius: 300;">
+                                                               <children>
+                                                                  <ImageView fitHeight="66.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@img/icons/select_user.png" />
+                                                                     </image>
+                                                                     <VBox.margin>
+                                                                        <Insets />
+                                                                     </VBox.margin>
+                                                                  </ImageView>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <Button fx:id="btnCrearPersonal3" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="CONSULTAR" textFill="#f5f0f0">
                                                    <VBox.margin>
-                                                      <Insets top="15.0" />
+                                                      <Insets top="20.0" />
                                                    </VBox.margin>
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
