@@ -1,22 +1,14 @@
 package control_calificaciones;
 // import control_calificaciones.helpers.emails.EnviarEmails;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.List;
-
 import control_calificaciones.data.usuarios.DirectorDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.models.usuarios.Usuario;
-=======
-import control_calificaciones.helpers.Helpers;
-import control_calificaciones.helpers.emails.EnviarEmails;
->>>>>>> main
+
 
 public class Test {
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         // EnviarEmails enviarEmail = new EnviarEmails();
         // enviarEmail.enviarEmail();
 
@@ -45,15 +37,6 @@ public class Test {
 
         dao.insertarSecretaria(secretaria);
         System.out.println(new UsuarioDAO().buscar(secretaria.nombreUsuario));
-        
-        
-=======
-      /*   EnviarEmails enviarEmail = new EnviarEmails();
-        enviarEmail.enviarEmail(); */
-
-        System.out.println( Helpers.generarCodigo() );
->>>>>>> main
-        
     }
 
 }
