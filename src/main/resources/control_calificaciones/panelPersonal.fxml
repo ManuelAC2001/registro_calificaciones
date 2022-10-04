@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.SesionController">
+   <children>
+      <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="1000.0" styleClass="header" stylesheets="@styles/headerNavegacion.css">
+               <children>
+                  <HBox prefHeight="60.0" prefWidth="243.0" styleClass="header__navegacion" stylesheets="@styles/sesion.css">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="40.0" prefWidth="17.0" styleClass="container__icon" stylesheets="@styles/sesion.css">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="44.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="icon">
+                                 <image>
+                                    <Image url="@img/icons/next.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/next.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/reload.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/home.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <Pane prefHeight="44.0" prefWidth="682.0" />
+                  <HBox prefHeight="60.0" prefWidth="243.0" styleClass="header__navegacion" stylesheets="@styles/sesion.css">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="40.0" prefWidth="17.0" styleClass="container__icon" stylesheets="@styles/sesion.css">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="44.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="icon">
+                                 <image>
+                                    <Image url="@img/icons/minimize-sign.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="44.0" prefWidth="40.0" styleClass="container__icon">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/minimize-size.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="40.0" prefWidth="17.0">
+                           <children>
+                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/reject.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="container__icon" />
+                              <String fx:value="container__icon-exit" />
+                           </styleClass>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="644.0" prefWidth="1000.0">
+               <children>
+                  <VBox prefHeight="636.0" prefWidth="267.0" styleClass="menu__user">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="271.0" prefWidth="254.0">
+                           <children>
+                              <ImageView fitHeight="109.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/account.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="BIENVENIDO" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin></Label>
+                              <Label fx:id="lblNombreUsuario" text="NOMBRE" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="25.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="166.0" prefWidth="254.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
+                                 <children>
+                                    <Label fx:id="lblNombreUsuario1" text="MODULOS" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="238.0" prefWidth="254.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
+                                 <children>
+                                    <Label fx:id="lblNombreUsuario11" text="CERRAR SESIÓN" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children></VBox>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="636.0" prefWidth="69.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="46.0" styleClass="btn__hide" text="&lt;" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Button>
+                     </children></VBox>
+                  <VBox prefHeight="636.0" prefWidth="703.0" styleClass="main">
+                     <children>
+                        <HBox alignment="CENTER" disable="true" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label opacity="0.2" text="INSTITUTO">
+                                 <font>
+                                    <Font name="Times New Roman" size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="633.0" prefWidth="703.0" styleClass="main__image">
+                           <children>
+                              <VBox prefHeight="546.0" prefWidth="723.0">
+                                 <children>
+                                    <HBox prefHeight="554.0" prefWidth="690.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="171.0">
+                                             <children>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@img/icons/personal.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnCrearPersonal" mnemonicParsing="false" onAction="#crearPersonal" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="CREAR" textFill="#f5f0f0">
+                                                   <VBox.margin>
+                                                      <Insets top="15.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font name="Arial Bold" size="18.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="172.0">
+                                             <children>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@img/icons/personal.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnEliminarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="ELIMINAR" textFill="#f5f0f0">
+                                                   <VBox.margin>
+                                                      <Insets top="15.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font name="Arial Bold" size="18.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="176.0">
+                                             <children>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@img/icons/personal.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnModificarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="MODIFICAR" textFill="#f5f0f0">
+                                                   <VBox.margin>
+                                                      <Insets top="15.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font name="Arial Bold" size="18.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefHeight="546.0" prefWidth="171.0">
+                                             <children>
+                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@img/icons/personal.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="btnConsultarPersonal" mnemonicParsing="false" prefHeight="37.0" prefWidth="139.0" style="-fx-background-color: #ECA95B;" text="CONSULTAR" textFill="#f5f0f0">
+                                                   <VBox.margin>
+                                                      <Insets top="15.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font name="Arial Bold" size="18.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label opacity="0.2" text="HISPANOAMERICANO MEXICANO">
+                                 <font>
+                                    <Font name="Times New Roman" size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

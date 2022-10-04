@@ -20,9 +20,9 @@ public class RecuperarContraseniaController {
     @FXML
     public void reestablecerContrasenia() throws IOException {
         String codigoUsuario = txtCodigoVerificacion.getText().trim();
-        String nuevaContraseña = txtNuevaContrasenia.getText().trim();
+        String nuevaContrasenia = txtNuevaContrasenia.getText().trim();
 
         // Busqueda del codigo para reestablecer la contraseña del usuario
-        
+
     }
 }
