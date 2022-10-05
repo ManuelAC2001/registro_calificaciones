@@ -3,6 +3,7 @@ package control_calificaciones.helpers.pdf;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.*;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -11,6 +12,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import control_calificaciones.data.Conexion;
 
 public class GenerarPDF {
     
@@ -58,9 +61,27 @@ public class GenerarPDF {
             tablaBitacora.addCell("Hora de entrada al sistema");
             tablaBitacora.addCell("Hora de salida del sistema");
 
-            /* 
-             * Aquí la conexión a la BD para rellenar con datos la tabla
-             */
+            // Conexión a la base de datos
+            Connection cn = null;
+            
+            try {
+                cn = Conexion.getConnection();
+                
+                PreparedStatement select = cn.prepareStatement("select * from usuarios");
+                ResultSet resultado = select.executeQuery();
+
+                if( resultado.next() ) {
+                    do {
+                        tablaBitacora.addCell(resultado.getString(1));
+                        tablaBitacora.addCell(resultado.getString(2));
+                        tablaBitacora.addCell(resultado.getString(3));
+                        tablaBitacora.addCell(resultado.getString(4));
+                    } while (resultado.next());
+                }
+
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
             
             tablaBitacora.addCell("Director");
             tablaBitacora.addCell("05/Octubre/2022");
