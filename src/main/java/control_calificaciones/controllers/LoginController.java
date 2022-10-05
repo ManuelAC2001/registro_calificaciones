@@ -1,6 +1,7 @@
 package control_calificaciones.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import control_calificaciones.App;
@@ -69,7 +70,7 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
         root = loader.load();
         SesionController controller = loader.getController();
-        controller.iniciarSesion(usuario, new Date().toString());
+        controller.iniciarSesion(usuario);
         
         stage =  (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

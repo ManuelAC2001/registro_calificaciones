@@ -8,8 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 import control_calificaciones.App;
 import control_calificaciones.data.usuarios.DirectorDAO;
@@ -29,7 +28,8 @@ public class SesionController {
     // sesion
     private Usuario usuario;
     private String nombreUsuario;
-    private String fechaSesion;
+    private LocalDateTime fechaSesion;
+    private LocalDateTime fechaSalida;
 
     @FXML
     private Label lblNombreUsuario;
@@ -65,17 +65,11 @@ public class SesionController {
     @FXML
     public void cerrarSesion(ActionEvent event) throws IOException {
 
-        // mandar a la bitacora
-        String fechaSalida = new Date().toString();
-
-        // DATOS A ENVIAR EN LA BITACORA DE SECRETARIAS
-        System.out.println(nombreUsuario);
-        System.out.println(fechaSesion);
-        System.out.println(fechaSalida);
+        fechaSalida = LocalDateTime.now();        
 
         // GUARADAMOS EN LA BITACORA DE LA BD
         UsuarioDAO.insertarBitacoraSesionUsuario(nombreUsuario, fechaSesion, fechaSalida);
-        
+
         FXMLLoader loader = new FXMLLoader(App.class.getResource("login.fxml"));
         root = loader.load();
 
@@ -86,9 +80,10 @@ public class SesionController {
 
     }
 
-    public void iniciarSesion(Usuario usuario, String fechaSesion) {
+    public void iniciarSesion(Usuario usuario) {
 
-        this.fechaSesion = fechaSesion;
+        this.fechaSesion = LocalDateTime.now();
+
         nombreUsuario = usuario.nombreUsuario;
         lblNombreUsuario.setText(nombreUsuario);
 

@@ -1,6 +1,7 @@
 package control_calificaciones.data.usuarios;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import control_calificaciones.data.Conexion;
@@ -143,8 +144,9 @@ public class UsuarioDAO {
         return true;
     }
 
-    public static void insertarBitacoraSesionUsuario(String nombreUsuario, String fechaSesion, String fechaSalida) {
-        String procedureCall = "{CALL crearBitacoraSesionUsuario(?,?,?)}";
+    public static void insertarBitacoraSesionUsuario(String nombreUsuario, LocalDateTime fechaSesion, LocalDateTime fechaSalida) {
+
+        String procedureCall = "{CALL crearBitacoraSesionUsuario(?,?,?,?,?,?)}";
         Connection cn = null;
         CallableStatement csmt = null;
 
@@ -154,8 +156,11 @@ public class UsuarioDAO {
             csmt = cn.prepareCall(procedureCall);
 
             csmt.setString(1, nombreUsuario);
-            csmt.setString(2, fechaSesion);
-            csmt.setString(3, fechaSalida);
+            csmt.setInt(2, fechaSalida.getDayOfMonth());
+            csmt.setInt(3, fechaSalida.getYear());
+            csmt.setString(4, fechaSalida.getMonth().toString());
+            csmt.setString(5, fechaSesion.toLocalTime().toString());
+            csmt.setString(6, fechaSalida.toLocalTime().toString());
 
             csmt.executeUpdate();
         } 
