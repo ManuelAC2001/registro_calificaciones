@@ -173,11 +173,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
                                  <children>
-                                    <Label fx:id="lblNombreUsuario11" text="CERRAR SESIÓN" textFill="WHITE">
-                                       <font>
-                                          <Font name="Arial Bold" size="25.0" />
-                                       </font>
-                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="56.0" prefWidth="256.0" text="CERRAR SESION" />
                                  </children>
                               </HBox>
                            </children>
