@@ -51,7 +51,8 @@ public class GenerarPDF {
             tablaBitacora.addCell("hora de salida");
 
             // Conexión a la base de datos
-            String procedureCall = "{CALL getbitacoraSesionUsuariosActual(?,?,?)}";
+            // String procedureCall = "{CALL getbitacoraSesionUsuariosActual(?,?,?)}";
+            String procedureCall = "{CALL getbitacoraSesionUsuariosActual()}";
             CallableStatement cstmt = null;
             Connection cn = null;
             ResultSet rs = null;
@@ -61,9 +62,9 @@ public class GenerarPDF {
                 cn = Conexion.getConnection();
                 cstmt = cn.prepareCall(procedureCall);
 
-                cstmt.setInt(1, LocalDate.now().getDayOfMonth());
-                cstmt.setString(2, LocalDate.now().getMonth().toString());
-                cstmt.setInt(3, LocalDate.now().getYear());
+                // cstmt.setInt(1, LocalDate.now().getDayOfMonth());
+                // cstmt.setString(2, LocalDate.now().getMonth().toString());
+                // cstmt.setInt(3, LocalDate.now().getYear());
 
                 rs = cstmt.executeQuery();
 
