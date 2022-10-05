@@ -151,7 +151,7 @@ public class UsuarioDAO {
         CallableStatement csmt = null;
 
         try {
-
+            
             cn = Conexion.getConnection();
             csmt = cn.prepareCall(procedureCall);
 

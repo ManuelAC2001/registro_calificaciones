@@ -1,17 +1,9 @@
 package control_calificaciones;
 // import control_calificaciones.helpers.emails.EnviarEmails;
 
-import java.util.Date;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
-import control_calificaciones.data.usuarios.DirectorDAO;
-import control_calificaciones.data.usuarios.UsuarioDAO;
-import control_calificaciones.models.usuarios.Usuario;
-
-import control_calificaciones.helpers.Helpers;
-import control_calificaciones.helpers.emails.EnviarEmails;
 import control_calificaciones.helpers.pdf.GenerarPDF;
 
 public class Test {
@@ -50,12 +42,13 @@ public class Test {
         // dao.insertarSecretaria(secretaria);
         // System.out.println(new UsuarioDAO().buscar(secretaria.nombreUsuario));
 
-        System.out.println(LocalDateTime.now().getMonth());
-        System.out.println(LocalDateTime.now().getYear());
-        System.out.println(LocalDateTime.now().getDayOfMonth());
-        System.out.println(LocalDateTime.now().toLocalTime());
+        // System.out.println(LocalDateTime.now().getMonth());
+        // System.out.println(LocalDateTime.now().getYear());
+        // System.out.println(LocalDateTime.now().getDayOfMonth());
+        // System.out.println(LocalDateTime.now().toLocalTime());
 
-
+        GenerarPDF.generarPDF();
+        
     }
 
 }
