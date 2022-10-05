@@ -2,6 +2,7 @@ package control_calificaciones;
 
 import control_calificaciones.helpers.Helpers;
 import control_calificaciones.helpers.emails.EnviarEmails;
+import control_calificaciones.helpers.pdf.GenerarPDF;
 
 public class Test {
 
@@ -9,7 +10,9 @@ public class Test {
       /*   EnviarEmails enviarEmail = new EnviarEmails();
         enviarEmail.enviarEmail(); */
 
-        System.out.println( Helpers.generarCodigo() );
+        //System.out.println( Helpers.generarCodigo() );
+
+        GenerarPDF.generarPDF();
         
     }
 
