@@ -14,6 +14,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.data.Conexion;
+import control_calificaciones.helpers.Helpers;
 
 public class GenerarPDF {
     
@@ -22,25 +23,11 @@ public class GenerarPDF {
         Document documento = new Document();
 
         try {
-            String ruta = new File(".").getCanonicalPath();
-            String NOMBRE_ARCHIVO = ruta + "/bitacora-pdf.pdf";
+            String ruta = new File("./pdfs").getAbsolutePath();
+            String NOMBRE_ARCHIVO = ruta + "/bitacora-pdf-" + Helpers.obtenerFechaActual() + ".pdf";
             PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
-            //PdfWriter.getInstance(documento, new FileOutputStream("D:/TEC/7mo Semestre/Gestion Proyectos/registro_calificaciones/pdfs")); // Al final de la ruta concatenar el nombre del archivo PDF
             
             documento.open();
-
-            /*
-             * Paragraph paragraphHello = new Paragraph();
-             * paragraphHello.add("Hello iText paragraph!");
-             * paragraphHello.setAlignment(Element.ALIGN_JUSTIFIED);
-             * 
-             * document.add(paragraphHello);
-             * 
-             * Font f = new Font();
-             * f.setFamily(FontFamily.COURIER.name());
-             * f.setStyle(Font.BOLDITALIC);
-             * f.setSize(8);
-             */
 
             Font font = new Font();
             font.setFamily(FontFamily.HELVETICA.name());

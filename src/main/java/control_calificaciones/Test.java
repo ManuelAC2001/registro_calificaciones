@@ -22,6 +22,7 @@ public class Test {
         // GENERAR PDF
         GenerarPDF.generarPDF();
 
+
         System.out.println("AGREGANDO SECRETARIA");
 
         DirectorDAO dao = new DirectorDAO();
@@ -48,6 +49,6 @@ public class Test {
 
         dao.insertarSecretaria(secretaria);
         System.out.println(new UsuarioDAO().buscar(secretaria.nombreUsuario));
-    }
+  }
 
 }
