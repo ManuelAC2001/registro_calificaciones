@@ -61,6 +61,7 @@ public class GenerarPDF {
             /* 
              * Aquí la conexión a la BD para rellenar con datos la tabla
              */
+            
             tablaBitacora.addCell("Director");
             tablaBitacora.addCell("05/Octubre/2022");
             tablaBitacora.addCell("4:00 p.m");
