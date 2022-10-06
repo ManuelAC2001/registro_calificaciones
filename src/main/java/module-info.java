@@ -8,5 +8,6 @@ module control_calificaciones {
     requires itextpdf;
 
     opens control_calificaciones.controllers to javafx.fxml;
+    opens control_calificaciones.models to javafx.base;
     exports control_calificaciones;
 }

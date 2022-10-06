@@ -1,9 +1,10 @@
 package control_calificaciones.helpers.pdf;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -17,7 +18,7 @@ import control_calificaciones.data.Conexion;
 import control_calificaciones.helpers.Helpers;
 
 public class GenerarPDF {
-    
+
     public static void generarPDF() {
 
         Document documento = new Document();
@@ -26,7 +27,7 @@ public class GenerarPDF {
             String ruta = new File("./pdfs").getAbsolutePath();
             String NOMBRE_ARCHIVO = ruta + "/bitacora-pdf-" + Helpers.obtenerFechaActual() + ".pdf";
             PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
-            
+
             documento.open();
 
             Font font = new Font();
@@ -35,52 +36,66 @@ public class GenerarPDF {
             font.setSize(10);
 
             Paragraph nombreInstituto = new Paragraph();
-            nombreInstituto.add("Instituto Hispanoamericano Mexicano");
+            String diaActual =  Integer.toString(LocalDateTime.now().getDayOfMonth());
+            String mesActual = LocalDateTime.now().getMonth().toString();
+            String anioActual = Integer.toString(LocalDateTime.now().getYear());
+
+            String fechaActual = diaActual + " " + mesActual + " " + anioActual;
+
+            // String fechaActual = 
+            nombreInstituto.add("Instituto Hispanoamericano Mexicano \nbitacora de inicio de sesión de usuarios del dia " + fechaActual);
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             documento.add(nombreInstituto);
 
             // Creamos la tabla (Bitacora)
-            PdfPTable tablaBitacora = new PdfPTable(4);
+            PdfPTable tablaBitacora = new PdfPTable(6);
             tablaBitacora.setSpacingBefore(12);
             // Le damos titulo a cada columna
             tablaBitacora.addCell("Usuario");
-            tablaBitacora.addCell("Fecha que ingreso al sistema");
-            tablaBitacora.addCell("Hora de entrada al sistema");
-            tablaBitacora.addCell("Hora de salida del sistema");
+            tablaBitacora.addCell("Dia");
+            tablaBitacora.addCell("año");
+            tablaBitacora.addCell("mes");
+            tablaBitacora.addCell("hora de entrada");
+            tablaBitacora.addCell("hora de salida");
 
             // Conexión a la base de datos
+            String procedureCall = "{CALL getbitacoraSesionUsuarios()}";
+            CallableStatement cstmt = null;
             Connection cn = null;
+            ResultSet rs = null;
             
             try {
-                cn = Conexion.getConnection();
-                
-                PreparedStatement select = cn.prepareStatement("select * from usuarios");
-                ResultSet resultado = select.executeQuery();
 
-                if( resultado.next() ) {
+                cn = Conexion.getConnection();
+                cstmt = cn.prepareCall(procedureCall);
+
+                rs = cstmt.executeQuery();
+
+                if (rs.next()) {
                     do {
-                        tablaBitacora.addCell(resultado.getString(1));
-                        tablaBitacora.addCell(resultado.getString(2));
-                        tablaBitacora.addCell(resultado.getString(3));
-                        tablaBitacora.addCell(resultado.getString(4));
-                    } while (resultado.next());
+                        tablaBitacora.addCell(rs.getString(2));
+                        tablaBitacora.addCell(rs.getString(3));
+                        tablaBitacora.addCell(rs.getString(4));
+                        tablaBitacora.addCell(rs.getString(5));
+                        tablaBitacora.addCell(rs.getString(6));
+                        tablaBitacora.addCell(rs.getString(7));
+                    } while (rs.next());
                 }
 
-            } catch (Exception e) {
-                // TODO: handle exception
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } 
+            finally {
+                Conexion.close(rs);
+                Conexion.close(cstmt);
+                Conexion.close(cn);
             }
-            
-            tablaBitacora.addCell("Director");
-            tablaBitacora.addCell("05/Octubre/2022");
-            tablaBitacora.addCell("4:00 p.m");
-            tablaBitacora.addCell("4:30 p.m");
-            
+
             // Añadimos la tabla dentro del documento PDF
             documento.add(tablaBitacora);
 
             documento.close();
-            System.out.println("SE creo PDF!!!");
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             System.out.println("Error al generar PDF" + e);
         }
     }

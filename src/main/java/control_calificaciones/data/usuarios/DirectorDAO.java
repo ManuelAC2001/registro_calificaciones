@@ -66,8 +66,5 @@ public class DirectorDAO extends UsuarioDAO{
             Conexion.close(csmt);
             Conexion.close(cn);
         }
-
-
-
     }
 }
