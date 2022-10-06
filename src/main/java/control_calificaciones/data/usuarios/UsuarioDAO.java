@@ -3,7 +3,6 @@ package control_calificaciones.data.usuarios;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import control_calificaciones.data.Conexion;
 import control_calificaciones.models.usuarios.*;

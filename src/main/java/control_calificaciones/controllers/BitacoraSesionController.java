@@ -6,19 +6,30 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import control_calificaciones.App;
 import control_calificaciones.data.Conexion;
+import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.pdf.GenerarPDF;
 import control_calificaciones.models.BitacoraSesion;
+import control_calificaciones.models.usuarios.Sesion;
+import control_calificaciones.models.usuarios.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class BitacoraSesionController implements Initializable {
 
@@ -45,6 +56,13 @@ public class BitacoraSesionController implements Initializable {
     @FXML
     private TableColumn<BitacoraSesion, String> columnNombreUsuario;
 
+    @FXML
+    private Label lblNombreUsuario;
+
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -54,12 +72,14 @@ public class BitacoraSesionController implements Initializable {
         ResultSet rs = null;
         listaUsuarios = FXCollections.observableArrayList();
 
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
+
         try {
             cn = Conexion.getConnection();
             cstmt = cn.prepareCall(procedureCall);
             rs = cstmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 BitacoraSesion bSesion = new BitacoraSesion();
                 bSesion.setNombreUsuario(rs.getString(2));
                 bSesion.setDia(rs.getInt(3));
@@ -70,11 +90,9 @@ public class BitacoraSesionController implements Initializable {
                 listaUsuarios.add(bSesion);
             }
 
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             Conexion.close(rs);
             Conexion.close(cstmt);
             Conexion.close(cn);
@@ -87,17 +105,47 @@ public class BitacoraSesionController implements Initializable {
         columnHoraEntrada.setCellValueFactory(new PropertyValueFactory<BitacoraSesion, String>("horaEntrada"));
         columnHoraSalida.setCellValueFactory(new PropertyValueFactory<BitacoraSesion, String>("horaSalida"));
 
-        
-
         tablaUsuarios.setItems(listaUsuarios);
+
+        System.out.println(Sesion.fechaSesion);
 
     }
 
     @FXML
+    public void cerrarSesion(ActionEvent event) throws IOException {
+
+        // GUARADAMOS EN LA BITACORA DE LA BD
+        UsuarioDAO.insertarBitacoraSesionUsuario(Sesion.nombreUsuario, Sesion.fechaSesion, LocalDateTime.now());
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("login.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void toSeccionPrincipal(ActionEvent event) throws IOException{
+
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
+
+        // Enviar información a la ventana de sesion
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
+        root = loader.load();
+        SesionController controller = loader.getController();
+        controller.iniciarSesion(usuario);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     public void generarPDF(ActionEvent event) throws IOException {
-
         GenerarPDF.generarPDF();
-
     }
 
 }

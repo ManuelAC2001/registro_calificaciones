@@ -14,6 +14,7 @@ import control_calificaciones.App;
 import control_calificaciones.data.usuarios.DirectorDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.models.usuarios.Director;
+import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +37,9 @@ public class SesionController {
 
     @FXML
     private HBox seccionPersonal;
+
+    @FXML
+    private HBox seccionEstadisticas;
 
     // EVENTOS
     @FXML
@@ -81,12 +85,12 @@ public class SesionController {
 
     @FXML
     public void seccionBitacora(ActionEvent event) throws IOException{
-
+        
         usuario = new DirectorDAO().buscar(nombreUsuario);
-        // if (usuario == null) {
-        //     return;
-        // }
-
+        if (usuario == null) {
+            return;
+        }
+        
         // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
         FXMLLoader loader = new FXMLLoader(App.class.getResource("bitacoraUsuarios.fxml"));
         root = loader.load();
@@ -95,20 +99,22 @@ public class SesionController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     public void iniciarSesion(Usuario usuario) {
+        
+        nombreUsuario = usuario.nombreUsuario;
 
         this.fechaSesion = LocalDateTime.now();
+        Sesion.fechaSesion = this.fechaSesion; //aaaa
+        Sesion.nombreUsuario = nombreUsuario;
 
-        nombreUsuario = usuario.nombreUsuario;
         lblNombreUsuario.setText(nombreUsuario);
 
         // Esto viola los principios SOLID :(
         if (!usuario.nombreRol.equals("director")) {
             seccionPersonal.setDisable(true);
+            seccionEstadisticas.setDisable(true);
             return;
         }
 

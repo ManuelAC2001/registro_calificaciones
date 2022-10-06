@@ -1,15 +1,12 @@
 package control_calificaciones;
-// import control_calificaciones.helpers.emails.EnviarEmails;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import control_calificaciones.helpers.pdf.GenerarPDF;
 
 public class Test {
 
     public static void main(String[] args) {
+
+        GenerarPDF.generarPDF();
+
         // EnviarEmails enviarEmail = new EnviarEmails();
         // enviarEmail.enviarEmail();
 
@@ -49,12 +46,6 @@ public class Test {
         // System.out.println(LocalDateTime.now().toLocalTime());
 
         // GenerarPDF.generarPDF();
-
-        Date date = new Date();
-        String  hora = date.getHours() + ":" + date.getMinutes();
-        
-        System.out.println( LocalDateTime.now().getHour());
-        
     }
 
 }
