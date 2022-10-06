@@ -3,6 +3,7 @@ package control_calificaciones.data.usuarios;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import control_calificaciones.data.Conexion;
 import control_calificaciones.models.usuarios.*;
@@ -159,9 +160,9 @@ public class UsuarioDAO {
             csmt.setInt(2, fechaSalida.getDayOfMonth());
             csmt.setInt(3, fechaSalida.getYear());
             csmt.setString(4, fechaSalida.getMonth().toString());
-            csmt.setString(5, fechaSesion.toLocalTime().toString());
-            csmt.setString(6, fechaSalida.toLocalTime().toString());
-
+            csmt.setString(5, fechaSesion.getHour() + ":" + fechaSesion.getMinute());
+            csmt.setString(6, fechaSalida.getHour() + ":" + fechaSesion.getMinute());
+            
             csmt.executeUpdate();
         } 
         catch (SQLException e) {
