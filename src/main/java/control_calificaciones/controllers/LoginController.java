@@ -1,8 +1,6 @@
 package control_calificaciones.controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 
 import control_calificaciones.App;
 import control_calificaciones.data.usuarios.UsuarioDAO;

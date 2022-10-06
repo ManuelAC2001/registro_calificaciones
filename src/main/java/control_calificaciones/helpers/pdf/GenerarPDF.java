@@ -55,7 +55,7 @@ public class GenerarPDF {
             String fechaActual = diaActual + " " + mesActual + " " + anioActual;
 
             Paragraph subtitulo = new Paragraph("Bitacora de Inicio de Sesión de Usuarios del Día " + fechaActual,
-                FontFactory.getFont("Arial", 20, Font.BOLD));
+            FontFactory.getFont("Arial", 20, Font.BOLD));
             subtitulo.setSpacingBefore(10);
             subtitulo.setAlignment(Element.ALIGN_CENTER);
 

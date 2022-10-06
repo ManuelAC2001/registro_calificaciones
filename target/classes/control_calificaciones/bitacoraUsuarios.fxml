@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -12,7 +11,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -20,119 +18,9 @@
    <children>
       <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
          <children>
-            <HBox prefHeight="49.0" prefWidth="1000.0" styleClass="header" stylesheets="@styles/sesion.css">
+            <HBox prefHeight="708.0" prefWidth="1000.0">
                <children>
-                  <HBox prefHeight="60.0" prefWidth="243.0" styleClass="header__navegacion" stylesheets="@styles/sesion.css">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="40.0" prefWidth="17.0" styleClass="container__icon" stylesheets="@styles/sesion.css">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="44.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                                 <image>
-                                    <Image url="@img/icons/next.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/next.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/reload.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="40.0" prefWidth="17.0" styleClass="container__icon">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/home.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </VBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </HBox>
-                  <Pane prefHeight="44.0" prefWidth="682.0" />
-                  <HBox prefHeight="60.0" prefWidth="243.0" styleClass="header__navegacion" stylesheets="@styles/sesion.css">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="40.0" prefWidth="17.0" styleClass="container__icon" stylesheets="@styles/sesion.css">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="44.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                                 <image>
-                                    <Image url="@img/icons/minimize-sign.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="44.0" prefWidth="40.0" styleClass="container__icon">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/minimize-size.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox prefHeight="40.0" prefWidth="17.0">
-                           <children>
-                              <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/reject.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="container__icon" />
-                              <String fx:value="container__icon-exit" />
-                           </styleClass>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="644.0" prefWidth="1000.0">
-               <children>
-                  <VBox prefHeight="636.0" prefWidth="267.0" styleClass="menu__user">
+                  <VBox prefHeight="636.0" prefWidth="256.0" styleClass="menu__user">
                      <children>
                         <VBox alignment="CENTER" prefHeight="271.0" prefWidth="254.0">
                            <children>
@@ -162,11 +50,11 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
                                  <children>
-                                    <Label fx:id="lblNombreUsuario1" text="MODULOS" textFill="WHITE">
+                                    <Button mnemonicParsing="false" onAction="#toSeccionPrincipal" prefHeight="37.0" prefWidth="261.0" style="-fx-background-color: transparent;" text="SECCIÓN PRINCIPAL" textFill="WHITE">
                                        <font>
-                                          <Font name="Arial Bold" size="25.0" />
+                                          <Font name="System Bold" size="20.0" />
                                        </font>
-                                    </Label>
+                                    </Button>
                                  </children>
                               </HBox>
                            </children>
@@ -175,7 +63,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="98.0" prefWidth="254.0" style="-fx-background-color: transparent;" text="CERRAR SESION" textFill="WHITE">
+                                    <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="98.0" prefWidth="254.0" style="-fx-background-color: transparent;" text="CERRAR SESION" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font></Button>
