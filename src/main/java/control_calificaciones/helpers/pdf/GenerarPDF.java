@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -35,7 +36,14 @@ public class GenerarPDF {
             font.setSize(10);
 
             Paragraph nombreInstituto = new Paragraph();
-            nombreInstituto.add("Instituto Hispanoamericano Mexicano");
+            String diaActual =  Integer.toString(LocalDateTime.now().getDayOfMonth());
+            String mesActual = LocalDateTime.now().getMonth().toString();
+            String anioActual = Integer.toString(LocalDateTime.now().getYear());
+
+            String fechaActual = diaActual + " " + mesActual + " " + anioActual;
+
+            // String fechaActual = 
+            nombreInstituto.add("Instituto Hispanoamericano Mexicano \nbitacora de inicio de sesión de usuarios del dia " + fechaActual);
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             documento.add(nombreInstituto);
 
@@ -51,7 +59,7 @@ public class GenerarPDF {
             tablaBitacora.addCell("hora de salida");
 
             // Conexión a la base de datos
-            String procedureCall = "{CALL getbitacoraSesionUsuariosActual(?,?,?)}";
+            String procedureCall = "{CALL getbitacoraSesionUsuarios()}";
             CallableStatement cstmt = null;
             Connection cn = null;
             ResultSet rs = null;
@@ -60,10 +68,6 @@ public class GenerarPDF {
 
                 cn = Conexion.getConnection();
                 cstmt = cn.prepareCall(procedureCall);
-
-                cstmt.setInt(1, LocalDate.now().getDayOfMonth());
-                cstmt.setString(2, LocalDate.now().getMonth().toString());
-                cstmt.setInt(3, LocalDate.now().getYear());
 
                 rs = cstmt.executeQuery();
 
