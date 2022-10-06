@@ -96,7 +96,7 @@ public class BitacoraSesionController implements Initializable {
     @FXML
     public void generarPDF(ActionEvent event) throws IOException {
 
-        GenerarPDF.generarPDF();
+        //GenerarPDF.generarPDF();
 
     }
 
