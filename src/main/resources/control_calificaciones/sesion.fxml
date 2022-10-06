@@ -130,25 +130,25 @@
             </HBox>
             <HBox prefHeight="644.0" prefWidth="1000.0">
                <children>
-                  <VBox prefHeight="636.0" prefWidth="267.0" styleClass="menu__user">
+                  <VBox prefHeight="636.0" prefWidth="197.0" styleClass="menu__user">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="271.0" prefWidth="254.0">
+                        <VBox alignment="CENTER" prefHeight="228.0" prefWidth="197.0">
                            <children>
-                              <ImageView fitHeight="109.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="93.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/icons/account.png" />
                                  </image>
                               </ImageView>
                               <Label text="BIENVENIDO" textFill="WHITE">
                                  <font>
-                                    <Font name="Arial Bold" size="25.0" />
+                                    <Font name="Arial Bold" size="20.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin></Label>
                               <Label fx:id="lblNombreUsuario" text="NOMBRE" textFill="WHITE">
                                  <font>
-                                    <Font name="Arial Bold" size="25.0" />
+                                    <Font name="Arial Bold" size="20.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -158,22 +158,26 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="166.0" prefWidth="254.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="197.0" styleClass="user__option">
                                  <children>
-                                    <Label fx:id="lblNombreUsuario1" text="MODULOS" textFill="WHITE">
+                                    <Button mnemonicParsing="false" onAction="#seccionBitacora" prefHeight="56.0" prefWidth="256.0" style="-fx-background-color: transparent;" text="BITACORA" textFill="WHITE">
                                        <font>
-                                          <Font name="Arial Bold" size="25.0" />
+                                          <Font name="System Bold" size="20.0" />
                                        </font>
-                                    </Label>
+                                    </Button>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="238.0" prefWidth="254.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="user__option">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="197.0" styleClass="user__option">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="56.0" prefWidth="256.0" text="CERRAR SESION" />
+                                    <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="56.0" prefWidth="256.0" style="-fx-background-color: transparent;" text="CERRAR SESION" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </HBox>
                            </children>
@@ -181,7 +185,7 @@
                      </children></VBox>
                   <VBox alignment="CENTER_RIGHT" prefHeight="636.0" prefWidth="69.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="46.0" styleClass="btn__hide" text="&lt;" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="60.0" scaleZ="0.0" styleClass="btn__hide" text="&lt;" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -200,7 +204,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="633.0" prefWidth="703.0" styleClass="main__image">
                            <children>
-                              <VBox prefHeight="546.0" prefWidth="723.0">
+                              <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="723.0">
                                  <children>
                                     <HBox prefHeight="221.0" prefWidth="703.0">
                                        <children>

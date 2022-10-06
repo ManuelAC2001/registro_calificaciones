@@ -49,7 +49,6 @@ public class SesionController {
         Director director = (Director) usuario;
 
         // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
-
         FXMLLoader loader = new FXMLLoader(App.class.getResource("panelPersonal.fxml"));
         root = loader.load();
         PanelPersonalController controller = loader.getController();
@@ -77,6 +76,26 @@ public class SesionController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    @FXML
+    public void seccionBitacora(ActionEvent event) throws IOException{
+
+        usuario = new DirectorDAO().buscar(nombreUsuario);
+        // if (usuario == null) {
+        //     return;
+        // }
+
+        // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("bitacoraUsuarios.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
 
     }
 
