@@ -10,7 +10,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPRow;
@@ -18,6 +17,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.data.Conexion;
+<<<<<<< HEAD
 
 public class GenerarPDF {
 
@@ -25,10 +25,17 @@ public class GenerarPDF {
 
         String NOMBRE_ARCHIVO = file.toString() + ".pdf";
         // String ruta = "";
+=======
+import control_calificaciones.helpers.Helpers;
+
+public class GenerarPDF {
+    public static void generarPDF() {
+>>>>>>> 35a9dfb40c9dc4aa1c868237be74bee775b9dbc3
 
         Document documento = new Document();
 
         try {
+<<<<<<< HEAD
             // ruta = new File("./pdfs").getAbsolutePath();
             // NOMBRE_ARCHIVO = ruta + "/bitacora-pdf-" + Helpers.obtenerFechaActual() + ".pdf";
             PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
@@ -45,8 +52,19 @@ public class GenerarPDF {
                 e.getMessage();
             }
             
+=======
+            var RUTA_PDF_BITACORAS = Helpers.crearCarpeta("./pdfs-bitacora");
+            String fechaRutaPDF = Helpers.obtenerFechaActual();
+
+            String NOMBRE_ARCHIVO = RUTA_PDF_BITACORAS + "/bitacora-pdf-" + fechaRutaPDF + ".pdf";
+            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
+
+            documento.open();
+
+>>>>>>> 35a9dfb40c9dc4aa1c868237be74bee775b9dbc3
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
                 FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
+            nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             
             String diaActual =  Integer.toString(LocalDateTime.now().getDayOfMonth());
@@ -122,27 +140,4 @@ public class GenerarPDF {
             System.out.println("Error al generar PDF" + e);
         }
     } 
-
-/*     public static void htmlToPDF () throws FileNotFoundException {
-        InputStream inSt = new FileInputStream("./bitacora.html");
-
-        FileOutputStream outSt = new FileOutputStream("../pdf/demo.pdf");
-        // Document es la clase más utilizada en com.itextpdf.text inyectada por maven,
-        // que representa una instancia de pdf.
-        // Si desea generar un documento PDF, debe llamar al método open () y al método
-        // close () de la clase Document.
-        Document document = new Document();
-        // PdfWriter es inyectado por maven
-        // La clase bajo com.itextpdf.text.pdf, donde el método estático getInstance ()
-        // se usa para asociar el objeto del documento con el objeto outputStream.
-        PdfWriter writer = PdfWriter.getInstance(document, outSt);
-
-        document.open();
-
-        // XMLWorkerHelper es una clase bajo com.itextpdf.tool.xml inyectada por maven,
-        // cuya función principal es convertir html a pdf
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, inSt, Charset.forName("UTF-8"));
-
-        document.close();  
-    } */
 }

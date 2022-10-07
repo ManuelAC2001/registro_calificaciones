@@ -6,6 +6,7 @@ import control_calificaciones.helpers.pdf.GenerarPDF;
 public class Test {
 
     public static void main(String[] args) {
+<<<<<<< HEAD
 
         GenerarPDF.generarPDF(new File(""));
 
@@ -48,6 +49,9 @@ public class Test {
         // System.out.println(LocalDateTime.now().toLocalTime());
 
         // GenerarPDF.generarPDF();
+=======
+        GenerarPDF.generarPDF();
+>>>>>>> 35a9dfb40c9dc4aa1c868237be74bee775b9dbc3
     }
 
 }
