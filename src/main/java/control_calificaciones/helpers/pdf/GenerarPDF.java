@@ -34,7 +34,9 @@ public class GenerarPDF {
 
             documento.open();
 
-            Image logo = Image.getInstance("./logo.png");
+            String logoNombre = "logo.png";
+            String rutaLogo = new File(logoNombre).getAbsolutePath();
+            Image logo = Image.getInstance("src/main/java/control_calificaciones/helpers/pdf/logo.png");
             documento.add(logo);
 
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
