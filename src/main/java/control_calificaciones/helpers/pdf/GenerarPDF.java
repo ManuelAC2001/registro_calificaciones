@@ -3,7 +3,6 @@ package control_calificaciones.helpers.pdf;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.itextpdf.text.BaseColor;
@@ -21,7 +20,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.data.Conexion;
 import control_calificaciones.helpers.Helpers;
-import javafx.scene.paint.Color;
 
 public class GenerarPDF {
 
@@ -36,17 +34,12 @@ public class GenerarPDF {
 
             documento.open();
 
-            try {
-                Image logo = Image.getInstance("./logo.png");
-                logo.setAlignment(Image.ALIGN_LEFT);
-                logo.scalePercent(5f);
-                documento.add(logo);
-            } catch (Exception e) {
-                e.getMessage();
-            }
-            
+            Image logo = Image.getInstance("./logo.png");
+            documento.add(logo);
+
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
-                FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
+                    FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
+            nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             
             String diaActual =  Integer.toString(LocalDateTime.now().getDayOfMonth());
