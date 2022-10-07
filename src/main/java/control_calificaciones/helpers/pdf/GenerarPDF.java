@@ -24,8 +24,6 @@ public class GenerarPDF {
     public static void generarPDF(File file) {
 
         String NOMBRE_ARCHIVO = file.toString() + ".pdf";
-
-
         Document documento = new Document();
 
         try {
