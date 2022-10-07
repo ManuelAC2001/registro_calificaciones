@@ -3,7 +3,6 @@ package control_calificaciones.helpers.pdf;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.itextpdf.text.BaseColor;
@@ -13,32 +12,33 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.data.Conexion;
-import control_calificaciones.helpers.Helpers;
-import javafx.scene.paint.Color;
 
 public class GenerarPDF {
 
-    public static void generarPDF() {
+    public static void generarPDF(File file) {
+
+        String NOMBRE_ARCHIVO = file.toString() + ".pdf";
+        // String ruta = "";
 
         Document documento = new Document();
 
         try {
-            String ruta = new File("./pdfs").getAbsolutePath();
-            String NOMBRE_ARCHIVO = ruta + "/bitacora-pdf-" + Helpers.obtenerFechaActual() + ".pdf";
-            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
+            // ruta = new File("./pdfs").getAbsolutePath();
+            // NOMBRE_ARCHIVO = ruta + "/bitacora-pdf-" + Helpers.obtenerFechaActual() + ".pdf";
+            PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
+
 
             documento.open();
 
             try {
                 Image logo = Image.getInstance("./logo.png");
-                logo.setAlignment(Image.ALIGN_LEFT);
+                logo.setAlignment(Image.ALIGN_CENTER);
                 logo.scalePercent(5f);
                 documento.add(logo);
             } catch (Exception e) {
@@ -84,11 +84,6 @@ public class GenerarPDF {
                 cn = Conexion.getConnection();
                 cstmt = cn.prepareCall(procedureCall);
 
-                // cstmt.setInt(1, LocalDate.now().getDayOfMonth());
-                // cstmt.setString(2, LocalDate.now().getMonth().toString());
-                // cstmt.setInt(3, LocalDate.now().getYear());
-
-
                 rs = cstmt.executeQuery();
 
                 if (rs.next()) {
@@ -121,6 +116,7 @@ public class GenerarPDF {
             // Añadimos la tabla dentro del documento PDF
             documento.add(tablaBitacora);
 
+            
             documento.close();
         } catch (Exception e) {
             System.out.println("Error al generar PDF" + e);

@@ -1,11 +1,13 @@
 package control_calificaciones;
+import java.io.File;
+
 import control_calificaciones.helpers.pdf.GenerarPDF;
 
 public class Test {
 
     public static void main(String[] args) {
 
-        GenerarPDF.generarPDF();
+        GenerarPDF.generarPDF(new File(""));
 
         // EnviarEmails enviarEmail = new EnviarEmails();
         // enviarEmail.enviarEmail();

@@ -1,5 +1,6 @@
 package control_calificaciones.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
@@ -25,11 +26,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class BitacoraSesionController implements Initializable {
 
@@ -127,7 +132,7 @@ public class BitacoraSesionController implements Initializable {
     }
 
     @FXML
-    public void toSeccionPrincipal(ActionEvent event) throws IOException{
+    public void toSeccionPrincipal(ActionEvent event) throws IOException {
 
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
@@ -145,7 +150,28 @@ public class BitacoraSesionController implements Initializable {
 
     @FXML
     public void generarPDF(ActionEvent event) throws IOException {
-        GenerarPDF.generarPDF();
+
+        String workPath = System.getProperty("user.dir");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(workPath));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Acción cancelada");
+            alert.setContentText("la bitacora no se guardo");
+            alert.showAndWait();
+            return;
+        }
+
+        GenerarPDF.generarPDF(file);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Acción exitosa");
+        alert.setContentText("la bitacora se guardo correctamente");
+        alert.showAndWait();
     }
 
 }
