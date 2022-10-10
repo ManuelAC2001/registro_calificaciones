@@ -43,8 +43,6 @@ public class GenerarPDF {
                 e.getMessage();
             }
 
-            //documento.open();
-
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
             FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
