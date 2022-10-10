@@ -27,20 +27,23 @@ public class GenerarPDF {
         Document documento = new Document();
 
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
+            //PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
+            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
+
             documento.open();
 
             try {
-                Image logo = Image.getInstance("./logo.png");
+                String nombreLogo = "logo.png";
+                String rutaLogo = new File(nombreLogo).getAbsolutePath();
+                Image logo = Image.getInstance(rutaLogo);
                 logo.setAlignment(Image.ALIGN_CENTER);
                 logo.scalePercent(5f);
                 documento.add(logo);
             } catch (Exception e) {
                 e.getMessage();
             }
-            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
 
-            documento.open();
+            //documento.open();
 
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
             FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
