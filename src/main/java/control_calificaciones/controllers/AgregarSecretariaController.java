@@ -79,10 +79,26 @@ public class AgregarSecretariaController {
             msgNombreUsuario.setVisible(true);
             lblCorreo.setVisible(true);
             lblContrasenia.setVisible(true);
-
+            
             txtNombreUsuario.getStyleClass().add("input-error");
             txtCorreo.getStyleClass().add("input-error");
             txtContrasenia.getStyleClass().add("input-error");
+            return;
+        }
+        
+        if(txtCorreo.getText().contains("1") || txtCorreo.getText().contains("2")
+        || txtCorreo.getText().contains("3") || txtCorreo.getText().contains("4")){
+            txtCorreo.getStyleClass().add("input-error");
+            lblCorreo.setVisible(true);
+            lblCorreo.setText("No se permite ingresar numeros como correo");
+            return;
+        }
+
+        if(txtNombreUsuario.getText().contains("1") || txtNombreUsuario.getText().contains("2")
+        || txtNombreUsuario.getText().contains("3") || txtNombreUsuario.getText().contains("4")){
+            txtNombreUsuario.getStyleClass().add("input-error");
+            msgNombreUsuario.setVisible(true);
+            msgNombreUsuario.setText("No se permite ingresar numeros como nombre de usuario");
             return;
         }
 

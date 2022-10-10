@@ -27,7 +27,9 @@ public class GenerarPDF {
         Document documento = new Document();
 
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
+            //PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
+            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
+
             documento.open();
 
             try {
@@ -38,9 +40,6 @@ public class GenerarPDF {
             } catch (Exception e) {
                 e.getMessage();
             }
-            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
-
-            documento.open();
 
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
             FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
