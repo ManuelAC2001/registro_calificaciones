@@ -51,6 +51,7 @@ public class DirectorDAO extends UsuarioDAO{
             cn = Conexion.getConnection();
             csmt = cn.prepareCall(procedureCall);
 
+            //establecemos los datos para la BD
             csmt.setString(1, usuario.nombreUsuario);
             csmt.setString(2, usuario.correo);
             csmt.setString(3, usuario.contrasenia);
