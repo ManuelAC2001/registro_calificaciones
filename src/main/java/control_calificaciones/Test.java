@@ -9,6 +9,7 @@ import control_calificaciones.data.CorreoTutorDAO;
 import control_calificaciones.data.TutorDAO;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
+import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
 
 public class Test {
@@ -20,8 +21,8 @@ public class Test {
 
         // creamos un objeto de alumno
         Alumno alumnoNuevo = new Alumno();
-        alumnoNuevo.setCurp("AOCM011012HGRPSNA1");
-        alumnoNuevo.setNombre("mike");
+        alumnoNuevo.setCurp("AOCM011012HGRPSNA2");
+        alumnoNuevo.setNombre("saul");
         alumnoNuevo.setApellido_paterno("apolinar");
         alumnoNuevo.setApellido_materno("castillo");
         alumnoNuevo.setFecha_nacimiento(Date.valueOf("2015-10-12"));
@@ -40,20 +41,20 @@ public class Test {
             return;
         }
 
-        if(alumnoNuevo.getEdad() < 6){
+        if (alumnoNuevo.getEdad() < 6) {
             System.out.println("El alumno es demasiado joven para ser ingresado");
             return;
         }
 
-        if(alumnoNuevo.getEdad() > 12){
+        if (alumnoNuevo.getEdad() > 12) {
             System.out.println("El alumno es demasiado grande para ser ingresado");
             return;
         }
 
         // Una vez que el alumno sea validado, tenemos creamos un tutor
         TutorDAO tutorDAO = new TutorDAO();
-        String correo1 = "apol3@gmail.com";
-        String correo2 = "";
+        String correo1 = "apol4@gmail.com";
+        String correo2 = "apol5@gmail.com";
         // String correo2 = "apol2@gmail.com";
 
         Tutor tutor = new Tutor();
@@ -87,11 +88,11 @@ public class Test {
             tutorDAO.insertar(tutor);
             tutor = tutorDAO.buscarByNombreCompleto(tutor);
 
-            if(!correo1.isEmpty()){
+            if (!correo1.isEmpty()) {
                 tutorDAO.insertarCorreo(tutor, correo1);
             }
 
-            if(!correo2.isEmpty()){
+            if (!correo2.isEmpty()) {
                 tutorDAO.insertarCorreo(tutor, correo2);
             }
 
@@ -133,9 +134,10 @@ public class Test {
             aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
         }
 
+        // aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 25);
         aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 1);
 
-        if(aulas.isEmpty()){
+        if (aulas.isEmpty()) {
             System.out.println("ya no hay cupos para este grado");
             return;
         }
@@ -149,12 +151,133 @@ public class Test {
         alumnoDAO.insertar(alumnoNuevo);
     }
 
+    public static void consultaAlumnoTest() {
+        Alumno alumno = new Alumno();
+        AlumnoDAO alumnoDAO = new AlumnoDAO();
 
+        TutorDAO tutorDAO = new TutorDAO();
+        Tutor tutor = new Tutor();
+
+        ArrayList<CorreoTutor> correosTutor = new ArrayList<>();
+
+        alumno.setNombre("manuel");
+        alumno.setApellido_paterno("apolinar");
+        alumno.setApellido_materno("castillo");
+
+        alumno = alumnoDAO.buscarByNombreCompleto(alumno);
+        tutor = tutorDAO.buscarById(alumno.getId_tutor());
+        correosTutor = tutorDAO.getCorreos(tutor);
+
+        System.out.println(alumno);
+
+        System.out.println("\ninfo del tutor del alumno");
+        System.out.println(tutor);
+
+        System.out.println("\ncorreo del tutor del alumno");
+        correosTutor.forEach(correo -> {
+            System.out.println(correo.getCorreo());
+        });
+
+    }
+
+    public static void bajaAlumnoTest() {
+        Alumno alumno = new Alumno();
+        AlumnoDAO alumnoDAO = new AlumnoDAO();
+
+        alumno.setNombre("piccolo");
+        alumno.setApellido_paterno("apolinar");
+        alumno.setApellido_materno("castillo");
+
+        alumno = alumnoDAO.buscarByNombreCompleto(alumno);
+
+        System.out.println("Alumno a eliminar");
+        System.out.println(alumno);
+
+        if (alumno == null) {
+            System.out.println("No existe el alumno");
+            return;
+        }
+        alumnoDAO.eliminar(alumno);
+    }
+
+    public static void modificarAlumnoTest() {
+        Alumno alumno = new Alumno();
+        AlumnoDAO alumnoDAO = new AlumnoDAO();
+
+        Tutor tutor = new Tutor();
+        TutorDAO tutorDAO = new TutorDAO();
+
+        alumno.setNombre("Antonio");
+        alumno.setApellido_paterno("santos");
+        alumno.setApellido_materno("pacheco");
+
+        alumno = alumnoDAO.buscarByNombreCompleto(alumno);
+
+        if (alumno == null) {
+            System.out.println("El alumno a modificar no existe");
+            return;
+        }
+
+        tutor = tutorDAO.buscarById(alumno.getId_tutor());
+
+        System.out.println("Alumno a modificar");
+        System.out.println(alumno);
+
+        System.out.println("\nTutor a modificar");
+        System.out.println(tutor);
+
+        //datos a modificar del alumno
+        alumno.setNombre("Antonio");
+        alumno.setApellido_paterno("Santos");
+        alumno.setApellido_materno("pacheco");
+        alumno.setGenero('H');
+
+        if(alumnoDAO.esNombreRepetido(alumno)){
+
+            if(!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())){
+                System.out.println("Ya existe un alumno con el mismo nombre");
+                return;
+            }
+
+        }
+        // datos a modificar del tutor
+        tutor.setNombre("Antonio");
+        tutor.setApellido_paterno("gallegos");
+        tutor.setApellido_materno("basteri");
+
+        // una vez modificado los datos, verifica que no coincida con un tutor anterior
+        if (tutorDAO.esRepetido(tutor)) {
+
+            if (tutor.getId_tutor() != tutorDAO.buscarByNombreCompleto(tutor).getId_tutor()) {
+                System.out.println("ya existe un tutor con el mismo nombre");
+                return;
+            }
+        }
+
+        // tutor modificado
+        tutorDAO.modificar(tutor);
+
+        System.out.println("\nTutor modificado");
+        System.out.println(tutor);
+            
+        System.out.println("\nAlumno modificado");
+        alumnoDAO.modificar(alumno);
+        System.out.println(alumno);
+    }
 
     public static void main(String[] args) {
 
-        agregarAlumnoTutorTest();
+        // C
+        // agregarAlumnoTutorTest();
 
+        // R
+        // consultaAlumnoTest();
+
+        // U
+        // modificarAlumnoTest();
+
+        // D
+        // bajaAlumnoTest();
 
     }
 

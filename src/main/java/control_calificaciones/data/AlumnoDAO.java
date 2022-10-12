@@ -136,8 +136,56 @@ public class AlumnoDAO {
 
     public boolean esRepetido(Alumno alumno){
         return buscar(alumno.getCurp()) != null;
+        // return buscarByNombreCompleto(alumno) != null;
     }
 
-    
+    public void eliminar(Alumno alumno){
 
+        String procedureCall = "{CALL eliminarAlumnoByCurp(?)}";
+        Connection cn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(procedureCall);
+            
+            //le pasamos el parametro al procedimiento almacenado
+            cstmt.setString(1, alumno.getCurp());
+            cstmt.executeUpdate();
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+
+    }
+    
+    public void modificar(Alumno alumno){
+        String procedureCall = "{CALL modificarAlumnoByCurp(?, ?, ?, ?, ?)}";
+        Connection cn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(procedureCall);
+
+            cstmt.setString(1, alumno.getCurp());
+            cstmt.setString(2, alumno.getNombre());
+            cstmt.setString(3, alumno.getApellido_paterno());
+            cstmt.setString(4, alumno.getApellido_materno());
+            cstmt.setString(5, alumno.getGenero().toString());
+
+            cstmt.executeUpdate();
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+    }
 }

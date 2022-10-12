@@ -149,4 +149,66 @@ public class TutorDAO {
     public boolean esRepetido(Tutor tutor){
         return buscarByNombreCompleto(tutor) != null;
     }
+
+    public Tutor buscarById(Integer id){
+
+        Tutor tutor = new Tutor();
+        String callProcedure = "{CALL getTutorById(?)}";
+
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(callProcedure);
+            cstmt.setInt(1, id);
+            rs = cstmt.executeQuery();
+
+            if(!rs.next()){
+                return null;
+            }
+
+            setInformacion(tutor, rs);
+
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+
+        return tutor;
+
+    }
+
+    public void modificar(Tutor tutor){
+
+        String procedureCall = "{CALL modificarTutorById(?, ?, ?, ?)}";
+        Connection cn = null;
+        CallableStatement cstmt = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(procedureCall);
+
+            cstmt.setInt(1, tutor.getId_tutor());
+            cstmt.setString(2, tutor.getNombre());
+            cstmt.setString(3, tutor.getApellido_paterno());
+            cstmt.setString(4, tutor.getApellido_materno());
+
+            cstmt.executeUpdate();
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+
+    }
 }
