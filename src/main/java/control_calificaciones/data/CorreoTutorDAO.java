@@ -50,4 +50,8 @@ public class CorreoTutorDAO {
         return correoTutor;
     }
 
+
+    public static boolean esRepetido(String correo){
+        return buscar(correo) != null;
+    }
 }

@@ -70,7 +70,7 @@ public class TutorDAO {
             csmt.setString(2, tutor.getApellido_paterno());
             csmt.setString(3, tutor.getApellido_materno());
 
-            csmt.executeQuery();
+            csmt.executeUpdate();
             System.out.println("agregado correctamente");
         } 
         catch (SQLException e) {
@@ -133,7 +133,7 @@ public class TutorDAO {
             csmt.setString(1, correo);
             csmt.setInt(2, tutor.getId_tutor());
 
-            csmt.executeQuery();
+            csmt.executeUpdate();
         } 
         catch (SQLException e) {
             e.printStackTrace();
@@ -146,5 +146,7 @@ public class TutorDAO {
 
     }
 
-    
+    public boolean esRepetido(Tutor tutor){
+        return buscarByNombreCompleto(tutor) != null;
+    }
 }

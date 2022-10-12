@@ -129,4 +129,15 @@ public class AlumnoDAO {
             Conexion.close(cn);
         }
     }
+
+    public boolean esNombreRepetido(Alumno alumno){
+        return buscarByNombreCompleto(alumno) != null;
+    }
+
+    public boolean esRepetido(Alumno alumno){
+        return buscar(alumno.getCurp()) != null;
+    }
+
+    
+
 }
