@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -101,66 +102,98 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="576.0" prefWidth="678.0">
+                                    <VBox prefHeight="567.0" prefWidth="678.0">
                                        <children>
-                                          <VBox alignment="CENTER" prefHeight="570.0" prefWidth="172.0">
+                                          <HBox prefHeight="292.0" prefWidth="678.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/student.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: ECA95B;" text="ALTA DE ALUMNO" textFill="#ffffffeb">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="16.0" />
-                                                   </font>
-                                                </Button>
+                                                <VBox alignment="CENTER" prefHeight="286.0" prefWidth="357.0">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/icons/student.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Registrar Alumno" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="18.0" />
+                                                         </font>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER" prefHeight="286.0" prefWidth="357.0">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/icons/student.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Actualizar Alumno" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="18.0" />
+                                                         </font>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
                                              </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER" prefHeight="570.0" prefWidth="172.0">
+                                          </HBox>
+                                          <HBox prefHeight="292.0" prefWidth="678.0">
                                              <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/student.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="169.0" style="-fx-background-color: ECA95B;" text="BAJA ALUMNO" textFill="#ffffffeb">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="14.0" />
-                                                   </font>
-                                                </Button>
+                                                <VBox alignment="CENTER" prefHeight="286.0" prefWidth="357.0" style="-fx-background-radius: 20;">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/icons/student.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Ver Alumno" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="18.0" />
+                                                         </font>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER" prefHeight="286.0" prefWidth="357.0">
+                                                   <children>
+                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@img/icons/student.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Eliminar Alumno" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="18.0" />
+                                                         </font>
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                         <VBox.margin>
+                                                            <Insets top="10.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </VBox>
                                              </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER" prefHeight="570.0" prefWidth="172.0">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/student.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: ECA95B;" text="CONSULTAR ALUMNO" textFill="#ffffffeb">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="16.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER" prefHeight="570.0" prefWidth="172.0">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@img/icons/student.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Button mnemonicParsing="false" style="-fx-background-color: ECA95B;" text="ACTUALIZAR ALUMNO" textFill="#ffffffeb">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="16.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
+                                          </HBox>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </VBox>
                            </children>
