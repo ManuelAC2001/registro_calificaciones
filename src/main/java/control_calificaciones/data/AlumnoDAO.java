@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import control_calificaciones.models.Alumno;
+import control_calificaciones.models.Aula;
 
 public class AlumnoDAO {
 
@@ -187,5 +188,43 @@ public class AlumnoDAO {
             Conexion.close(cstmt);
             Conexion.close(cn);
         }
+    }
+
+    public Aula getAula(Alumno alumno){
+
+        Aula aula = new Aula(); 
+        String callProcedure = "{CALL getAlumnoAula(?)}";
+
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConnection();
+
+            cstmt = cn.prepareCall(callProcedure);
+            cstmt.setString(1, alumno.getCurp());
+            rs = cstmt.executeQuery();
+
+            if(!rs.next()){
+                return null;
+            }
+
+            //establecemos la informacion del aula
+            aula.setId_aula( rs.getInt("id_aula") );
+            aula.setId_grado( rs.getInt("id_grado") );
+            aula.setNombre_grado( rs.getString("nombre_grado") );
+            aula.setId_grupo( rs.getInt("id_grupo") );
+            aula.setNombre_grupo( rs.getString("nombre_grupo") );
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(cn);
+        }
+        return aula;
     }
 }
