@@ -105,11 +105,11 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="88.0" prefWidth="678.0">
+                                    <HBox prefHeight="138.0" prefWidth="678.0">
                                        <children>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="211.0">
+                                          <VBox prefHeight="96.0" prefWidth="211.0">
                                              <children>
-                                                <Label text="Nombre:">
+                                                <Label prefHeight="21.0" prefWidth="216.0" text="Nombre:">
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
                                                    </font>
@@ -119,9 +119,14 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreAlumno" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="211.0">
+                                          <VBox prefHeight="115.0" prefWidth="211.0">
                                              <children>
                                                 <Label text="Apellido Paterno:">
                                                    <font>
@@ -133,12 +138,17 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgApellidopAlumno" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="222.0">
+                                          <VBox prefHeight="95.0" prefWidth="222.0">
                                              <children>
                                                 <Label text="Apellido Materno:">
                                                    <font>
@@ -150,16 +160,24 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgApellidoMAlumno" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>
                                           </VBox>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
                                     </HBox>
-                                    <HBox prefHeight="81.0" prefWidth="678.0">
+                                    <HBox prefHeight="105.0" prefWidth="678.0">
                                        <children>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="211.0">
+                                          <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="211.0">
                                              <children>
                                                 <Label text="CURP:">
                                                    <font>
@@ -171,9 +189,14 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario3" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="95.0" prefWidth="211.0">
+                                          <VBox prefHeight="87.0" prefWidth="211.0">
                                              <children>
                                                 <Label text="Sexo">
                                                    <font>
@@ -183,28 +206,38 @@
                                                       <Insets left="10.0" />
                                                    </VBox.margin>
                                                 </Label>
-                                                <ComboBox fx:id="optionSexoAlumno" prefHeight="35.0" prefWidth="150.0">
+                                                <ComboBox fx:id="optionSexoAlumno" prefHeight="33.0" prefWidth="178.0">
                                                    <VBox.margin>
-                                                      <Insets left="10.0" top="15.0" />
+                                                      <Insets left="10.0" top="12.0" />
                                                    </VBox.margin>
                                                 </ComboBox>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario31" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="222.0">
+                                          <VBox prefHeight="95.0" prefWidth="236.0">
                                              <children>
                                                 <Label text="Fecha de Nacimiento:">
                                                    <font>
                                                       <Font name="Arial Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <DatePicker fx:id="DateAlumnoFecha" prefHeight="34.0" prefWidth="174.0">
+                                                <DatePicker fx:id="DateAlumnoFecha" prefHeight="34.0" prefWidth="222.0">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin>
                                                 </DatePicker>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario311" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
@@ -261,7 +294,7 @@
                                           </HBox>
                                        </children>
                                     </HBox>
-                                    <HBox prefHeight="39.0" prefWidth="678.0">
+                                    <HBox prefHeight="31.0" prefWidth="678.0">
                                        <children>
                                           <Label text="Datos del Tutor">
                                              <font>
@@ -270,10 +303,10 @@
                                           </Label>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="35.0" />
+                                          <Insets top="10.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox prefHeight="86.0" prefWidth="678.0">
+                                    <HBox prefHeight="162.0" prefWidth="678.0">
                                        <children>
                                           <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="211.0">
                                              <children>
@@ -287,6 +320,11 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario32" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER_LEFT" prefHeight="95.0" prefWidth="211.0">
@@ -301,6 +339,11 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario33" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
@@ -318,6 +361,11 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario331" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
@@ -339,6 +387,11 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario321" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                           <Label prefHeight="76.0" prefWidth="92.0" />
@@ -354,6 +407,11 @@
                                                       <Insets top="15.0" />
                                                    </VBox.margin>
                                                 </TextField>
+                                                <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Label fx:id="msgNombreUsuario3211" prefHeight="31.0" prefWidth="102.0" stylesheets="@styles/login.css" text="campo requerido" textFill="RED" />
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                        </children>
@@ -377,7 +435,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="7.0" prefWidth="699.0">
                            <children>
                               <Label opacity="0.2" text="HISPANOAMERICANO MEXICANO">
                                  <font>
