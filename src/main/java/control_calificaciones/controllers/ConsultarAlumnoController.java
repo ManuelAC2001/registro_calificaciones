@@ -78,6 +78,10 @@ public class ConsultarAlumnoController {
     @FXML
     private TextField txtNombreTutor;
 
+    public void iniciarSesion(){
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
+    }
+
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
         // GUARADAMOS EN LA BITACORA DE LA BD

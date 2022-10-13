@@ -89,6 +89,10 @@ public class ModificarAlumnoController implements Initializable {
     @FXML
     private TextField txtNombreTutor;
 
+    public void iniciarSesion(){
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
+    }
+
     @FXML
     private void buscar(ActionEvent event) throws IOException {
 

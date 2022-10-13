@@ -25,6 +25,10 @@ public class PanelAlumnosController {
     @FXML
     private Label lblNombreUsuario;
 
+    public void iniciarSesion(){
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
+    }
+
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
         // GUARADAMOS EN LA BITACORA DE LA BD
@@ -59,8 +63,10 @@ public class PanelAlumnosController {
     private void toRegistrarAlumno(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("registrarAlumno.fxml"));
-
         root = loader.load();
+        RegistrarAlumnoController controller = loader.getController();
+        controller.iniciarSesion();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -70,8 +76,11 @@ public class PanelAlumnosController {
     @FXML
     private void toConsultarAlumno(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("consultarAlumno.fxml"));
-
         root = loader.load();
+
+        ConsultarAlumnoController controller = loader.getController();
+        controller.iniciarSesion();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -81,8 +90,10 @@ public class PanelAlumnosController {
     @FXML
     private void toEliminarAlumno(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("eliminarAlumno.fxml"));
-
         root = loader.load();
+        EliminarAlumnoController controller = loader.getController();
+        controller.iniciarSesion();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -92,8 +103,10 @@ public class PanelAlumnosController {
     @FXML
     private void toModificarAlumno(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarAlumno.fxml"));
-
         root = loader.load();
+        ModificarAlumnoController controller = loader.getController();
+        controller.iniciarSesion();
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
