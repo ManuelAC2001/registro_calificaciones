@@ -1,7 +1,9 @@
 package control_calificaciones.controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import control_calificaciones.data.AlumnoDAO;
 import control_calificaciones.data.TutorDAO;
@@ -11,27 +13,28 @@ import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class EliminarAlumnoController {
+public class ModificarAlumnoController implements Initializable {
 
     private Alumno alumno;
 
     @FXML
     private DatePicker DateAlumnoFecha;
+    
+    @FXML
+    private ComboBox<String> optionSexoAlumno;
 
     @FXML
-    private Button btnEliminarAlumno;
+    private Button btnModificarAlumno;
 
     @FXML
     private Label lblNombreUsuario;
-
-    @FXML
-    private ComboBox<String> optionSexoAlumno;
 
     @FXML
     private TextField txtApellidoMatAlumno;
@@ -68,16 +71,6 @@ public class EliminarAlumnoController {
 
     @FXML
     private TextField txtNombreTutor;
-
-    @FXML
-    private void cerrarSesion(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    private void toPanelPrincipal(ActionEvent event) throws IOException {
-
-    }
 
     @FXML
     private void buscar(ActionEvent event) throws IOException {
@@ -118,7 +111,7 @@ public class EliminarAlumnoController {
             txtCorreoTutor.setText("");
             txtCorreoTutor2.setText("");
 
-            btnEliminarAlumno.setDisable(true);
+            btnModificarAlumno.setDisable(true);
             return;
         }
 
@@ -146,18 +139,80 @@ public class EliminarAlumnoController {
             txtCorreoTutor2.setText(correosTutor.get(1).getCorreo());
         }
 
-        btnEliminarAlumno.setDisable(false);
+        btnModificarAlumno.setDisable(false);
+
     }
 
     @FXML
-    private void eliminarAlumno(ActionEvent event) throws IOException {
+    private void modificarAlumno(ActionEvent event) throws IOException {
 
-        if (alumno == null) {
-            System.out.println("El alumno a eliminar no existe");
+        if(alumno == null){
+            System.out.println("El alumno a modificar no existe");
             return;
         }
+
+        //tomando datos de la UI para los datos del alumno
+        String alumnoNombre = txtNombreAlumno.getText().trim();
+        String alumnoApellidoP = txtApellidoPatAlumno.getText().trim();
+        String alumnoApellidoM = txtApellidoMatAlumno.getText().trim();
+        String alumnoSexo = optionSexoAlumno.getSelectionModel().getSelectedItem();
+        
+        //tomando datos de la UI para los datos del tutor
+        String tutorNombre = txtNombreTutor.getText().trim(); 
+        String tutorApellidoP = txtApellidoPaTutor.getText().trim();
+        String tutorApellidoM = txtMaTutor.getText().trim();
+
         AlumnoDAO alumnoDAO = new AlumnoDAO();
-        alumnoDAO.eliminar(alumno);
+        TutorDAO tutorDAO = new TutorDAO();
+        Tutor tutor = tutorDAO.buscarById(alumno.getId_tutor());
+
+        //empezando la modificacion del alumno
+        alumno.setNombre(alumnoNombre);
+        alumno.setApellido_paterno(alumnoApellidoP);
+        alumno.setApellido_materno(alumnoApellidoM);
+        alumno.setGenero( alumnoSexo.charAt(0) );
+
+        //empezando la modificacion del tutor
+        tutor.setNombre(tutorNombre);
+        tutor.setApellido_paterno(tutorApellidoP);
+        tutor.setApellido_materno(tutorApellidoM);
+
+        if(alumnoDAO.esNombreRepetido(alumno)){
+
+            if(!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())){
+                System.out.println("Ya existe un alumno con el mismo nombre");
+                return;
+            }
+        }
+
+        // una vez modificado los datos, verifica que no coincida con un tutor anterior
+        if (tutorDAO.esRepetido(tutor)) {
+
+            if (tutor.getId_tutor() != tutorDAO.buscarByNombreCompleto(tutor).getId_tutor()) {
+                System.out.println("ya existe un tutor con el mismo nombre");
+                return;
+            }
+        }
+
+        tutorDAO.modificar(tutor);
+        alumnoDAO.modificar(alumno);
+
+    }
+
+    @FXML
+    private void cerrarSesion(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    private void toPanelPrincipal(ActionEvent event) throws IOException {
+
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        String sexos[] = { "H", "M" };
+        optionSexoAlumno.getItems().addAll(sexos);
     }
 
 }
