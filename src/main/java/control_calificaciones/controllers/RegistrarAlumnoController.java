@@ -1,0 +1,250 @@
+package control_calificaciones.controllers;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import control_calificaciones.data.AlumnoDAO;
+import control_calificaciones.data.AulaDAO;
+import control_calificaciones.data.CorreoTutorDAO;
+import control_calificaciones.data.TutorDAO;
+import control_calificaciones.models.Alumno;
+import control_calificaciones.models.Aula;
+import control_calificaciones.models.Tutor;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+public class RegistrarAlumnoController implements Initializable {
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        String sexos[] = { "H", "M" };
+        optionSexoAlumno.getItems().addAll(sexos);
+    }
+
+    @FXML
+    private DatePicker DateAlumnoFecha;
+
+    @FXML
+    private Button btnRegistrarAlumno;
+
+    @FXML
+    private Label lblNombreUsuario;
+
+    @FXML
+    private ComboBox<String> optionSexoAlumno;
+
+    @FXML
+    private TextField txtApellidoMatAlumno;
+
+    @FXML
+    private TextField txtApellidoPaTutor;
+
+    @FXML
+    private TextField txtApellidoPatAlumno;
+
+    @FXML
+    private TextField txtCorreoTutor;
+
+    @FXML
+    private TextField txtCurpAlumno;
+
+    @FXML
+    private TextField txtGradoAlumno;
+
+    @FXML
+    private TextField txtGrupoAlumno;
+
+    @FXML
+    private TextField txtMaTutor;
+
+    @FXML
+    private TextField txtNombreAlumno;
+
+    @FXML
+    private TextField txtNombreTutor;
+
+    @FXML
+    public void cerrarSesion(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void toPanelPrincipal(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void registrarAlumno(ActionEvent event) throws IOException {
+
+        AlumnoDAO alumnoDAO = new AlumnoDAO();
+        Alumno alumno = new Alumno();
+
+        // captura de datos de la UI para el alumno
+        String alumnoNombre = txtNombreAlumno.getText().trim();
+        String alumnoApellidoP = txtApellidoPatAlumno.getText().trim();
+        String alumnoApellidoM = txtApellidoMatAlumno.getText().trim();
+        String alumnoCurp = txtCurpAlumno.getText().trim();
+        String alumnoSexo = optionSexoAlumno.getSelectionModel().getSelectedItem();
+        LocalDate alumnoFecha = DateAlumnoFecha.getValue();
+
+        // validaciones de la interfaz
+        if (alumnoSexo == null) {
+            System.out.println("El campo sexo es requerido");
+            return;
+        }
+
+        if (alumnoFecha == null) {
+            System.out.println("El campo fecha de nacimiento es requerido");
+            return;
+        }
+
+        // capturando datos de alumnos validados desde la UI
+        alumno.setCurp(alumnoCurp);
+        alumno.setNombre(alumnoNombre);
+        alumno.setApellido_paterno(alumnoApellidoP);
+        alumno.setApellido_materno(alumnoApellidoM);
+        alumno.setFecha_nacimiento(Date.valueOf(alumnoFecha));
+        alumno.setGenero(alumnoSexo.charAt(0));
+
+        // validaciones de la BD
+        if (alumnoDAO.esNombreRepetido(alumno)) {
+            System.out.println("Ya existe un alumno con el mismo nombre");
+            return;
+        }
+
+        if (alumnoDAO.esRepetido(alumno)) {
+            System.out.println("La curp ya esta asignada para otro alumno");
+            return;
+        }
+
+        if (alumno.getEdad() < 6 || alumno.getEdad() > 12) {
+            System.out.println("La edad del alumno no es adecuada para el sistema");
+            txtGradoAlumno.setText("");
+            txtGrupoAlumno.setText("");
+            return;
+        }
+
+        // Empezamos a generar el grado y grupo
+        String nombre_grado = "";
+        AulaDAO aulaDAO = new AulaDAO();
+        Aula aula = new Aula();
+        ArrayList<Aula> aulas = new ArrayList<>();
+
+        if (alumno.getEdad() == 6) {
+            nombre_grado = "primero";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        if (alumno.getEdad() == 7) {
+            nombre_grado = "segundo";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        if (alumno.getEdad() == 8) {
+            nombre_grado = "tercero";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        if (alumno.getEdad() == 9) {
+            nombre_grado = "cuarto";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        if (alumno.getEdad() == 10) {
+            nombre_grado = "quinto";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        if (alumno.getEdad() == 11 || alumno.getEdad() == 12) {
+            nombre_grado = "sexto";
+            aulas = aulaDAO.getAulasByNombreGrado(nombre_grado);
+        }
+
+        // aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 25);
+        aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 1);
+
+        if (aulas.isEmpty()) {
+            System.out.println("ya no hay cupos para este grado");
+            return;
+        }
+
+        aula = aulas.get(0);
+        txtGradoAlumno.setText(aula.getNombre_grado());
+        txtGrupoAlumno.setText(aula.getNombre_grupo());
+
+        //Empezamos a guardar/relacionar al tutor con el alumno
+        
+        // captura de datos de la UI para el tutor
+        String tutorNombre = txtNombreTutor.getText().trim();
+        String tutorApellidoP = txtApellidoPaTutor.getText().trim();
+        String tutorApellidoM = txtMaTutor.getText().trim();
+        String correo1 = txtCorreoTutor.getText().trim();
+        
+        //validaciones de la UI
+        //...
+        
+        
+        TutorDAO tutorDAO = new TutorDAO();
+        Tutor tutor = new Tutor();
+        tutor.setNombre(tutorNombre);
+        tutor.setApellido_paterno(tutorApellidoP);
+        tutor.setApellido_materno(tutorApellidoM);
+
+        //validaciones desde la BD de tutor
+        if(tutorDAO.esRepetido(tutor)){
+            tutor = tutorDAO.buscarByNombreCompleto(tutor);
+            // alumno.setId_tutor(tutor.getId_tutor());
+
+            correo1 = tutorDAO.getCorreos(tutor).get(0).getCorreo();
+            txtCorreoTutor.setText(correo1);
+            txtCorreoTutor.setDisable(true);
+        }
+        //El tutor no esta registrado en el sistema y tenemos que crearlo
+        else{ 
+            
+            txtCorreoTutor.setDisable(false);
+            txtCorreoTutor.setText("");
+
+
+            // agregar correo o correos (maximo 2)
+            if (!correo1.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo1)) {
+                System.out.println("El correo " + correo1 + " ya esta en uso");
+                return;
+            }
+
+            // if (!correo2.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo2)) {
+            //     System.out.println("El correo " + correo2 + " ya esta en uso");
+            //     return;
+            // }
+
+            tutorDAO.insertar(tutor);
+            tutor = tutorDAO.buscarByNombreCompleto(tutor);
+
+            if (!correo1.isEmpty()) {
+                tutorDAO.insertarCorreo(tutor, correo1);
+            }
+
+            // if (!correo2.isEmpty()) {
+            //     tutorDAO.insertarCorreo(tutor, correo2);
+            // }
+        }
+
+        // objeto del alumno a guardar en la BD
+        alumno.setId_aula(aula.getId_aula());
+        alumno.setId_tutor(tutor.getId_tutor());
+        alumnoDAO.insertar(alumno);
+        // System.out.println(alumno);
+
+    }
+
+}
