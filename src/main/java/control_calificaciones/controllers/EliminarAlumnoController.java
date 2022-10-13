@@ -11,14 +11,17 @@ import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class EliminarAlumnoController {
 
+    private Alert alert;
     private Alumno alumno;
 
     @FXML
@@ -103,7 +106,6 @@ public class EliminarAlumnoController {
         alumno = alumnoDAO.buscarByNombreCompleto(alumno);
 
         if (alumno == null) {
-            System.out.println("El alumno a buscar no existe");
 
             txtCurpAlumno.setText("");
             optionSexoAlumno.setValue("");
@@ -119,6 +121,11 @@ public class EliminarAlumnoController {
             txtCorreoTutor2.setText("");
 
             btnEliminarAlumno.setDisable(true);
+
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno a buscar no existe");
+            alert.showAndWait();
             return;
         }
 
@@ -153,11 +160,20 @@ public class EliminarAlumnoController {
     private void eliminarAlumno(ActionEvent event) throws IOException {
 
         if (alumno == null) {
-            System.out.println("El alumno a eliminar no existe");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno a eliminar no existe");
+            alert.showAndWait();
             return;
         }
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         alumnoDAO.eliminar(alumno);
+
+        // vamos a la siguiente ventana
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Mensaje");
+        alert.setContentText("alumno eliminado correctamente");
+        alert.showAndWait();
     }
 
 }

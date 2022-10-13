@@ -17,13 +17,17 @@ import control_calificaciones.models.Tutor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class RegistrarAlumnoController implements Initializable {
+
+    private Alert alert;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -101,13 +105,59 @@ public class RegistrarAlumnoController implements Initializable {
         LocalDate alumnoFecha = DateAlumnoFecha.getValue();
 
         // validaciones de la interfaz
+        if (alumnoNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoCurp.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo curp del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoCurp.length() != 18 || alumnoCurp.contains(" ")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Formato invalido para la curp");
+            alert.showAndWait();
+            return;
+        }
+
         if (alumnoSexo == null) {
-            System.out.println("El campo sexo es requerido");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo sexo es requerido");
+            alert.showAndWait();
             return;
         }
 
         if (alumnoFecha == null) {
-            System.out.println("El campo fecha de nacimiento es requerido");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de fecha de nacimiento del alumno es requerido");
+            alert.showAndWait();
             return;
         }
 
@@ -121,17 +171,27 @@ public class RegistrarAlumnoController implements Initializable {
 
         // validaciones de la BD
         if (alumnoDAO.esNombreRepetido(alumno)) {
-            System.out.println("Ya existe un alumno con el mismo nombre");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Ya existe un alumno con el mismo nombre");
+            alert.showAndWait();
             return;
         }
 
         if (alumnoDAO.esRepetido(alumno)) {
-            System.out.println("La curp ya esta asignada para otro alumno");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("La curp ya esta asignada para otro alumno");
+            alert.showAndWait();
             return;
         }
 
         if (alumno.getEdad() < 6 || alumno.getEdad() > 12) {
-            System.out.println("La edad del alumno no es adecuada para el sistema");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("La edad del alumno no es adecuada para el sistema");
+            alert.showAndWait();
+
             txtGradoAlumno.setText("");
             txtGrupoAlumno.setText("");
             return;
@@ -177,7 +237,10 @@ public class RegistrarAlumnoController implements Initializable {
         aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 1);
 
         if (aulas.isEmpty()) {
-            System.out.println("ya no hay cupos para este grado");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("ya no hay cupos para este grado");
+            alert.showAndWait();
             return;
         }
 
@@ -185,51 +248,86 @@ public class RegistrarAlumnoController implements Initializable {
         txtGradoAlumno.setText(aula.getNombre_grado());
         txtGrupoAlumno.setText(aula.getNombre_grupo());
 
-        //Empezamos a guardar/relacionar al tutor con el alumno
-        
+        // Empezamos a guardar/relacionar al tutor con el alumno
+
         // captura de datos de la UI para el tutor
         String tutorNombre = txtNombreTutor.getText().trim();
         String tutorApellidoP = txtApellidoPaTutor.getText().trim();
         String tutorApellidoM = txtMaTutor.getText().trim();
         String correo1 = txtCorreoTutor.getText().trim();
         String correo2 = txtCorreoTutor2.getText().trim();
-        
-        //validaciones de la UI para la creacion del tutor
-        //...
-        
-        
+
+        // validaciones de la UI para la creacion del tutor
+        if (tutorNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de nombre del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (tutorApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de apellido paterno del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (tutorApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de apellido materno del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (correo1.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de correo es requerido");
+            alert.showAndWait();
+            return;
+        }
+
         TutorDAO tutorDAO = new TutorDAO();
         Tutor tutor = new Tutor();
         tutor.setNombre(tutorNombre);
         tutor.setApellido_paterno(tutorApellidoP);
         tutor.setApellido_materno(tutorApellidoM);
 
-        //validaciones desde la BD de tutor
-        if(tutorDAO.esRepetido(tutor)){
+        // validaciones desde la BD de tutor
+        if (tutorDAO.esRepetido(tutor)) {
             tutor = tutorDAO.buscarByNombreCompleto(tutor);
             // alumno.setId_tutor(tutor.getId_tutor());
 
             correo1 = tutorDAO.getCorreos(tutor).get(0).getCorreo();
             txtCorreoTutor.setText(correo1);
             txtCorreoTutor.setDisable(true);
-            
-            if(tutorDAO.getCorreos(tutor).size() > 1){
+
+            if (tutorDAO.getCorreos(tutor).size() > 1) {
                 correo2 = tutorDAO.getCorreos(tutor).get(1).getCorreo();
                 txtCorreoTutor2.setText(correo2);
                 txtCorreoTutor2.setDisable(true);
             }
         }
-        //El tutor no esta registrado en el sistema y tenemos que crearlo
-        else{ 
-            
+        // El tutor no esta registrado en el sistema y tenemos que crearlo
+        else {
+
             // agregar correo o correos (maximo 2)
             if (!correo1.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo1)) {
-                System.out.println("El correo " + correo1 + " ya esta en uso");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("El correo " + correo1 + " ya esta en uso");
+                alert.showAndWait();
                 return;
             }
 
             if (!correo2.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo2)) {
-                System.out.println("El correo " + correo2 + " ya esta en uso");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("El correo " + correo2 + " ya esta en uso");
+                alert.showAndWait();
                 return;
             }
 
@@ -249,6 +347,11 @@ public class RegistrarAlumnoController implements Initializable {
         alumno.setId_aula(aula.getId_aula());
         alumno.setId_tutor(tutor.getId_tutor());
         alumnoDAO.insertar(alumno);
+
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Mensaje");
+        alert.setContentText("Alumno agregado perfectamente");
+        alert.showAndWait();
     }
 
 }

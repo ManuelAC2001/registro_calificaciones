@@ -14,19 +14,23 @@ import control_calificaciones.models.Tutor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ModificarAlumnoController implements Initializable {
 
     private Alumno alumno;
 
+    private Alert alert;
+
     @FXML
     private DatePicker DateAlumnoFecha;
-    
+
     @FXML
     private ComboBox<String> optionSexoAlumno;
 
@@ -81,7 +85,30 @@ public class ModificarAlumnoController implements Initializable {
         String alumnoApellidoM = txtApellidoMatAlumno.getText().trim();
 
         // validacion de la UI
-        // ...
+        // validaciones de la interfaz
+        if (alumnoNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
 
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         TutorDAO tutorDAO = new TutorDAO();
@@ -96,7 +123,6 @@ public class ModificarAlumnoController implements Initializable {
         alumno = alumnoDAO.buscarByNombreCompleto(alumno);
 
         if (alumno == null) {
-            System.out.println("El alumno a buscar no existe");
 
             txtCurpAlumno.setText("");
             optionSexoAlumno.setValue("");
@@ -112,6 +138,11 @@ public class ModificarAlumnoController implements Initializable {
             txtCorreoTutor2.setText("");
 
             btnModificarAlumno.setDisable(true);
+
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno a modificar no existe");
+            alert.showAndWait();
             return;
         }
 
@@ -146,19 +177,22 @@ public class ModificarAlumnoController implements Initializable {
     @FXML
     private void modificarAlumno(ActionEvent event) throws IOException {
 
-        if(alumno == null){
-            System.out.println("El alumno a modificar no existe");
+        if (alumno == null) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno a modificar no existe");
+            alert.showAndWait();
             return;
         }
 
-        //tomando datos de la UI para los datos del alumno
+        // tomando datos de la UI para los datos del alumno
         String alumnoNombre = txtNombreAlumno.getText().trim();
         String alumnoApellidoP = txtApellidoPatAlumno.getText().trim();
         String alumnoApellidoM = txtApellidoMatAlumno.getText().trim();
         String alumnoSexo = optionSexoAlumno.getSelectionModel().getSelectedItem();
-        
-        //tomando datos de la UI para los datos del tutor
-        String tutorNombre = txtNombreTutor.getText().trim(); 
+
+        // tomando datos de la UI para los datos del tutor
+        String tutorNombre = txtNombreTutor.getText().trim();
         String tutorApellidoP = txtApellidoPaTutor.getText().trim();
         String tutorApellidoM = txtMaTutor.getText().trim();
 
@@ -166,21 +200,24 @@ public class ModificarAlumnoController implements Initializable {
         TutorDAO tutorDAO = new TutorDAO();
         Tutor tutor = tutorDAO.buscarById(alumno.getId_tutor());
 
-        //empezando la modificacion del alumno
+        // empezando la modificacion del alumno
         alumno.setNombre(alumnoNombre);
         alumno.setApellido_paterno(alumnoApellidoP);
         alumno.setApellido_materno(alumnoApellidoM);
-        alumno.setGenero( alumnoSexo.charAt(0) );
+        alumno.setGenero(alumnoSexo.charAt(0));
 
-        //empezando la modificacion del tutor
+        // empezando la modificacion del tutor
         tutor.setNombre(tutorNombre);
         tutor.setApellido_paterno(tutorApellidoP);
         tutor.setApellido_materno(tutorApellidoM);
 
-        if(alumnoDAO.esNombreRepetido(alumno)){
+        if (alumnoDAO.esNombreRepetido(alumno)) {
 
-            if(!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())){
-                System.out.println("Ya existe un alumno con el mismo nombre");
+            if (!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("Ya existe un alumno con el mismo nombre");
+                alert.showAndWait();
                 return;
             }
         }
@@ -189,13 +226,22 @@ public class ModificarAlumnoController implements Initializable {
         if (tutorDAO.esRepetido(tutor)) {
 
             if (tutor.getId_tutor() != tutorDAO.buscarByNombreCompleto(tutor).getId_tutor()) {
-                System.out.println("ya existe un tutor con el mismo nombre");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("Ya existe un tutor con el mismo nombre");
+                alert.showAndWait();
                 return;
             }
         }
 
         tutorDAO.modificar(tutor);
         alumnoDAO.modificar(alumno);
+
+        //acceder a la siguiente ventana
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Mensaje");
+        alert.setContentText("Alumno modificado perfectamente");
+        alert.showAndWait();
 
     }
 

@@ -11,12 +11,16 @@ import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ConsultarAlumnoController {
+
+    private Alert alert;
     
     @FXML
     private DatePicker DateAlumnoFecha;
@@ -91,8 +95,35 @@ public class ConsultarAlumnoController {
 
         alumno = alumnoDAO.buscarByNombreCompleto(alumno);
 
+        if(alumnoNombre.isEmpty()){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre de alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if(alumnoApellidoP.isEmpty()){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno de alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if(alumnoApellidoM.isEmpty()){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno de alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+        
         if(alumno == null){
-            System.out.println("El alumno no existe");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno no existe");
+            alert.showAndWait();
             return;
         }
 
