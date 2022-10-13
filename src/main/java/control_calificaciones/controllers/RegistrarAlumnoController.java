@@ -59,6 +59,9 @@ public class RegistrarAlumnoController implements Initializable {
     private TextField txtCurpAlumno;
 
     @FXML
+    private TextField txtCorreoTutor2;
+
+    @FXML
     private TextField txtGradoAlumno;
 
     @FXML
@@ -189,8 +192,9 @@ public class RegistrarAlumnoController implements Initializable {
         String tutorApellidoP = txtApellidoPaTutor.getText().trim();
         String tutorApellidoM = txtMaTutor.getText().trim();
         String correo1 = txtCorreoTutor.getText().trim();
+        String correo2 = txtCorreoTutor2.getText().trim();
         
-        //validaciones de la UI
+        //validaciones de la UI para la creacion del tutor
         //...
         
         
@@ -208,24 +212,26 @@ public class RegistrarAlumnoController implements Initializable {
             correo1 = tutorDAO.getCorreos(tutor).get(0).getCorreo();
             txtCorreoTutor.setText(correo1);
             txtCorreoTutor.setDisable(true);
+            
+            if(tutorDAO.getCorreos(tutor).size() > 1){
+                correo2 = tutorDAO.getCorreos(tutor).get(1).getCorreo();
+                txtCorreoTutor2.setText(correo2);
+                txtCorreoTutor2.setDisable(true);
+            }
         }
         //El tutor no esta registrado en el sistema y tenemos que crearlo
         else{ 
             
-            txtCorreoTutor.setDisable(false);
-            txtCorreoTutor.setText("");
-
-
             // agregar correo o correos (maximo 2)
             if (!correo1.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo1)) {
                 System.out.println("El correo " + correo1 + " ya esta en uso");
                 return;
             }
 
-            // if (!correo2.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo2)) {
-            //     System.out.println("El correo " + correo2 + " ya esta en uso");
-            //     return;
-            // }
+            if (!correo2.trim().isEmpty() && CorreoTutorDAO.esRepetido(correo2)) {
+                System.out.println("El correo " + correo2 + " ya esta en uso");
+                return;
+            }
 
             tutorDAO.insertar(tutor);
             tutor = tutorDAO.buscarByNombreCompleto(tutor);
@@ -234,17 +240,15 @@ public class RegistrarAlumnoController implements Initializable {
                 tutorDAO.insertarCorreo(tutor, correo1);
             }
 
-            // if (!correo2.isEmpty()) {
-            //     tutorDAO.insertarCorreo(tutor, correo2);
-            // }
+            if (!correo2.isEmpty()) {
+                tutorDAO.insertarCorreo(tutor, correo2);
+            }
         }
 
         // objeto del alumno a guardar en la BD
         alumno.setId_aula(aula.getId_aula());
         alumno.setId_tutor(tutor.getId_tutor());
         alumnoDAO.insertar(alumno);
-        // System.out.println(alumno);
-
     }
 
 }
