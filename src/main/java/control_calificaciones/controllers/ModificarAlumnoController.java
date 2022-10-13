@@ -2,18 +2,27 @@ package control_calificaciones.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import control_calificaciones.App;
 import control_calificaciones.data.AlumnoDAO;
 import control_calificaciones.data.TutorDAO;
+import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
 import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
+import control_calificaciones.models.usuarios.Sesion;
+import control_calificaciones.models.usuarios.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,13 +30,17 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class ModificarAlumnoController implements Initializable {
 
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+
     private Alumno alumno;
-
     private Alert alert;
-
+    
     @FXML
     private DatePicker DateAlumnoFecha;
 
@@ -247,12 +260,31 @@ public class ModificarAlumnoController implements Initializable {
 
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
+        // GUARADAMOS EN LA BITACORA DE LA BD
+        UsuarioDAO.insertarBitacoraSesionUsuario(Sesion.nombreUsuario, Sesion.fechaSesion, LocalDateTime.now());
 
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("login.fxml"));
+        root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     private void toPanelPrincipal(ActionEvent event) throws IOException {
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
+        // Enviar información a la ventana de sesion
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
+        root = loader.load();
+        SesionController controller = loader.getController();
+        controller.iniciarSesion(usuario);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
