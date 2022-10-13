@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -25,9 +26,17 @@ public class PanelAlumnosController {
     @FXML
     private Label lblNombreUsuario;
 
-    public void iniciarSesion(){
-        lblNombreUsuario.setText(Sesion.nombreUsuario);
-    }
+    @FXML
+    private Button btnActualizar;
+
+    @FXML
+    private Button btnConsultar;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnRegistrar;
 
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
@@ -42,7 +51,7 @@ public class PanelAlumnosController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void toPanelPrincipal(ActionEvent event) throws IOException {
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
@@ -99,7 +108,7 @@ public class PanelAlumnosController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void toModificarAlumno(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarAlumno.fxml"));
@@ -111,6 +120,20 @@ public class PanelAlumnosController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void iniciarSesion() {
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
+
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
+
+        // Esto viola los principios SOLID :(
+        if (!usuario.nombreRol.equals("director")) {
+            btnEliminar.setDisable(true);
+            btnActualizar.setDisable(true);
+            return;
+        }
+
     }
 
 }
