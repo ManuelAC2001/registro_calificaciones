@@ -73,6 +73,8 @@ public class ListaAlumnosController implements Initializable{
     @FXML
     private TableView<Alumno> tablaUsuarios;
 
+    public ArrayList<Alumno> alumnos = new ArrayList<>();
+
     public void iniciarSesion(){
         lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
@@ -94,7 +96,7 @@ public class ListaAlumnosController implements Initializable{
             return;
         }
 
-        ArrayList<Alumno> alumnos = new AlumnoDAO().getListaAlumnosByAula(gradoSeleccionado, grupoSeleccionado);
+        alumnos = new AlumnoDAO().getListaAlumnosByAula(gradoSeleccionado, grupoSeleccionado);
 
         if(alumnos.isEmpty()){
             tablaUsuarios.getItems().clear();
@@ -133,6 +135,14 @@ public class ListaAlumnosController implements Initializable{
     @FXML
     private void generarPDF(ActionEvent event) throws IOException {
 
+        if(alumnos.isEmpty()){
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setContentText("No puedes generar un archivo PDF de un salon sin alumnos");
+            alert.showAndWait();
+            return;
+        }
+
         String workPath = System.getProperty("user.dir");
 
         FileChooser fileChooser = new FileChooser();
@@ -143,12 +153,17 @@ public class ListaAlumnosController implements Initializable{
         if (file == null) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Acción cancelada");
-            alert.setContentText("la bitacora no se guardo");
+            alert.setContentText("la lista de alumnos no se guardo");
             alert.showAndWait();
             return;
         }
 
-        ListaPDF.listaPDF(file);
+        ListaPDF.listaPDF(file, alumnos);
+
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Acción cancelada");
+        alert.setContentText("la lista de alumnos se guardo correctamente");
+        alert.showAndWait();
 
     }
 

@@ -9,15 +9,22 @@ public class Alumno {
     private String nombre;
     private String apellido_paterno;
     private String apellido_materno;
+    private String nombreCompleto;
     private Date fecha_nacimiento;
     private Integer edad;
     private Character genero;
     private Integer id_tutor;
+
     private Integer id_aula;
     
     // info de aula
     private String nombre_grado;
     private String nombre_grupo;
+
+    public String getNombreCompleto() {
+        nombreCompleto = nombre + " " + apellido_paterno + " " + apellido_materno; 
+        return nombreCompleto;
+    }
 
     public String getNombre_grado() {
         return nombre_grado;

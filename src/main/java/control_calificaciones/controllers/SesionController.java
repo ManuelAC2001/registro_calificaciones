@@ -105,7 +105,7 @@ public class SesionController {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("panelAlumnos.fxml"));
         root = loader.load();
-        ListaAlumnosController controller = loader.getController();
+        PanelAlumnosController controller = loader.getController();
         controller.iniciarSesion();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
