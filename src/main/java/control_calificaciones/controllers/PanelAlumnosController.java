@@ -124,7 +124,7 @@ public class PanelAlumnosController {
 
     public void iniciarSesion() {
         lblNombreUsuario.setText(Sesion.nombreUsuario);
-
+        
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
         // Esto viola los principios SOLID :(

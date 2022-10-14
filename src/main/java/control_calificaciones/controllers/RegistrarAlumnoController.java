@@ -40,8 +40,19 @@ public class RegistrarAlumnoController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
-    
+
     private Alert alert;
+
+    String regexCurp = "[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}" +
+            "(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])" +
+            "[HM]{1}" +
+            "(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)" +
+            "[B-DF-HJ-NP-TV-Z]{3}" +
+            "[0-9A-Z]{1}[0-9]{1}$";
+
+    String regexNombre = "[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?(( |\\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?)*";
+
+    String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -94,7 +105,7 @@ public class RegistrarAlumnoController implements Initializable {
     @FXML
     private TextField txtNombreTutor;
 
-    public void iniciarSesion(){
+    public void iniciarSesion() {
         lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
@@ -150,10 +161,26 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
+        if (!alumnoNombre.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (alumnoApellidoP.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("El campo apellido paterno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno solo debe contener letras");
             alert.showAndWait();
             return;
         }
@@ -166,6 +193,14 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
+        if (!alumnoApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (alumnoCurp.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -174,14 +209,14 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
-        if (alumnoCurp.length() != 18 || alumnoCurp.contains(" ")) {
+        if (!alumnoCurp.matches(regexCurp)) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Formato invalido para la curp");
             alert.showAndWait();
             return;
         }
-
+        
         if (alumnoSexo == null) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -303,10 +338,26 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
+        if (!tutorNombre.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del tutor solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (tutorApellidoP.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("El campo de apellido paterno del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!tutorApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del tutor solo debe contener letras");
             alert.showAndWait();
             return;
         }
@@ -319,10 +370,34 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
+        if (!tutorApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del tutor solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (correo1.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("El campo de correo es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!correo1.matches(regexGmail)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Es necesario agregar un correo valido para el correo obligatorio");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!correo2.matches(regexGmail) && !correo2.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Es necesario agregar un correo valido para el correo opcional");
             alert.showAndWait();
             return;
         }
@@ -389,6 +464,24 @@ public class RegistrarAlumnoController implements Initializable {
         alert.setTitle("Mensaje");
         alert.setContentText("Alumno agregado perfectamente");
         alert.showAndWait();
+
+        //limpiando los datos
+        txtNombreAlumno.setText("");
+        txtApellidoMatAlumno.setText("");
+        txtApellidoPatAlumno.setText("");
+
+        txtCurpAlumno.setText("");
+        optionSexoAlumno.setValue("");
+        DateAlumnoFecha.setValue(null);
+        txtGradoAlumno.setText("");
+        txtGrupoAlumno.setText("");
+
+        txtNombreTutor.setText("");
+        txtApellidoPaTutor.setText("");
+        txtMaTutor.setText("");
+
+        txtCorreoTutor.setText("");
+        txtCorreoTutor2.setText("");
     }
-    
+
 }

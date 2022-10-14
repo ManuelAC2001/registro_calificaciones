@@ -40,6 +40,17 @@ public class ModificarAlumnoController implements Initializable {
 
     private Alumno alumno;
     private Alert alert;
+
+    String regexCurp = "[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}" +
+            "(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])" +
+            "[HM]{1}" +
+            "(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)" +
+            "[B-DF-HJ-NP-TV-Z]{3}" +
+            "[0-9A-Z]{1}[0-9]{1}$";
+
+    String regexNombre = "[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?(( |\\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?)*";
+
+    String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
     
     @FXML
     private DatePicker DateAlumnoFecha;
@@ -111,6 +122,14 @@ public class ModificarAlumnoController implements Initializable {
             return;
         }
 
+        if(!alumnoNombre.matches(regexNombre)){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (alumnoApellidoP.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -119,10 +138,26 @@ public class ModificarAlumnoController implements Initializable {
             return;
         }
 
+        if (!alumnoApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
         if (alumnoApellidoM.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("El campo apellido materno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno solo debe contener letras");
             alert.showAndWait();
             return;
         }
@@ -141,6 +176,11 @@ public class ModificarAlumnoController implements Initializable {
 
         if (alumno == null) {
 
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El alumno a modificar no existe");
+            alert.showAndWait();
+
             txtCurpAlumno.setText("");
             optionSexoAlumno.setValue("");
             DateAlumnoFecha.setValue(null);
@@ -155,11 +195,6 @@ public class ModificarAlumnoController implements Initializable {
             txtCorreoTutor2.setText("");
 
             btnModificarAlumno.setDisable(true);
-
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Mensaje");
-            alert.setContentText("El alumno a modificar no existe");
-            alert.showAndWait();
             return;
         }
 
@@ -212,6 +247,105 @@ public class ModificarAlumnoController implements Initializable {
         String tutorNombre = txtNombreTutor.getText().trim();
         String tutorApellidoP = txtApellidoPaTutor.getText().trim();
         String tutorApellidoM = txtMaTutor.getText().trim();
+
+        //validando datos de alumno desde la UI
+        if (alumnoNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoNombre.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (tutorNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de nombre del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!tutorNombre.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del tutor solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (tutorApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de apellido paterno del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!tutorApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del tutor solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (tutorApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de apellido materno del tutor es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!tutorApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del tutor solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        
 
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         TutorDAO tutorDAO = new TutorDAO();

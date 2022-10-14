@@ -38,6 +38,17 @@ public class EliminarAlumnoController {
     private Alert alert;
     private Alumno alumno;
 
+    String regexCurp = "[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}" +
+            "(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])" +
+            "[HM]{1}" +
+            "(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)" +
+            "[B-DF-HJ-NP-TV-Z]{3}" +
+            "[0-9A-Z]{1}[0-9]{1}$";
+
+    String regexNombre = "[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?(( |\\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?)*";
+
+    String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
+
     @FXML
     private DatePicker DateAlumnoFecha;
 
@@ -128,7 +139,54 @@ public class EliminarAlumnoController {
         String alumnoApellidoM = txtApellidoMatAlumno.getText().trim();
 
         // validacion de la UI
-        // ...
+
+        if (alumnoNombre.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoNombre.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo nombre solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoP.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoP.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido paterno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
+
+        if (alumnoApellidoM.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno del alumno es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!alumnoApellidoM.matches(regexNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo apellido materno solo debe contener letras");
+            alert.showAndWait();
+            return;
+        }
 
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         TutorDAO tutorDAO = new TutorDAO();
