@@ -105,7 +105,22 @@ public class SesionController {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("panelAlumnos.fxml"));
         root = loader.load();
-        PanelAlumnosController controller = loader.getController();
+        ListaAlumnosController controller = loader.getController();
+        controller.iniciarSesion();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    private void seccionListaAlumnos(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("listaAlumnos.fxml"));
+        root = loader.load();
+        ListaAlumnosController controller = loader.getController();
         controller.iniciarSesion();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

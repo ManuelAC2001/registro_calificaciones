@@ -71,6 +71,7 @@ public class GenerarPDF {
             tablaBitacora.addCell(new Paragraph("Hora de Entrada", FontFactory.getFont("Arial", 10, Font.BOLD)));
             tablaBitacora.addCell(new Paragraph("Hora de Salida", FontFactory.getFont("Arial", 10, Font.BOLD)));
 
+
             // Conexión a la base de datos
             String procedureCall = "{CALL getbitacoraSesionUsuarios()}";
             CallableStatement cstmt = null;
@@ -101,6 +102,7 @@ public class GenerarPDF {
                 Conexion.close(cstmt);
                 Conexion.close(cn);
             }
+            //fin de la conexion a la base de datos
 
             boolean b = true;
             for (PdfPRow r : tablaBitacora.getRows()) {

@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
@@ -227,4 +228,46 @@ public class AlumnoDAO {
         }
         return aula;
     }
+
+    public ArrayList<Alumno> getListaAlumnosByAula(String nombre_grado, String nombre_grupo){
+        
+        ArrayList<Alumno> alumnos = new ArrayList<>();
+        String callProcedure = "{CALL getListaAlumnosByAula(?,?)}";
+
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(callProcedure);
+
+            cstmt.setString(1, nombre_grado);
+            cstmt.setString(2, nombre_grupo);
+
+            rs = cstmt.executeQuery();
+
+            while(rs.next()){
+
+                Alumno alumno = new Alumno();
+                setInformacion(alumno, rs);
+                alumno.setNombre_grado( rs.getString("nombre_grado") );
+                alumno.setNombre_grupo( rs.getString("nombre_grupo") );
+
+                alumnos.add(alumno);
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(rs);
+        }
+        
+        return alumnos;
+
+    }
+    
 }
