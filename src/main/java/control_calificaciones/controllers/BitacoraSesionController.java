@@ -14,6 +14,7 @@ import control_calificaciones.App;
 import control_calificaciones.data.Conexion;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.pdf.GenerarPDF;
+import control_calificaciones.helpers.pdf.ListaPDF;
 import control_calificaciones.models.BitacoraSesion;
 import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;

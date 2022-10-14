@@ -46,7 +46,6 @@ public class GenerarPDF {
             Paragraph nombreInstituto = new Paragraph("Instituto Hispanoamericano Mexicano",
             FontFactory.getFont("Arial", 30, Font.BOLD, BaseColor.BLUE));
             nombreInstituto.setAlignment(Element.ALIGN_CENTER);
-            nombreInstituto.setAlignment(Element.ALIGN_CENTER);
             
             String diaActual =  Integer.toString(LocalDateTime.now().getDayOfMonth());
             String mesActual = LocalDateTime.now().getMonth().toString();
