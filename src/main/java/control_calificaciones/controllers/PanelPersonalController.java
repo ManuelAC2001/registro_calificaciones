@@ -60,21 +60,6 @@ public class PanelPersonalController {
     }
 
     @FXML
-    void cerrarSesion(ActionEvent event) throws IOException{
-        
-        // GUARADAMOS EN LA BITACORA DE LA BD
-        UsuarioDAO.insertarBitacoraSesionUsuario(Sesion.nombreUsuario, Sesion.fechaSesion, LocalDateTime.now());
-
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("login.fxml"));
-        root = loader.load();
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
     public void toSeccionPersonal(ActionEvent event) throws IOException {
 
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
@@ -90,6 +75,21 @@ public class PanelPersonalController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    void cerrarSesion(ActionEvent event) throws IOException{
+        
+        // GUARADAMOS EN LA BITACORA DE LA BD
+        UsuarioDAO.insertarBitacoraSesionUsuario(Sesion.nombreUsuario, Sesion.fechaSesion, LocalDateTime.now());
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("login.fxml"));
+        root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     
 }

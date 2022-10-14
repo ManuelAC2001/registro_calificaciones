@@ -1,12 +1,5 @@
 package control_calificaciones.controllers;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -19,6 +12,12 @@ import control_calificaciones.models.usuarios.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class SesionController {
 
@@ -99,6 +98,21 @@ public class SesionController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void entrarAlumnosSeccion(ActionEvent event) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("panelAlumnos.fxml"));
+        root = loader.load();
+        PanelAlumnosController controller = loader.getController();
+        controller.iniciarSesion();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
     public void iniciarSesion(Usuario usuario) {

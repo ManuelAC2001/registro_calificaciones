@@ -33,7 +33,6 @@ public class Test {
         alumnoNuevo.setFecha_nacimiento(Date.valueOf("2015-10-12"));
         alumnoNuevo.setGenero("H".charAt(0));
 
-        // alumnoNuevo.setId_aula(1);
 
         // validaciones a nivel base de datos para la tabla alumnos
         if (alumnoDAO.esNombreRepetido(alumnoNuevo)) {
@@ -62,15 +61,16 @@ public class Test {
         String correo2 = "apol5@gmail.com";
         // String correo2 = "apol2@gmail.com";
 
-        Tutor tutor = new Tutor();
-        tutor.setNombre("juan");
-        tutor.setApellido_paterno("Gallegos");
-        tutor.setApellido_materno("Basteri");
-
+        
         if (correo1.equalsIgnoreCase(correo2)) {
             System.out.println("no puedes poner dos correos iguales");
             return;
         }
+
+        Tutor tutor = new Tutor();
+        tutor.setNombre("juan");
+        tutor.setApellido_paterno("Gallegos");
+        tutor.setApellido_materno("Basteri");
 
         // verficiar si el padre esta en el sistema
         if (tutorDAO.esRepetido(tutor)) {
@@ -89,7 +89,6 @@ public class Test {
                 return;
             }
 
-            // asignacion de aula (codigo en mejora)
             tutorDAO.insertar(tutor);
             tutor = tutorDAO.buscarByNombreCompleto(tutor);
 

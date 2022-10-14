@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.AgregarSecretariaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.PanelAlumnosController">
    <children>
       <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
          <children>
@@ -113,7 +113,7 @@
                                                             <Image url="@img/icons/student.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Registrar Alumno" textFill="WHITE">
+                                                      <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#toRegistrarAlumno" style="-fx-background-color: e6862d;" text="Registrar Alumno" textFill="WHITE">
                                                          <font>
                                                             <Font name="Arial Bold" size="18.0" />
                                                          </font>
@@ -133,7 +133,7 @@
                                                             <Image url="@img/icons/student.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Actualizar Alumno" textFill="WHITE">
+                                                      <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#toModificarAlumno" style="-fx-background-color: e6862d;" text="Actualizar Alumno" textFill="WHITE">
                                                          <font>
                                                             <Font name="Arial Bold" size="18.0" />
                                                          </font>
@@ -157,7 +157,7 @@
                                                             <Image url="@img/icons/student.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Ver Alumno" textFill="WHITE">
+                                                      <Button fx:id="btnConsultar" mnemonicParsing="false" onAction="#toConsultarAlumno" style="-fx-background-color: e6862d;" text="Consultar Alumno" textFill="WHITE">
                                                          <font>
                                                             <Font name="Arial Bold" size="18.0" />
                                                          </font>
@@ -177,7 +177,7 @@
                                                             <Image url="@img/icons/student.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" style="-fx-background-color: e6862d;" text="Eliminar Alumno" textFill="WHITE">
+                                                      <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#toEliminarAlumno" style="-fx-background-color: e6862d;" text="Eliminar Alumno" textFill="WHITE">
                                                          <font>
                                                             <Font name="Arial Bold" size="18.0" />
                                                          </font>
