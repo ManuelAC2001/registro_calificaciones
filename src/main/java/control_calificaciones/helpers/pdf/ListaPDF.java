@@ -11,9 +11,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -24,6 +22,7 @@ import control_calificaciones.models.Alumno;
 public class ListaPDF {
 
     public static void listaPDF(File file, ArrayList<Alumno> alumnos) {
+        
         String NOMBRE_ARCHIVO = file.toString() + ".pdf";
         Document documento = new Document();
 
@@ -115,11 +114,6 @@ public class ListaPDF {
                 tabla.addCell(tablaCalificaciones);
             });
 
-
-            // inicio de la conexion a la base de datos
-
-            // finde la conexion a la base de datos
-
             documento.add(tabla);
 
             documento.close();
@@ -127,4 +121,5 @@ public class ListaPDF {
             System.out.println("Error al generar la lista" + e);
         }
     }
+
 }
