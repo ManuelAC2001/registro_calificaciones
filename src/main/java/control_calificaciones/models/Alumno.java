@@ -9,12 +9,40 @@ public class Alumno {
     private String nombre;
     private String apellido_paterno;
     private String apellido_materno;
+    private String nombreCompleto;
     private Date fecha_nacimiento;
     private Integer edad;
     private Character genero;
     private Integer id_tutor;
-    private Integer id_aula;
 
+    private Integer id_aula;
+    
+    // info de aula
+    private String nombre_grado;
+    private String nombre_grupo;
+
+    public String getNombreCompleto() {
+        nombreCompleto = nombre + " " + apellido_paterno + " " + apellido_materno; 
+        return nombreCompleto;
+    }
+
+    public String getNombre_grado() {
+        return nombre_grado;
+    }
+
+    public void setNombre_grado(String nombre_grado) {
+        this.nombre_grado = nombre_grado;
+    }
+
+    public String getNombre_grupo() {
+        return nombre_grupo;
+    }
+
+    public void setNombre_grupo(String nombre_grupo) {
+        this.nombre_grupo = nombre_grupo;
+    }
+
+    
 
     public String getCurp() {
         return curp;
@@ -83,7 +111,7 @@ public class Alumno {
     public Integer getEdad() {
 
         Integer anioNacimiento = fecha_nacimiento.toLocalDate().getYear();
-        Integer anioActual = LocalDate.now().getYear();  
+        Integer anioActual = LocalDate.now().getYear();
 
         edad = anioActual - anioNacimiento;
         return edad;
@@ -92,10 +120,10 @@ public class Alumno {
     @Override
     public String toString() {
         return "Alumno [curp=" + curp + ", nombre=" + nombre + ", apellido_paterno=" + apellido_paterno
-                + ", apellido_materno=" + apellido_materno + ", fecha_nacimiento=" + fecha_nacimiento + ", edad=" + getEdad()
-                + ", genero=" + genero + ", id_tutor=" + id_tutor + ", id_aula=" + id_aula + "]";
+                + ", apellido_materno=" + apellido_materno + ", fecha_nacimiento=" + fecha_nacimiento + ", edad="
+                + getEdad()
+                + ", genero=" + genero + ", id_tutor=" + id_tutor + ", id_aula=" + id_aula + ", nombre_grado="
+                + nombre_grado + ", nombre_grupo=" + nombre_grupo + "]";
     }
-    
-    
 
 }

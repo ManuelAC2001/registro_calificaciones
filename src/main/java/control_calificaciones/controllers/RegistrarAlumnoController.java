@@ -306,7 +306,7 @@ public class RegistrarAlumnoController implements Initializable {
         }
 
         // aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 25);
-        aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 1);
+        aulas.removeIf(aulaDisponible -> aulaDisponible.getCantidad() >= 25);
 
         if (aulas.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
