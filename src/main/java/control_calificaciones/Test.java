@@ -2,17 +2,20 @@ package control_calificaciones;
 
 // import java.io.File;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import control_calificaciones.data.AlumnoDAO;
 import control_calificaciones.data.AulaDAO;
 import control_calificaciones.data.CorreoTutorDAO;
 import control_calificaciones.data.TutorDAO;
+import control_calificaciones.helpers.CurpValidador;
 // import control_calificaciones.helpers.pdf.ListaPDF;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
 import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
+
 // import javafx.scene.control.Alert;
 // import javafx.stage.FileChooser;
 // import javafx.stage.Stage;
@@ -32,7 +35,6 @@ public class Test {
         alumnoNuevo.setApellido_materno("castillo");
         alumnoNuevo.setFecha_nacimiento(Date.valueOf("2015-10-12"));
         alumnoNuevo.setGenero("H".charAt(0));
-
 
         // validaciones a nivel base de datos para la tabla alumnos
         if (alumnoDAO.esNombreRepetido(alumnoNuevo)) {
@@ -61,7 +63,6 @@ public class Test {
         String correo2 = "apol5@gmail.com";
         // String correo2 = "apol2@gmail.com";
 
-        
         if (correo1.equalsIgnoreCase(correo2)) {
             System.out.println("no puedes poner dos correos iguales");
             return;
@@ -230,15 +231,15 @@ public class Test {
         System.out.println("\nTutor a modificar");
         System.out.println(tutor);
 
-        //datos a modificar del alumno
+        // datos a modificar del alumno
         alumno.setNombre("Antonio");
         alumno.setApellido_paterno("Santos");
         alumno.setApellido_materno("pacheco");
         alumno.setGenero('H');
 
-        if(alumnoDAO.esNombreRepetido(alumno)){
+        if (alumnoDAO.esNombreRepetido(alumno)) {
 
-            if(!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())){
+            if (!alumno.getCurp().equalsIgnoreCase(alumnoDAO.buscarByNombreCompleto(alumno).getCurp())) {
                 System.out.println("Ya existe un alumno con el mismo nombre");
                 return;
             }
@@ -263,14 +264,18 @@ public class Test {
 
         System.out.println("\nTutor modificado");
         System.out.println(tutor);
-            
+
         System.out.println("\nAlumno modificado");
         alumnoDAO.modificar(alumno);
         System.out.println(alumno);
     }
 
     public static void main(String[] args) {
-        
+
+        LocalDate fechaNacimiento = Date.valueOf("2011-11-11").toLocalDate();
+        String CURP = "AOCM111111HGRPSNA9";
+        CurpValidador.coincideFecha(CURP, fechaNacimiento);
+
     }
 
 }

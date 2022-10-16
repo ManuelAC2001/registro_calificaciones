@@ -6,6 +6,10 @@ module control_calificaciones {
     requires java.dotenv;
     requires itextpdf;
 
+    //implementacion de hibernate
+    requires jakarta.persistence;
+    
+
     opens control_calificaciones.controllers to javafx.fxml;
     opens control_calificaciones.models to javafx.base;
     
