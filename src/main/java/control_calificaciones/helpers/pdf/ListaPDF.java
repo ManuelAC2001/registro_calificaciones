@@ -3,7 +3,6 @@ package control_calificaciones.helpers.pdf;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import com.itextpdf.*;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -14,8 +13,6 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import javafx.scene.control.Cell;
 
 public class ListaPDF {
     
@@ -57,12 +54,11 @@ public class ListaPDF {
             lista.addCell(new Paragraph("SEXO", FontFactory.getFont("Arial", 5, Font.BOLD)));
             lista.addCell(new Paragraph("NOMBRE DEL ALUMNO(A)", FontFactory.getFont("Arial", 5, Font.BOLD)));
 
-            
             documento.add(lista);
 
             documento.close();
         } catch (Exception e) {
             System.out.println("Error al generar la lista" + e);
-         }
+        }
     }
 }
