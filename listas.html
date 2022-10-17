@@ -2,7 +2,6 @@
  <head>
   <title>Lista de alumnos</title> <!-- RESETEANDO LA TABLA -->
   <style>
-
         @page {
             size: landscape;
             margin: 0;
@@ -50,8 +49,6 @@
         .table__secundaria {
             margin-top: 1000px;
         }
-
-
     </style>
  </head>
  <body><!-- HEADER -->
@@ -76,9 +73,17 @@
    <table class="table">
     <tbody>
      <tr>
-      <th>No. Lista</th>
-      <th>Sexo</th>
-      <th>Nombre del alumno</th>
+      <th>
+       <table class="table">
+        <caption></caption>
+        <tbody>
+         <tr>
+          <th>No. Lista</th>
+          <th>Sexo</th>
+          <th>Nombre del alumno</th>
+         </tr>
+        </tbody>
+       </table></th>
       <th>
        <table class="table">
         <caption style="background-color: #9ecdff; color: #9ecdff;">
