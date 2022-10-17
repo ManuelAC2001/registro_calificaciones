@@ -14,6 +14,7 @@ import control_calificaciones.data.AulaDAO;
 import control_calificaciones.data.CorreoTutorDAO;
 import control_calificaciones.data.TutorDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
+import control_calificaciones.helpers.CurpValidador;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
 import control_calificaciones.models.Tutor;
@@ -213,6 +214,14 @@ public class RegistrarAlumnoController implements Initializable {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Formato invalido para la curp");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!CurpValidador.coincideFecha(alumnoCurp, alumnoFecha)){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("la CURP no coincide con la fecha de nacimiento del alumno");
             alert.showAndWait();
             return;
         }
