@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-// import com.itextpdf.*;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -113,16 +113,15 @@ public class ListaPDF {
                 tabla.addCell(tablaCalificaciones);
             });
 
-
-            // inicio de la conexion a la base de datos
-
-            // finde la conexion a la base de datos
-
             documento.add(tabla);
 
             documento.close();
         } catch (Exception e) {
             System.out.println("Error al generar la lista" + e);
         }
+    }
+
+    public static void HTMLTest(){
+
     }
 }

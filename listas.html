@@ -1,0 +1,181 @@
+<html>
+ <head>
+  <title>Lista de alumnos</title> <!-- RESETEANDO LA TABLA -->
+  <style>
+
+        @page {
+            size: landscape;
+            margin: 0;
+        }
+
+        body {
+            writing-mode: tb-rl;
+        }
+
+        .container {
+            display: inline-block;
+        }
+
+        .container:first-child {
+            margin-right: 100px;
+        }
+
+        .container img {
+            margin-right: 20px;
+        }
+
+        .alumno__informacion {
+            font-size: 7px;
+            text-align: left;
+        }
+
+        .escuela__informacion {
+            font-size: 5px;
+            text-align: center;
+        }
+
+        .container__table {
+            margin-top: 30px;
+        }
+
+        .table {
+            font-size: 9px;
+        }
+
+        .table caption {
+            font-size: 9px;
+            height: 26px;
+        }
+
+        .table__secundaria {
+            margin-top: 1000px;
+        }
+
+
+    </style>
+ </head>
+ <body><!-- HEADER -->
+  <center>
+   <header>
+    <section class="container alumno__informacion">
+     <p>GRUPO: <span>PRIMARIA 1</span></p>
+     <p>PROFR (A)</p>
+     <p>MES:</p>
+     <p>ANIO ESCOLAR: 2022-2023</p>
+    </section>
+    <section class="container escuela__informacion"><img src="./logo.png" width="40px" />
+     <section class="container">
+      <h1>INSTITUTO "HISPANOAMERICANO-MEXICANO"</h1>
+      <h2>PRESTIGIO Y CALIDAD ACADEMICA</h2>
+      <h2>VICENTE GUERRERO #49, CENTRO</h2>
+     </section>
+    </section>
+   </header>
+  </center>
+  <div class="container__table">
+   <table class="table">
+    <tbody>
+     <tr>
+      <th>No. Lista</th>
+      <th>Sexo</th>
+      <th>Nombre del alumno</th>
+      <th>
+       <table class="table">
+        <caption style="background-color: #9ecdff; color: #9ecdff;">
+         SPACE
+        </caption>
+        <tbody>
+         <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>total</th>
+         </tr>
+        </tbody>
+       </table></th>
+      <th>
+       <table class="table">
+        <caption style="background-color: #ebefe1;">
+         INACISTENCIAS
+        </caption>
+        <tbody>
+         <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>total</th>
+         </tr>
+        </tbody>
+       </table></th>
+      <th>
+       <table class="table">
+        <caption style="background-color: #9ecdff; color: #9ecdff;">
+         SPACE
+        </caption>
+        <tbody>
+         <tr style="background-color: #9ecdff;">
+          <th style="background-color: #9ecdff;">Asistencia</th>
+         </tr>
+        </tbody>
+       </table></th>
+      <th>
+       <table class="table">
+        <caption style="background-color: pink;">
+         RASGOS A EVALUAR
+        </caption>
+        <tbody>
+         <tr>
+          <th>ortografia</th>
+          <th>disciplina</th>
+          <th>uniforme y aseo</th>
+          <th>puntualidad</th>
+          <th>material</th>
+          <th>participacion</th>
+          <th>comp lect</th>
+          <th>trabajos</th>
+          <th>tareas</th>
+         </tr>
+        </tbody>
+       </table></th>
+      <th>
+       <table class="table">
+        <caption style="background-color: #fce9da;">
+         FORMACION ACADEMICA
+        </caption>
+        <tbody>
+         <tr>
+          <th>leng materna</th>
+          <th>ingles</th>
+          <th>matematicas</th>
+          <th>conocim del medio</th>
+          <th>artes</th>
+          <th>ed. fisica</th>
+          <th style="background-color: #fce9da;">promedio</th>
+         </tr>
+        </tbody>
+       </table></th>
+      <th>
+       <table class="table">
+        <caption style="background-color: #b7dde6;">
+         ASIGNATURAS OPCIONALES
+        </caption>
+        <tbody>
+         <tr>
+          <th>ed. socio-emocional</th>
+          <th>inf. robotica</th>
+          <th style="background-color: #9ecdff;">vida saludable</th>
+         </tr>
+        </tbody>
+       </table></th>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+ </body>
+</html>
