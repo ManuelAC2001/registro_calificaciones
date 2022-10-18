@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -196,11 +197,27 @@ public class ListaPDF {
 
         Element materiasRow = documentHTML.createElement("tr");
         documentHTML.getElementById(idTBody).appendChild(materiasRow);
-
+        
         asignaturas.forEach(asignatura -> {
             materiasRow.append("<td> - </td>");
         });
     }
+    
+    public static void agregarInformacionExtra(Document documentHTML, ArrayList<Alumno> alumnos){
+
+        String gradoInfo = alumnos.get(0).getNombre_grado();
+        String grupoInfo = alumnos.get(0).getNombre_grupo();
+        String mesInfo = LocalDate.now().getMonth().toString();
+        String AnioInfo = String.valueOf(LocalDate.now().getYear());
+
+
+        documentHTML.getElementById("grado_info").append("GRADO: " + gradoInfo);
+        documentHTML.getElementById("grupo_info").append("GRUPO: " + grupoInfo);
+        documentHTML.getElementById("mes_info").append("MES: " + mesInfo);
+        documentHTML.getElementById("anio_info").append("ANIO: " + AnioInfo);
+    }
+
+
 
     public static void listaHTMLPDF(File file, ArrayList<Alumno> alumnos, ArrayList<Asignatura> asignaturas) {
 
@@ -237,6 +254,8 @@ public class ListaPDF {
                 agregarPromedioAcademico(documentHTML, asignaturasAcademicas, "tobody__formacion");
                 agregarPromedioAcademico(documentHTML, asignaturasOpcionales, "tobody__opcionales");
             });
+
+            agregarInformacionExtra(documentHTML, alumnos);
 
             // obtencion del contenido de la plantilla HTML
             String contenidoHTML = documentHTML.html();
