@@ -33,7 +33,7 @@
         }
 
         table {
-            font-size: 8px;
+            font-size: 5px;
         }
 
         table,
@@ -50,6 +50,10 @@
 
         .tabla {
             display: inline;
+        }
+
+        #tr_materias th:last-child {
+            background: #f7e7da;
         }
     </style>
 
@@ -79,14 +83,13 @@
             </section>
         </header>
     </center>
-
     <center>
         <div class="tabla__container">
 
             <!-- TABLA DE INFO ALUMNO -->
-            <table style="border: none;" class="tabla tabla-rasgos">
+            <table style="border: none;" class="tabla">
 
-                <tbody>
+                <tbody id="tbody__alumnos">
                     <tr>
                         <th style="border: none;" colspan="3"></th>
                     </tr>
@@ -100,19 +103,14 @@
 
 
                     <!-- DATOS DESDE LA BD DEL ALUMNO -->
-                    <tr>
-                        <td>1</td>
-                        <td>H</td>
-                        <td>manuel apolinar castillo</td>
-                    </tr>
+
 
                 </tbody>
             </table>
 
             <!-- TABLA DE ASISTENCIAS -->
-            <table class="tabla tabla-asistencias">
-
-                <tbody>
+            <table class="tabla">
+                <tbody id="tobody__asistencias">
                     <tr>
                         <th style="background: #dce6ef;" colspan="7">asistencias</th>
                     </tr>
@@ -129,23 +127,15 @@
 
 
                     <!-- DATOS DESDE LA BD DEL ALUMNO -->
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                    </tr>
+
 
                 </tbody>
             </table>
 
             <!-- TABLA DE INASISTENCIAS -->
-            <table class="tabla tabla-asistencias">
+            <table class="tabla">
 
-                <tbody>
+                <tbody id="tobody__inasistencias">
                     <tr>
                         <th style="background: #eaf1dc;" colspan="7">inasistencias</th>
                     </tr>
@@ -161,22 +151,15 @@
 
 
                     <!-- DATOS DESDE LA BD DEL ALUMNO -->
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                    </tr>
+
 
                 </tbody>
             </table>
 
             <!-- TABLA DE RASGOS A EVALUAR -->
-            <table class="tabla tabla-rasgos">
+            <table class="tabla">
 
-                <tbody>
+                <tbody id="tobody__rasgos">
 
                     <tr>
                         <th colspan="9" style="background: pink;">RASGOS A EVALUAR</th>
@@ -197,17 +180,7 @@
 
 
                     <!-- DATOS DESDE LA BD DEL ALUMNO -->
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                    </tr>
+
 
                 </tbody>
             </table>
@@ -215,64 +188,57 @@
             <!-- TABLA DE FORMACION ACADEMICA -->
             <table class="tabla tabla-formacion">
 
-                <tbody>
+                <tbody id="tobody__formacion">
 
                     <tr>
-                        <th style="background: #f7e7da;" colspan="7">FORMACION ACADEMICA</th>
+                        <th style="background: #f7e7da;" colspan="11">FORMACION ACADEMICA</th>
                     </tr>
 
                     <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
-                    <tr>
-                        <th>leng materna</th>
+                    <tr id="tr_academicas">
+                        <!-- <th>leng materna</th>
                         <th>ingles</th>
                         <th>matematicas</th>
                         <th>conocim del medio</th>
                         <th>artes</th>
                         <th>ed fisica</th>
-                        <th style="background: #f7e7da;">promedio</th>
+                        <th>materia</th> -->
+                        <!-- <th >promedio</th> -->
                     </tr>
 
-                    <!-- DATOS DESDE LA BD DEPENDIENDO DEL ALUMNO -->
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                    </tr>
 
+
+                    <!-- DATOS DE RASGOS A EVALUAR-->
                 </tbody>
             </table>
 
             <!-- TABLA DE RASGOS ASIGNATURAS OPCIONALES-->
             <table class="tabla tabla-opcionales">
 
-                <tbody>
+                <tbody id="tobody__opcionales">
 
                     <tr>
                         <th style="background: #b5dceb;" colspan="3">ASIGNATURAS OPCIONALES</th>
                     </tr>
 
                     <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
-                    <tr>
-                        <th style="background: #b5dceb;">ed socio-emocional</th>
+                    <tr id="tr_opcionales">
+                        <!-- <th style="background: #b5dceb;">ed socio-emocional</th>
                         <th style="background: #b5dceb;">inf. y robotica</th>
-                        <th style="background: #95cffe;">vida saludable</th>
+                        <th style="background: #95cffe;">vida saludable</th> -->
                     </tr>
 
                     <!-- DATOS DESDE LA BD DEL ALUMNO-->
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td>2</td>
                         <td>3</td>
-                    </tr>
+                    </tr> -->
 
                 </tbody>
             </table>
-        </div>
     </center>
+    </div>
 </body>
 
 </html>

@@ -9,12 +9,71 @@ import java.io.OutputStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 public class Test {
     public static void main(String[] args) throws IOException {
 
+        generarListaPDF();
+
+    }
+
+    public static void agregarAlumno(Document documentHTML){
+        Element alumnoRow = documentHTML.createElement("tr");
+        documentHTML.getElementById("tbody__alumnos").appendChild(alumnoRow);
+        alumnoRow.append("<td>" + "supa" +"</td>");
+        alumnoRow.append("<td>" + "info" +"</td>");
+        alumnoRow.append("<td>" + "info" +"</td>");
+        
+        Element asistenciaRow = documentHTML.createElement("tr");
+        documentHTML.getElementById("tobody__asistencias").appendChild(asistenciaRow);
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        asistenciaRow.append("<td> - </td>");
+        
+        Element inasistenciaRow = documentHTML.createElement("tr");
+        documentHTML.getElementById("tobody__inasistencias").appendChild(inasistenciaRow);
+        inasistenciaRow.append("<td> - </td>");
+        inasistenciaRow.append("<td> - </td>");
+        inasistenciaRow.append("<td> - </td>");
+        inasistenciaRow.append("<td> - </td>");
+        inasistenciaRow.append("<td> - </td>");
+        inasistenciaRow.append("<td> - </td>");
+        
+        Element rasgosRow = documentHTML.createElement("tr");
+        documentHTML.getElementById("tobody__rasgos").appendChild(rasgosRow);
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        rasgosRow .append("<td> - </td>");
+        
+        //aqui sera muy variable el resultado
+        Element formacionRow = documentHTML.createElement("tr");
+        documentHTML.getElementById("tobody__formacion").appendChild(formacionRow);
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+        formacionRow .append("<td> - </td>");
+    }
+
+
+
+    public static void generarListaPDF() throws IOException {
         String filePath = System.getProperty("user.dir");
         File templateHTML = new File(filePath + "\\index.html");
         File listaPDF = new File(filePath + "\\index.pdf");
@@ -23,10 +82,29 @@ public class Test {
         // Manipulacion del html
         Document documentHTML = Jsoup.parse(templateHTML);
         documentHTML.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
-        // documentHTML.getElementById("container").append("<p>Agregado desde JAVA
-        // 3</p>");
-        // documentHTML.getElementById("container").append("<img src='./logo.png'
-        // width='100px'/>");
+        agregarAlumno(documentHTML);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // obtencion del contenido de la plantilla HTML
         String contenidoHTML = documentHTML.html();
