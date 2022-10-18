@@ -13,6 +13,7 @@ module control_calificaciones {
     requires openhtmltopdf.rtl.support;
     requires openhtmltopdf.slf4j;
     requires openhtmltopdf.svg.support;
+    requires org.jsoup;
 
     opens control_calificaciones.controllers to javafx.fxml;
     opens control_calificaciones.models to javafx.base;

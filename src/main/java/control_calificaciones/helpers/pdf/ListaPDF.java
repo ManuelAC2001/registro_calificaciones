@@ -109,16 +109,15 @@ public class ListaPDF {
                 tabla.addCell(tablaCalificaciones);
             });
 
-
-            // inicio de la conexion a la base de datos
-
-            // finde la conexion a la base de datos
-
             documento.add(tabla);
 
             documento.close();
         } catch (Exception e) {
             System.out.println("Error al generar la lista" + e);
         }
+    }
+
+    public static void HTMLTest(){
+
     }
 }
