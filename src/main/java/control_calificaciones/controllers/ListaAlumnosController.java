@@ -158,7 +158,8 @@ public class ListaAlumnosController implements Initializable{
             return;
         }
 
-        ListaPDF.listaPDF(file, alumnos);
+        // ListaPDF.listaPDF(file, alumnos);
+        ListaPDF.listaHTMLPDF(file);
 
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Acción cancelada");
