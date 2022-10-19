@@ -35,7 +35,7 @@
         table {
             font-size: 5px;
         }
-        
+
         table,
         th,
         td {
@@ -48,7 +48,8 @@
             border: none;
         }
 
-        .tabla th, .tabla td{
+        .tabla th,
+        .tabla td {
             padding: 8px 4px;
         }
 
@@ -106,6 +107,9 @@
             margin-right: 20px;
         }
 
+        .tabla-opcionales {
+            margin-left: 10px;
+        }
     </style>
 
 </head>
@@ -135,6 +139,7 @@
             </section>
         </header>
     </center>
+
     <center>
         <div class="tabla__container">
 
@@ -229,11 +234,13 @@
                         <th>trabajos</th>
                         <th>tareas</th>
                     </tr>
-
-
+                    
                     <!-- DATOS DESDE LA BD DEL ALUMNO -->
 
-
+                    <tr id="tr_promedio_materias">
+                        <th colspan="9">PROMEDIO DE MATERIAS</th>
+                    </tr>
+                    
                 </tbody>
             </table>
 
@@ -257,8 +264,6 @@
                         <th>materia</th> -->
                         <!-- <th >promedio</th> -->
                     </tr>
-
-
 
                     <!-- DATOS DE RASGOS A EVALUAR-->
                 </tbody>

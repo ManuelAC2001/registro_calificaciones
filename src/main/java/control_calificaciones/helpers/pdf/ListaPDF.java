@@ -171,17 +171,19 @@ public class ListaPDF {
         inasistenciaRow.append("<td> - </td>");
 
         Element rasgosRow = documentHTML.createElement("tr");
+        Element tr_promedio_materias = documentHTML.getElementById("tr_promedio_materias");
         documentHTML.getElementById("tobody__rasgos").appendChild(rasgosRow);
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
-        rasgosRow.append("<td> - </td>");
+        documentHTML.getElementById("tobody__rasgos").after(tr_promedio_materias);
 
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
     }
 
     public static void agregarAsignaturasAcademicas(Document documentHTML, ArrayList<Asignatura> asignaturas,
@@ -255,6 +257,10 @@ public class ListaPDF {
                 agregarPromedioAcademico(documentHTML, asignaturasAcademicas, "tobody__formacion");
                 agregarPromedioAcademico(documentHTML, asignaturasOpcionales, "tobody__opcionales");
             });
+            
+            //Agregar row extra para el promedio de materias
+            agregarPromedioAcademico(documentHTML, asignaturasAcademicas, "tobody__formacion");
+            agregarPromedioAcademico(documentHTML, asignaturasOpcionales, "tobody__opcionales");
 
             agregarInformacionExtra(documentHTML, alumnos);
 
