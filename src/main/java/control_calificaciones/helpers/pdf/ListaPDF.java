@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
+import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -214,7 +215,7 @@ public class ListaPDF {
         documentHTML.getElementById("grado_info").append("GRADO: " + gradoInfo);
         documentHTML.getElementById("grupo_info").append("GRUPO: " + grupoInfo);
         documentHTML.getElementById("mes_info").append("MES: " + mesInfo);
-        documentHTML.getElementById("anio_info").append("ANIO: " + AnioInfo);
+        documentHTML.getElementById("anio_info").append("AÑO: " + AnioInfo);
     }
 
 
@@ -268,10 +269,17 @@ public class ListaPDF {
             // Convirtiendo en PDF el archivo lista.html
             OutputStream os = new FileOutputStream(listaPDF);
             PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
+
+            //Arreglando bug de caracteres UTF-8
+            W3CDom w3cDom = new W3CDom(); // org.jsoup.helper.W3CDom
+            org.w3c.dom.Document w3cDoc = w3cDom.fromJsoup(documentHTML);
+
             pdfBuilder.useFastMode();
-            pdfBuilder.withFile(listaHTML);
+            // pdfBuilder.withFile(listaHTML);
+            pdfBuilder.withW3cDocument(w3cDoc, null);
             pdfBuilder.toStream(os);
             pdfBuilder.run();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

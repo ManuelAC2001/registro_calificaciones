@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.jsoup.Jsoup;
+import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -20,13 +21,13 @@ public class Test {
 
     }
 
-    public static void agregarAlumno(Document documentHTML){
+    public static void agregarAlumno(Document documentHTML) {
         Element alumnoRow = documentHTML.createElement("tr");
         documentHTML.getElementById("tbody__alumnos").appendChild(alumnoRow);
-        alumnoRow.append("<td>" + "supa" +"</td>");
-        alumnoRow.append("<td>" + "info" +"</td>");
-        alumnoRow.append("<td>" + "info" +"</td>");
-        
+        alumnoRow.append("<td>" + "supa" + "</td>");
+        alumnoRow.append("<td>" + "info" + "</td>");
+        alumnoRow.append("<td>" + "info" + "</td>");
+
         Element asistenciaRow = documentHTML.createElement("tr");
         documentHTML.getElementById("tobody__asistencias").appendChild(asistenciaRow);
         asistenciaRow.append("<td> - </td>");
@@ -36,7 +37,7 @@ public class Test {
         asistenciaRow.append("<td> - </td>");
         asistenciaRow.append("<td> - </td>");
         asistenciaRow.append("<td> - </td>");
-        
+
         Element inasistenciaRow = documentHTML.createElement("tr");
         documentHTML.getElementById("tobody__inasistencias").appendChild(inasistenciaRow);
         inasistenciaRow.append("<td> - </td>");
@@ -45,33 +46,31 @@ public class Test {
         inasistenciaRow.append("<td> - </td>");
         inasistenciaRow.append("<td> - </td>");
         inasistenciaRow.append("<td> - </td>");
-        
+
         Element rasgosRow = documentHTML.createElement("tr");
         documentHTML.getElementById("tobody__rasgos").appendChild(rasgosRow);
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        rasgosRow .append("<td> - </td>");
-        
-        //aqui sera muy variable el resultado
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+        rasgosRow.append("<td> - </td>");
+
+        // aqui sera muy variable el resultado
         Element formacionRow = documentHTML.createElement("tr");
         documentHTML.getElementById("tobody__formacion").appendChild(formacionRow);
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
-        formacionRow .append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
+        formacionRow.append("<td> - </td>");
     }
-
-
 
     public static void generarListaPDF() throws IOException {
         String filePath = System.getProperty("user.dir");
@@ -82,33 +81,12 @@ public class Test {
         // Manipulacion del html
         Document documentHTML = Jsoup.parse(templateHTML);
         documentHTML.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
+
         agregarAlumno(documentHTML);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // obtencion del contenido de la plantilla HTML
         String contenidoHTML = documentHTML.html();
-        // System.out.println(contenidoHTML);
+        System.out.println(contenidoHTML);
 
         // Escribiendo en el archivo lista HTML
         try {
@@ -122,8 +100,15 @@ public class Test {
         // Convirtiendo en PDF el archivo lista.html
         try (OutputStream os = new FileOutputStream(listaPDF)) {
             PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
+
+            //Arreglando bug de caracteres UTF-8
+            W3CDom w3cDom = new W3CDom(); // org.jsoup.helper.W3CDom
+            org.w3c.dom.Document w3cDoc = w3cDom.fromJsoup(documentHTML);
+
             pdfBuilder.useFastMode();
-            pdfBuilder.withFile(listaHTML);
+            // pdfBuilder.withFile(listaHTML);
+            pdfBuilder.withW3cDocument(w3cDoc, null);
+
             pdfBuilder.toStream(os);
             pdfBuilder.run();
         }

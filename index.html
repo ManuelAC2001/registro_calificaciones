@@ -19,7 +19,7 @@
         }
 
         .container img {
-            margin-right: 20px;
+            margin-right: 10px;
         }
 
         .alumno__informacion {
@@ -28,7 +28,7 @@
         }
 
         .escuela__informacion {
-            font-size: 5px;
+            font-size: 4px;
             text-align: center;
         }
 
@@ -44,6 +44,10 @@
             border: .5px solid;
         }
 
+        .tabla th, .tabla td{
+            padding: 8px 4px;
+        }
+
         .tabla__container {
             margin-top: 22px;
         }
@@ -55,6 +59,49 @@
         #tr_materias th:last-child {
             background: #f7e7da;
         }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 6px;
+        }
+
+
+        .firma {
+            border-bottom: 0.5px solid;
+        }
+
+        .firma.firma-vertical {
+            height: 15px;
+        }
+
+        .firma.firma-horizontal {
+            width: 30px;
+            background: pink;
+        }
+
+        .table__porcentajes {
+            font-size: 6px;
+            border: none;
+        }
+
+        .table__porcentajes tr th {
+            border: none;
+            padding-top: 6px;
+        }
+
+        .table__porcentajes td {
+            padding: 0 6px;
+        }
+
+        .promedio_grupo {
+            background: #b5dceb;
+        }
+
+        .info_container {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
     </style>
 
 </head>
@@ -74,7 +121,7 @@
 
             <section class="container escuela__informacion">
 
-                <img src="./logo.png" width="40px" />
+                <img id="img__logo" src="http://localhost:5500/logo.png" width="40px">
 
                 <section class="container">
                     <h1>INSTITUTO "HISPANOAMERICANO-MEXICANO"</h1>
@@ -238,8 +285,68 @@
 
                 </tbody>
             </table>
+        </div>
     </center>
-    </div>
+
+    <center>
+        <footer class="footer">
+            <section>
+
+                <div class="info_container">
+                    <span>FIRMA DEL MAESTRO(A)</span>
+                    <div class="firma firma-vertical"></div>
+                </div>
+
+                <div class="info_container">
+
+                    <table class="table__porcentajes">
+
+                        <tr>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <td>% DE ASISTENCIAS</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <th></th>
+                        </tr>
+
+                        <tr>
+                            <td>% DE ASISTENCIAS</td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+
+
+                    <div style="margin-top: 20px;">
+                        <span>PROMEDIO DEL GRUPO</span>
+                        <div class="firma firma-vertical"></div>
+                    </div>
+
+                </div>
+
+                <div class="info_container">
+                    <span>NOMBRE Y FIRMA DEL DIRECTOR</span>
+                    <div class="firma firma-vertical"></div>
+                </div>
+
+
+                <!-- <div class="container">
+                    <span style="display: inline;">PROMEDIO DEL GRUPO:</span>
+
+                    <div class="container">
+                        <div class="firma firma-horizontal"></div>
+                    </div>
+                </div> -->
+
+            </section>
+        </footer>
+    </center>
+
 </body>
 
 </html>
