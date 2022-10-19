@@ -10,10 +10,6 @@
             margin: 0;
         }
 
-        body {
-            writing-mode: tb-rl;
-        }
-
         .container {
             display: inline-block;
         }
@@ -36,21 +32,24 @@
             text-align: center;
         }
 
-        .container__table {
-            margin-top: 30px;
+        table {
+            font-size: 8px;
         }
 
-        .table {
-            font-size: 9px;
+        table,
+        th,
+        td {
+            border-spacing: 0;
+            text-align: center;
+            border: .5px solid;
         }
 
-        .table caption {
-            font-size: 9px;
-            height: 26px;
+        .tabla__container {
+            margin-top: 22px;
         }
 
-        .table__secundaria {
-            margin-top: 1000px;
+        .tabla {
+            display: inline;
         }
     </style>
 
@@ -81,112 +80,199 @@
         </header>
     </center>
 
-    <div class="container__table">
-        <table class="table">
-            <tr>
+    <center>
+        <div class="tabla__container">
 
-                <th>
-                    <table class="table">
-                        <caption></caption>
-                        <tr>
-                            <th>No. Lista</th>
-                            <th>Sexo</th>
-                            <th>Nombre del alumno</th>
-                        </tr>
-                    </table>
-                </th>
+            <!-- TABLA DE INFO ALUMNO -->
+            <table style="border: none;" class="tabla tabla-rasgos">
 
+                <tbody>
+                    <tr>
+                        <th style="border: none;" colspan="3"></th>
+                    </tr>
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: #9ecdff; color: #9ecdff;">SPACE</caption>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>total</th>
-                        </tr>
-                    </table>
-                </th>
+                    <!-- DATOS DESDE LA BD DE LOS ALUMNOS EN GENERAL -->
+                    <tr>
+                        <th>No. lista</th>
+                        <th>sexo</th>
+                        <th>Nombre del alumno</th>
+                    </tr>
 
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: #ebefe1;">INACISTENCIAS</caption>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>total</th>
-                        </tr>
-                    </table>
-                </th>
+                    <!-- DATOS DESDE LA BD DEL ALUMNO -->
+                    <tr>
+                        <td>1</td>
+                        <td>H</td>
+                        <td>manuel apolinar castillo</td>
+                    </tr>
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: #9ecdff; color: #9ecdff;"> SPACE </caption>
-                        <tr style="background-color: #9ecdff;">
-                            <th style="background-color: #9ecdff;">Asistencia</th>
-                        </tr>
-                    </table>
-                </th>
+                </tbody>
+            </table>
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: pink;">RASGOS A EVALUAR</caption>
-                        <tr>
-                            <th>ortografia</th>
-                            <th>disciplina</th>
-                            <th>uniforme y aseo</th>
-                            <th>puntualidad</th>
-                            <th>material</th>
-                            <th>participacion</th>
-                            <th>comp lect</th>
-                            <th>trabajos</th>
-                            <th>tareas</th>
-                        </tr>
-                    </table>
+            <!-- TABLA DE ASISTENCIAS -->
+            <table class="tabla tabla-asistencias">
 
-                </th>
+                <tbody>
+                    <tr>
+                        <th style="background: #dce6ef;" colspan="7">asistencias</th>
+                    </tr>
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: #fce9da;">FORMACION ACADEMICA</caption>
-                        <tr>
-                            <th>leng materna</th>
-                            <th>ingles</th>
-                            <th>matematicas</th>
-                            <th>conocim del medio</th>
-                            <th>artes</th>
-                            <th>ed. fisica</th>
-                            <th style="background-color: #fce9da;">promedio</th>
-                        </tr>
-                    </table>
-                </th>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>total</th>
+                    </tr>
 
 
-                <th>
-                    <table class="table">
-                        <caption style="background-color: #b7dde6;">ASIGNATURAS OPCIONALES</caption>
-                        <tr>
-                            <th>ed. socio-emocional</th>
-                            <th>inf. robotica</th>
-                            <th style="background-color: #9ecdff;">vida saludable</th>
-                        </tr>
-                    </table>
-                </th>
+                    <!-- DATOS DESDE LA BD DEL ALUMNO -->
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- TABLA DE INASISTENCIAS -->
+            <table class="tabla tabla-asistencias">
+
+                <tbody>
+                    <tr>
+                        <th style="background: #eaf1dc;" colspan="7">inasistencias</th>
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>total</th>
+                    </tr>
 
 
-            </tr>
-        </table>
-    </div>
+                    <!-- DATOS DESDE LA BD DEL ALUMNO -->
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
 
+                </tbody>
+            </table>
+
+            <!-- TABLA DE RASGOS A EVALUAR -->
+            <table class="tabla tabla-rasgos">
+
+                <tbody>
+
+                    <tr>
+                        <th colspan="9" style="background: pink;">RASGOS A EVALUAR</th>
+                    </tr>
+
+                    <!-- DATOS DESDE LA BD DE LOS ALUMNOS EN GENERAL -->
+                    <tr>
+                        <th>ortografia</th>
+                        <th>disciplina</th>
+                        <th>uniforme y aseo</th>
+                        <th>puntualidad</th>
+                        <th>material</th>
+                        <th>participacion</th>
+                        <th>comp. lect</th>
+                        <th>trabajos</th>
+                        <th>tareas</th>
+                    </tr>
+
+
+                    <!-- DATOS DESDE LA BD DEL ALUMNO -->
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- TABLA DE FORMACION ACADEMICA -->
+            <table class="tabla tabla-formacion">
+
+                <tbody>
+
+                    <tr>
+                        <th style="background: #f7e7da;" colspan="7">FORMACION ACADEMICA</th>
+                    </tr>
+
+                    <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
+                    <tr>
+                        <th>leng materna</th>
+                        <th>ingles</th>
+                        <th>matematicas</th>
+                        <th>conocim del medio</th>
+                        <th>artes</th>
+                        <th>ed fisica</th>
+                        <th style="background: #f7e7da;">promedio</th>
+                    </tr>
+
+                    <!-- DATOS DESDE LA BD DEPENDIENDO DEL ALUMNO -->
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- TABLA DE RASGOS ASIGNATURAS OPCIONALES-->
+            <table class="tabla tabla-opcionales">
+
+                <tbody>
+
+                    <tr>
+                        <th style="background: #b5dceb;" colspan="3">ASIGNATURAS OPCIONALES</th>
+                    </tr>
+
+                    <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
+                    <tr>
+                        <th style="background: #b5dceb;">ed socio-emocional</th>
+                        <th style="background: #b5dceb;">inf. y robotica</th>
+                        <th style="background: #95cffe;">vida saludable</th>
+                    </tr>
+
+                    <!-- DATOS DESDE LA BD DEL ALUMNO-->
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </center>
 </body>
 
 </html>

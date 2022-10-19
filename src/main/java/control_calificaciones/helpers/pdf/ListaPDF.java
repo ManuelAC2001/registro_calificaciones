@@ -1,8 +1,15 @@
 package control_calificaciones.helpers.pdf;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+
+import org.jsoup.Jsoup;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -13,8 +20,10 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import control_calificaciones.models.Alumno;
+
 public class ListaPDF {
 
     public static void listaPDF(File file, ArrayList<Alumno> alumnos) {
@@ -102,7 +111,7 @@ public class ListaPDF {
 
             // registros de los alumnos desde la BD
 
-            alumnos.forEach(alumno -> { 
+            alumnos.forEach(alumno -> {
                 tabla.addCell(new Paragraph(alumno.getCurp(), FontFactory.getFont("Arial", 5, Font.BOLD)));
                 tabla.addCell(new Paragraph(alumno.getGenero().toString(), FontFactory.getFont("Arial", 5, Font.BOLD)));
                 tabla.addCell(new Paragraph(alumno.getNombreCompleto(), FontFactory.getFont("Arial", 5, Font.BOLD)));
@@ -117,7 +126,42 @@ public class ListaPDF {
         }
     }
 
-    public static void HTMLTest(){
+    public static void listaHTMLPDF(File file) {
 
+        final String RUTA_LISTA_PDF = file.toString() + ".pdf";
+
+        String filePath = System.getProperty("user.dir");
+        File templateHTML = new File(filePath + "\\index.html");
+        File listaHTML = new File(filePath + "\\listas.html");
+        File listaPDF = new File(RUTA_LISTA_PDF);
+
+        try {
+            org.jsoup.nodes.Document documentHTML;
+            documentHTML = Jsoup.parse(templateHTML);
+            documentHTML.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+
+            // obtencion del contenido de la plantilla HTML
+            String contenidoHTML = documentHTML.html();
+
+            // Escribiendo en el archivo lista HTML
+            BufferedWriter bfr = new BufferedWriter(new FileWriter(listaHTML));
+            bfr.write(contenidoHTML);
+            bfr.close();
+
+            // Convirtiendo en PDF el archivo lista.html
+            OutputStream os = new FileOutputStream(listaPDF);
+            PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
+            pdfBuilder.useFastMode();
+            pdfBuilder.withFile(listaHTML);
+            pdfBuilder.toStream(os);
+            pdfBuilder.run();
+        }
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 }
