@@ -252,6 +252,7 @@ public class ListaPDF {
             // manipulando el DOM
             agregarAsignaturasAcademicas(documentHTML, asignaturasAcademicas, "tr_academicas");
             agregarAsignaturasAcademicas(documentHTML, asignaturasOpcionales,"tr_opcionales");
+            
             alumnos.forEach(alumno -> {
                 agregarAlumno(documentHTML, alumno);
                 agregarPromedioAcademico(documentHTML, asignaturasAcademicas, "tobody__formacion");
