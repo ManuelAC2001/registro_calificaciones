@@ -1,0 +1,31 @@
+.header__login {
+    -fx-background-color: #000051;
+}
+
+.login__container {
+    -fx-background-color: #FFF;
+}
+
+.image__container {
+    -fx-background-color: #FFF;
+
+}
+
+.login__btn {
+    -fx-background-color: #e6862d;
+}
+
+.login__btn:hover {
+    -fx-background-color: #df7c1f;
+    -fx-cursor: hand;
+}
+
+.input-error {
+    -fx-text-box-border: red;
+    -fx-focus-color: red;
+}
+
+.input {
+    -fx-pref-width: 400;
+    -fx-pref-height: 40;
+}

@@ -1,14 +1,5 @@
 package control_calificaciones;
 
-<<<<<<< HEAD
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-
-=======
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,28 +13,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
->>>>>>> dbc2e6b3778428a7699edfc3cb55d0ea6b81648f
 
 public class Test {
     public static void main(String[] args) throws IOException {
 
-<<<<<<< HEAD
-        String filePath = System.getProperty("user.dir");
-
-        File htmlSource = new File(filePath + "\\index.html");
-        File pdfDest = new File(filePath + "\\index.pdf");
-
-        try (OutputStream os = new FileOutputStream(pdfDest)) {
-            PdfRendererBuilder builder = new PdfRendererBuilder();
-            builder.useFastMode();
-            builder.withFile(htmlSource);
-            builder.toStream(os);
-            builder.run();
-        }
-        
-    }
-
-=======
         generarListaPDF();
 
     }
@@ -140,5 +113,4 @@ public class Test {
             pdfBuilder.run();
         }
     }
->>>>>>> dbc2e6b3778428a7699edfc3cb55d0ea6b81648f
 }

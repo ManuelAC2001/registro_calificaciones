@@ -10,37 +10,18 @@ import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-// import com.itextpdf.*;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-=======
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
->>>>>>> dbc2e6b3778428a7699edfc3cb55d0ea6b81648f
 
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.usuarios.Asignatura;
 
 public class ListaPDF {
 
-<<<<<<< HEAD
-    public static void listaPDF(File file, ArrayList<Alumno> alumnos) {
-        
-        String NOMBRE_ARCHIVO = file.toString() + ".pdf";
-        Document documento = new Document();
-=======
     // public static void listaPDF(File file, ArrayList<Alumno> alumnos) {
     // String NOMBRE_ARCHIVO = file.toString() + ".pdf";
     // Document documento = new Document();
@@ -262,7 +243,6 @@ public class ListaPDF {
         File templateHTML = new File(filePath + "\\index.html");
         File listaHTML = new File(filePath + "\\listas.html");
         File listaPDF = new File(RUTA_LISTA_PDF);
->>>>>>> dbc2e6b3778428a7699edfc3cb55d0ea6b81648f
 
         try {
             org.jsoup.nodes.Document documentHTML;
@@ -283,9 +263,6 @@ public class ListaPDF {
             agregarPromedioAcademico(documentHTML, asignaturasAcademicas, "tobody__formacion");
             agregarPromedioAcademico(documentHTML, asignaturasOpcionales, "tobody__opcionales");
 
-<<<<<<< HEAD
-            documento.add(tabla);
-=======
             agregarInformacionExtra(documentHTML, alumnos);
 
             // obtencion del contenido de la plantilla HTML
@@ -299,7 +276,6 @@ public class ListaPDF {
             // Convirtiendo en PDF el archivo lista.html
             OutputStream os = new FileOutputStream(listaPDF);
             PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
->>>>>>> dbc2e6b3778428a7699edfc3cb55d0ea6b81648f
 
             //Arreglando bug de caracteres UTF-8
             W3CDom w3cDom = new W3CDom(); // org.jsoup.helper.W3CDom
@@ -318,5 +294,4 @@ public class ListaPDF {
         }
 
     }
-
 }
