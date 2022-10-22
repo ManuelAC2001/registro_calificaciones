@@ -489,6 +489,7 @@ public class RegistrarAlumnoController implements Initializable {
         txtApellidoPaTutor.setText("");
         txtMaTutor.setText("");
 
+        txtCorreoTutor.setDisable(false);
         txtCorreoTutor.setText("");
         txtCorreoTutor2.setText("");
     }
