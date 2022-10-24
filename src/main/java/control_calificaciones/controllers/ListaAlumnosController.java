@@ -13,7 +13,7 @@ import control_calificaciones.data.AlumnoDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.pdf.ListaPDF;
 import control_calificaciones.models.Alumno;
-import control_calificaciones.models.usuarios.Asignatura;
+import control_calificaciones.models.Asignatura;
 import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;
 import javafx.collections.FXCollections;

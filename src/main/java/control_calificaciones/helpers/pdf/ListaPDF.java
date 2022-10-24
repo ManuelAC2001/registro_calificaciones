@@ -18,7 +18,7 @@ import org.jsoup.nodes.Element;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import control_calificaciones.models.Alumno;
-import control_calificaciones.models.usuarios.Asignatura;
+import control_calificaciones.models.Asignatura;
 
 public class ListaPDF {
 

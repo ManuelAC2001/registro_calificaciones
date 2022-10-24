@@ -1,4 +1,4 @@
-package control_calificaciones.models.usuarios;
+package control_calificaciones.models;
 
 public class Asignatura {
 
