@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import control_calificaciones.models.Alumno;
+import control_calificaciones.models.Asignatura;
 import control_calificaciones.models.Aula;
-import control_calificaciones.models.usuarios.Asignatura;
 
 public class AlumnoDAO {
 
@@ -307,10 +307,6 @@ public class AlumnoDAO {
             Conexion.close(cstmt);
             Conexion.close(rs);
         }
-
-
-
-
         return asignaturas;
     }
 

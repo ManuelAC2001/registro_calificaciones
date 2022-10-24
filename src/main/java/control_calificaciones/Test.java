@@ -6,20 +6,29 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+
+import control_calificaciones.data.usuarios.UsuarioDAOH;
+import control_calificaciones.models.usuarios.UsuarioH;
+
 
 public class Test {
     public static void main(String[] args) throws IOException {
 
-        generarListaPDF();
-
+        UsuarioDAOH usuarioDAO = new UsuarioDAOH();
+        UsuarioH user = new UsuarioH(17);
+        user = usuarioDAO.buscarPorId(user);
+        
+        user.setNombreUsuario("margarita");
+        usuarioDAO.actualizar(user);        
     }
+
 
     public static void agregarAlumno(Document documentHTML) {
         Element alumnoRow = documentHTML.createElement("tr");
@@ -101,7 +110,7 @@ public class Test {
         try (OutputStream os = new FileOutputStream(listaPDF)) {
             PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
 
-            //Arreglando bug de caracteres UTF-8
+            // Arreglando bug de caracteres UTF-8
             W3CDom w3cDom = new W3CDom(); // org.jsoup.helper.W3CDom
             org.w3c.dom.Document w3cDoc = w3cDom.fromJsoup(documentHTML);
 
