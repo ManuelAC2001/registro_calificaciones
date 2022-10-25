@@ -14,9 +14,13 @@ import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
+import control_calificaciones.helpers.emails.EnviarEmails;
+
 public class Test {
     public static void main(String[] args) throws IOException {
 
+        //new EnviarEmails("roberttv17@gmail.com", "test", "boleta");
+        
         //generarListaPDF();
 
     }
