@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -23,6 +24,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.models.Alumno;
 =======
+=======
+>>>>>>> testHtmlPdf
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
@@ -33,7 +36,10 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Asignatura;
 
+<<<<<<< HEAD
 >>>>>>> 6584f1c8dae440b102306104fe7882dd7f9202fa
+=======
+>>>>>>> testHtmlPdf
 public class ListaPDF {
 
     // public static void listaPDF(File file, ArrayList<Alumno> alumnos) {
@@ -201,7 +207,7 @@ public class ListaPDF {
     }
 
     public static void agregarAsignaturasAcademicas(Document documentHTML, ArrayList<Asignatura> asignaturas,
-            String idTr) {
+        String idTr) {
 
         asignaturas.forEach(asignatura -> {
             Element materiaHead = documentHTML.createElement("th");
