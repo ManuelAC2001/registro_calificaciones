@@ -13,6 +13,7 @@ import control_calificaciones.data.AlumnoDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.pdf.ListaPDF;
 import control_calificaciones.models.Alumno;
+import control_calificaciones.models.Asignatura;
 import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;
 import javafx.collections.FXCollections;
@@ -143,6 +144,10 @@ public class ListaAlumnosController implements Initializable{
             return;
         }
 
+
+        String nombreGrado = alumnos.get(0).getNombre_grado();
+        ArrayList<Asignatura> asignaturas = new  AlumnoDAO().getAsignaturas(nombreGrado); 
+
         String workPath = System.getProperty("user.dir");
 
         FileChooser fileChooser = new FileChooser();
@@ -158,13 +163,12 @@ public class ListaAlumnosController implements Initializable{
             return;
         }
 
-        ListaPDF.listaPDF(file, alumnos);
+        ListaPDF.listaHTMLPDF(file, alumnos, asignaturas);
 
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Acción cancelada");
         alert.setContentText("la lista de alumnos se guardo correctamente");
         alert.showAndWait();
-
     }
 
     @FXML

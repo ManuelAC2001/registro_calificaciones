@@ -1,4 +1,4 @@
-module control_calificaciones {
+open module control_calificaciones {
     
     requires javafx.controls;
     requires javafx.fxml;
@@ -13,9 +13,12 @@ module control_calificaciones {
     requires openhtmltopdf.rtl.support;
     requires openhtmltopdf.slf4j;
     requires openhtmltopdf.svg.support;
+    requires org.jsoup;
+    requires lombok;
 
-    opens control_calificaciones.controllers to javafx.fxml;
-    opens control_calificaciones.models to javafx.base;
-    
+    // IMPLEMENTACION DE HIBERNATE
+    requires java.persistence;
+    requires org.hibernate.orm.core;
+
     exports control_calificaciones;
 }

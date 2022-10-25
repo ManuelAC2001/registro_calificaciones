@@ -25,6 +25,7 @@ public class GenerarPDF {
 
         String NOMBRE_ARCHIVO = file.toString() + ".pdf";
         Document documento = new Document();
+        
 
         try {
             //PdfWriter.getInstance(documento, new FileOutputStream(NOMBRE_ARCHIVO));
@@ -61,6 +62,7 @@ public class GenerarPDF {
             documento.add(subtitulo);
 
             // Creamos la tabla (Bitacora)
+            
             PdfPTable tablaBitacora = new PdfPTable(6);
             tablaBitacora.setSpacingBefore(30);
             // Le damos titulo a cada columna
@@ -114,8 +116,10 @@ public class GenerarPDF {
 
             // Añadimos la tabla dentro del documento PDF
             documento.add(tablaBitacora);
-
             documento.close();
+
+            
+
         } catch (Exception e) {
             System.out.println("Error al generar PDF" + e);
         }

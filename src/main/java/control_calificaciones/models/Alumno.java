@@ -42,8 +42,6 @@ public class Alumno {
         this.nombre_grupo = nombre_grupo;
     }
 
-    
-
     public String getCurp() {
         return curp;
     }

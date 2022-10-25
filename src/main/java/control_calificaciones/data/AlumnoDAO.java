@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import control_calificaciones.models.Alumno;
+import control_calificaciones.models.Asignatura;
 import control_calificaciones.models.Aula;
 
 public class AlumnoDAO {
@@ -230,7 +231,7 @@ public class AlumnoDAO {
     }
 
     public ArrayList<Alumno> getListaAlumnosByAula(String nombre_grado, String nombre_grupo){
-        
+
         ArrayList<Alumno> alumnos = new ArrayList<>();
         String callProcedure = "{CALL getListaAlumnosByAula(?,?)}";
 
@@ -270,4 +271,43 @@ public class AlumnoDAO {
 
     }
     
+    public ArrayList<Asignatura> getAsignaturas(String grado){
+
+        ArrayList<Asignatura> asignaturas = new ArrayList<>();
+        String callProcedure = "{CALL getAsignaturasByIdGrado(?)}";
+
+        Connection cn = null;
+        CallableStatement cstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            cn = Conexion.getConnection();
+            cstmt = cn.prepareCall(callProcedure);
+            cstmt.setString(1, grado);
+            rs = cstmt.executeQuery();
+
+            while(rs.next()){
+
+                Asignatura asignatura = new Asignatura();
+                asignatura.setId_asignatura( rs.getInt("id_asignatura") );
+                asignatura.setNombre_materia( rs.getString("nombre_materia") );
+                asignatura.setId_grado( rs.getInt("id_grado"));
+                asignatura.setNombre_grado( rs.getString("nombre_grado"));
+                asignatura.setId_tipo( rs.getInt("id_tipo"));
+                asignatura.setTipo( rs.getString("tipo") );
+                
+                asignaturas.add(asignatura);
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            Conexion.close(rs);
+            Conexion.close(cstmt);
+            Conexion.close(rs);
+        }
+        return asignaturas;
+    }
+
 }
