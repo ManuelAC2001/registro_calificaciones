@@ -4,7 +4,7 @@ import java.util.List;
 import javax.persistence.Query;
 import control_calificaciones.models.AlumnoH;
 
-public class AlumnoDAOH extends GenericDAO{
+public class AlumnoDAOH extends GenericDAO {
 
     public List<AlumnoH> listar() {
         String consulta = "SELECT alumno FROM AlumnoH alumno";
@@ -21,14 +21,12 @@ public class AlumnoDAOH extends GenericDAO{
 
             entityManager.persist(alumno);
             entityManager.getTransaction().commit();
-        } 
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        } 
-        finally {
-            if(entityManager != null){
+        } finally {
+            if (entityManager != null) {
                 entityManager.close();
-            }  
+            }
         }
     }
 
@@ -62,8 +60,24 @@ public class AlumnoDAOH extends GenericDAO{
         }
     }
 
-    public AlumnoH buscarPorId(AlumnoH alumno){
+    public AlumnoH buscarPorId(AlumnoH alumno) {
         entityManager = getEntityManager();
         return entityManager.find(AlumnoH.class, alumno.getCurp());
     }
+
+    public AlumnoH buscarNombre(AlumnoH alumno) {
+        String consulta = "SELECT a FROM AlumnoH a WHERE" +
+                " a.nombre = " + "'" +alumno.getNombre() + "'" + " AND" +
+                " a.apellidoPaterno = " + "'" +alumno.getApellidoPaterno() + "'" + " AND" +
+                " a.apellidoMaterno = " + "'" +alumno.getApellidoMaterno() + "'";
+                
+        entityManager = getEntityManager();
+        Query query = entityManager.createQuery(consulta);
+
+        if (query.getResultList().isEmpty()) {
+            return null;
+        }
+        return (AlumnoH) query.getSingleResult();
+    }
+
 }

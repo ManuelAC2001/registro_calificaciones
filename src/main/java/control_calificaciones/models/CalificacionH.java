@@ -18,29 +18,29 @@ public class CalificacionH {
     @EqualsAndHashCode.Include
     private Integer idCalificacion;
 
-    private String resultado;    
+    private Integer resultado;    
 
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "curp", referencedColumnName = "curp")
     private AlumnoH alumno;
 
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
     private GrupoH grupo;
 
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "id_grado", referencedColumnName = "id_grado")
     private GradoH grado;
 
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura")
     private AsignaturaH asignatura;
     
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "id_mes", referencedColumnName = "id_mes")
     private MesH mes;
 
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "id_ciclo_escolar", referencedColumnName = "id_ciclo_escolar")
     private CicloEscolarH cicloEscolar;
 

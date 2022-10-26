@@ -198,7 +198,7 @@
                                                             <Image url="@img/icons/notepad.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="CAPTURA DE CALIFICACIONES" textAlignment="CENTER">
+                                                      <Button mnemonicParsing="false" onAction="#entrarCapturaCalificaciones" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="CAPTURA DE CALIFICACIONES" textAlignment="CENTER">
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>

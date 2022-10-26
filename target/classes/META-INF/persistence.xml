@@ -5,12 +5,36 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     >
 
-    <persistence-unit name="hibernateJPA">
+    <persistence-unit name="hibernateJPA" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!-- <class>registro_calificaciones.models.AlumnoH</class>
+
+        <!-- <class>registro_calificaciones.models.usuarios.PrivilegioH</class>
+        <class>registro_calificaciones.models.usuarios.RolH</class>
+        <class>registro_calificaciones.models.usuarios.UsuarioH</class>
+        
+        <class>registro_calificaciones.models.AlumnoH</class>
+        <class>registro_calificaciones.models.AsignaturaH</class>
+        <class>registro_calificaciones.models.AulaH</class>
+        <class>registro_calificaciones.models.BitacoraSesionH</class>
+        <class>registro_calificaciones.models.BoletaH</class>
+        <class>registro_calificaciones.models.CalificacionH</class>
+        <class>registro_calificaciones.models.CicloEscolarH</class>
+        <class>registro_calificaciones.models.CicloEscolarH</class>
+        <class>registro_calificaciones.models.CorreoTutorH</class>
+        <class>registro_calificaciones.models.InasistenciaH</class>
+        <class>registro_calificaciones.models.MesH</class>
+        <class>registro_calificaciones.models.MesH</class>
+        <class>registro_calificaciones.models.PeriodoH</class>
+        <class>registro_calificaciones.models.TipoAsignaturaH</class>
+        <class>registro_calificaciones.models.TipoBoletaH</class>
         <class>registro_calificaciones.models.TutorH</class> -->
+
+
+
+        <!-- <class>registro_calificaciones.models.TutorH</class> -->
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/registro_calificaciones?useSSL=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/registro_calificaciones?useSSL=true&amp;useTimezone=true&amp;serverTimezone=UTC" /> -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/registro_calificaciones?useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />

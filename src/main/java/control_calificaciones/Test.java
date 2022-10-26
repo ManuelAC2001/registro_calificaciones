@@ -22,12 +22,6 @@ public class Test {
     public static void main(String[] args) throws IOException {
 
         // generarListaPDF();
-        
-        UsuarioDAOH usuarioDAO = new UsuarioDAOH();
-        UsuarioH user = new UsuarioH(17);
-        user = usuarioDAO.buscarPorId(user);
-        
-        System.out.println(user);
     }
 
 

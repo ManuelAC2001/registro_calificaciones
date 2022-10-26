@@ -1,6 +1,8 @@
 package control_calificaciones.models;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.*;
 import lombok.*;
 
@@ -43,6 +45,10 @@ public class AlumnoH {
     @ManyToOne
     @JoinColumn(name = "id_aula", referencedColumnName = "id_aula")
     private AulaH aula;
+
+    @OneToMany(mappedBy = "alumno")
+    @ToString.Exclude
+    private List<CalificacionH> calificaciones;
 
     public String getNombreCompleto(){
         return 

@@ -4,7 +4,7 @@ import java.util.List;
 import javax.persistence.Query;
 import control_calificaciones.models.MesH;
 
-public class MesDAOH extends GenericDAO{
+public class MesDAOH extends GenericDAO {
 
     public List<MesH> listar() {
         String consulta = "SELECT mes FROM MesH mes";
@@ -63,6 +63,19 @@ public class MesDAOH extends GenericDAO{
     public MesH buscarPorId(MesH mes) {
         entityManager = getEntityManager();
         return entityManager.find(MesH.class, mes.getIdMes());
+    }
+
+    public MesH buscarPoNombre(MesH mes) {
+
+        String consulta = "SELECT m FROM MesH m WHERE " +
+                "m.nombre = " + "'" + mes.getNombre() + "'";
+        entityManager = getEntityManager();
+        Query query = entityManager.createQuery(consulta);
+
+        if (query.getResultList().isEmpty()) {
+            return null;
+        }
+        return (MesH) query.getSingleResult();
     }
 
 }

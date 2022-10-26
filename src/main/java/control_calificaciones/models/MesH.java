@@ -11,6 +11,13 @@ import lombok.*;
 @Table( name = "meses" )
 public class MesH {
 
+    public MesH() {
+    }
+
+    public MesH(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mes")
