@@ -10,6 +10,17 @@ import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+// import com.itextpdf.text.BaseColor;
+// // import com.itextpdf.text.Document;
+// // import com.itextpdf.text.Element;
+// import com.itextpdf.text.Font;
+// import com.itextpdf.text.FontFactory;
+// import com.itextpdf.text.Image;
+// import com.itextpdf.text.Paragraph;
+// import com.itextpdf.text.pdf.PdfPTable;
+// import com.itextpdf.text.pdf.PdfWriter;
+
+import control_calificaciones.models.Alumno;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
@@ -17,7 +28,7 @@ import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
-import control_calificaciones.models.Alumno;
+// import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Asignatura;
 
 public class ListaPDF {
@@ -187,7 +198,7 @@ public class ListaPDF {
     }
 
     public static void agregarAsignaturasAcademicas(Document documentHTML, ArrayList<Asignatura> asignaturas,
-            String idTr) {
+        String idTr) {
 
         asignaturas.forEach(asignatura -> {
             Element materiaHead = documentHTML.createElement("th");
