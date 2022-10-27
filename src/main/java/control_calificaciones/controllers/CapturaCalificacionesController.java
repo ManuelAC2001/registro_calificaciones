@@ -45,8 +45,6 @@ public class CapturaCalificacionesController implements Initializable {
 
     private String regexCalificacion = "^[0-9]+(\\,[0-9]{1,2})?$";
 
-
-
     @FXML
     private Button btnRegistrarCalificacion;
 
@@ -134,11 +132,18 @@ public class CapturaCalificacionesController implements Initializable {
     @FXML
     private TextField txtCalificacion13;
 
+    @FXML
+    private Button btnBoletaExterna;
+
+    @FXML
+    private Button btnBoletaInterna;
+
     private List<Label> lblMateriasAcademicas = new ArrayList<>();
     private List<Label> lblMateriasComplementarias = new ArrayList<>();
 
     private List<TextField> txtMateriasAcademicas = new ArrayList<>();
     private List<TextField> txtMateriasComplementarias = new ArrayList<>();
+    private List<TextField> txtMateriasGeneral = new ArrayList<>();
 
     private CicloEscolarH cicloEscolar;
     private MesH mesSeleccionado;
@@ -150,6 +155,8 @@ public class CapturaCalificacionesController implements Initializable {
     @FXML
     private void buscar(ActionEvent event) {
 
+        limpiarUI();
+
         AlumnoDAOH alumnoDAO = new AlumnoDAOH();
         alumno = new AlumnoH();
         alumno.setNombre(txtNombreAlumno.getText().trim());
@@ -159,15 +166,19 @@ public class CapturaCalificacionesController implements Initializable {
         alumno = alumnoDAO.buscarNombre(alumno);
 
         if (alumno == null) {
-            limpiarUI();
             cmbMes.setDisable(true);
+            btnRegistrarCalificacion.setDisable(true);
+            btnBoletaInterna.setDisable(true);
+            btnBoletaExterna.setDisable(true);
+
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Alumno no encontrado");
             alert.showAndWait();
             return;
         }
-
+        btnBoletaInterna.setDisable(false);
+        btnBoletaExterna.setDisable(false);
         cmbMes.setDisable(false);
 
         // asignamos grado y grupo
@@ -179,11 +190,90 @@ public class CapturaCalificacionesController implements Initializable {
 
     }
 
-
     @FXML
     private void generarBoletaExterna(ActionEvent event) {
 
-        //Manipulando el fileChooser
+        if(alumno.getCalificaciones().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "septiembre")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de septiembre");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "octubre")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de octubre");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "noviembre/diciembre")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de noviembre y diciembre");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "enero")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de enero");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "febrero")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de febrero");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "marzo")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de marzo");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "abril")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de abril");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "mayo")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de mayo");
+            alert.showAndWait();
+            return;
+        }
+
+        if(!esMesCalificado(alumno, "junio")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta externa");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas para el mes de junio");
+            alert.showAndWait();
+            return;
+        }
+
+        // Manipulando el fileChooser
         String workPath = System.getProperty("user.dir");
 
         FileChooser fileChooser = new FileChooser();
@@ -199,10 +289,9 @@ public class CapturaCalificacionesController implements Initializable {
             return;
         }
 
-        //capturamos la calificacion por mes
-        List<CalificacionH> calificacionesBoleta =  getCalificacionesActuales();
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
         BoletaExterna.generarPDF(file, calificacionesBoleta);
-
 
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Acción cancelada");
@@ -214,7 +303,16 @@ public class CapturaCalificacionesController implements Initializable {
     @FXML
     private void generarBoletaInterna(ActionEvent event) throws IOException {
 
-        //Manipulando el fileChooser
+        if(alumno.getCalificaciones().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede generar la boleta interna");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas");
+            alert.showAndWait();
+            return;
+        }
+
+
+        // Manipulando el fileChooser
         String workPath = System.getProperty("user.dir");
 
         FileChooser fileChooser = new FileChooser();
@@ -230,8 +328,8 @@ public class CapturaCalificacionesController implements Initializable {
             return;
         }
 
-        //capturamos la calificacion por mes
-        List<CalificacionH> calificacionesBoleta =  getCalificacionesActuales();
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
 
         BoletaInterna.generarPDF(file, calificacionesBoleta);
 
@@ -275,10 +373,12 @@ public class CapturaCalificacionesController implements Initializable {
 
     }
 
+    // IMPORTANTEE
     @FXML
     private void registrarCalifiaciones(ActionEvent event) {
-        setCalifiacionesAcademicas(alumno);
-        setCalifiacionesComplementarias(alumno);
+        setCalificaciones(alumno);
+        // setCalifiacionesAcademicas(alumno);
+        // setCalifiacionesComplementarias(alumno);
     }
 
     @FXML
@@ -287,6 +387,7 @@ public class CapturaCalificacionesController implements Initializable {
         String mesNombre = cmbMes.getSelectionModel().getSelectedItem();
 
         if (mesNombre.equals("octubre") && !esMesCalificado(alumno, "septiembre")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -295,6 +396,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("noviembre/diciembre") && !esMesCalificado(alumno, "octubre")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -303,6 +405,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("enero") && !esMesCalificado(alumno, "noviembre/diciembre")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -311,6 +414,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("febrero") && !esMesCalificado(alumno, "enero")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -319,6 +423,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("marzo") && !esMesCalificado(alumno, "febrero")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -327,6 +432,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("abril") && !esMesCalificado(alumno, "marzo")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -335,6 +441,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("mayo") && !esMesCalificado(alumno, "abril")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -343,6 +450,7 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         if (mesNombre.equals("junio") && !esMesCalificado(alumno, "mayo")) {
+            btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Aun no puede registrar calificaciones para este mes");
@@ -418,7 +526,7 @@ public class CapturaCalificacionesController implements Initializable {
                     &&
                     c.getMes().getNombre().equals(mesNombre);
         })
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     private List<CalificacionH> getCalificacionesActuales() {
@@ -427,23 +535,30 @@ public class CapturaCalificacionesController implements Initializable {
                     &&
                     c.getGrupo().getNombre().equals(alumno.getAula().getGrupo().getNombre());
         })
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     private boolean esMesCalificado(AlumnoH alumno, String mesNombre) {
         return getCalificacionesMensuales(mesNombre).size() == alumno.getAula().getGrado().getAsignaturas().size();
     }
 
-    private void setCalifiacionesAcademicas(AlumnoH alumno) {
+    private void setCalificaciones(AlumnoH alumno) {
 
-        List<AsignaturaH> listAcademicas = alumno.getAula().getGrado().getAsignaturas().stream()
-                .filter(a -> a.getTipoAsignatura().getNombre().equals("academica"))
+        txtMateriasAcademicas = txtMateriasAcademicas.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
+        txtMateriasComplementarias = txtMateriasComplementarias.stream().filter(t -> t.isVisible())
                 .collect(Collectors.toList());
 
-        for (int i = 0; i < listAcademicas.size(); i++) {
-            String calificacionMateriaUi =  txtMateriasAcademicas.get(i).getText().trim();
+        txtMateriasGeneral.addAll(txtMateriasAcademicas);
+        txtMateriasGeneral.addAll(txtMateriasComplementarias);
 
-            if(!calificacionMateriaUi.matches(regexCalificacion)){
+        List<AsignaturaH> listaMaterias = alumno.getAula().getGrado().getAsignaturas();
+        String calificacionMateriaUi = "";
+        Double calificacionMateria = 0.0;
+
+        for (int i = 0; i < listaMaterias.size(); i++) {
+            calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
+
+            if (!calificacionMateriaUi.matches(regexCalificacion)) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Mensaje");
                 alert.setContentText("Formato no valido para la calificacion");
@@ -451,81 +566,43 @@ public class CapturaCalificacionesController implements Initializable {
                 return;
             }
 
-            Double calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+            calificacionMateria = Double.parseDouble(calificacionMateriaUi);
 
-            if(calificacionMateria <= 6){
-                txtMateriasAcademicas.get(i).setText("7");
-                calificacionMateria = 7.0;
+            if (calificacionMateria < 6) {
+                txtMateriasGeneral.get(i).setText("6");
             }
 
-            if(calificacionMateria > 10){
-                txtMateriasAcademicas.get(i).setText("10");
-                calificacionMateria = 10.0;
+            if (calificacionMateria > 10) {
+                txtMateriasGeneral.get(i).setText("10");
             }
-            
+        }
+
+        for (int i = 0; i < listaMaterias.size(); i++) {
+
+            calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
+            calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+
             CalificacionDAOH calificacionDAO = new CalificacionDAOH();
             CalificacionH calificacion = new CalificacionH();
             calificacion.setAlumno(alumno);
             calificacion.setGrupo(alumno.getAula().getGrupo());
             calificacion.setGrado(alumno.getAula().getGrado());
-            calificacion.setAsignatura(listAcademicas.get(i));
+            calificacion.setAsignatura(listaMaterias.get(i));
             calificacion.setCicloEscolar(cicloEscolar);
             calificacion.setMes(mesSeleccionado);
             calificacion.setResultado(calificacionMateria);
 
             calificacionDAO.insertar(calificacion);
 
-            // agregando las calificaciones recien agregadas
+            // // agregando las calificaciones recien agregadas
             alumno.getCalificaciones().add(calificacion);
         }
 
-    }
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Mensaje");
+        alert.setContentText("Calificaciones capturadas correctamente");
+        alert.showAndWait();
 
-    private void setCalifiacionesComplementarias(AlumnoH alumno) {
-
-        CalificacionDAOH calificacionDAO = new CalificacionDAOH();
-
-        List<AsignaturaH> listComplementarias = alumno.getAula().getGrado().getAsignaturas().stream()
-                .filter(a -> a.getTipoAsignatura().getNombre().equals("complementaria"))
-                .collect(Collectors.toList());
-
-        for (int i = 0; i < listComplementarias.size(); i++) {
-            String calificacionMateriaUi =  txtMateriasComplementarias.get(i).getText().trim();
-
-            if(!calificacionMateriaUi.matches(regexCalificacion)){
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Mensaje");
-                alert.setContentText("Formato no valido para la calificacion");
-                alert.showAndWait();
-                return;
-            }
-
-            Double calificacionMateria = Double.parseDouble(calificacionMateriaUi);
-
-            if(calificacionMateria <= 6){
-                txtMateriasComplementarias.get(i).setText("7");
-                calificacionMateria = 7.0;
-            }
-
-            if(calificacionMateria > 10){
-                txtMateriasComplementarias.get(i).setText("10");
-                calificacionMateria = 10.0;
-            }
-
-            CalificacionH calificacion = new CalificacionH();
-            calificacion.setAlumno(alumno);
-            calificacion.setGrupo(alumno.getAula().getGrupo());
-            calificacion.setGrado(alumno.getAula().getGrado());
-            calificacion.setAsignatura(listComplementarias.get(i));
-            calificacion.setCicloEscolar(cicloEscolar);
-            calificacion.setMes(mesSeleccionado);
-            calificacion.setResultado(calificacionMateria);
-
-            calificacionDAO.insertar(calificacion);
-
-            // agregando las calificaciones recien agregadas
-            alumno.getCalificaciones().add(calificacion);
-        }
     }
 
     private void llenarAsignaturasColumns(List<AsignaturaH> asignaturas) {
@@ -562,12 +639,14 @@ public class CapturaCalificacionesController implements Initializable {
     }
 
     public void iniciarSesion() {
-        if(Sesion.nombreUsuario != null){
+        if (Sesion.nombreUsuario != null) {
             lblNombreUsuario.setText(Sesion.nombreUsuario);
         }
     }
 
     private void limpiarUI() {
+        setInvisibleLblMaterias();
+        setInvisibleTxtMaterias();
         txtGradoAlumno.clear();
         txtGrupoAlumno.clear();
     }
@@ -636,6 +715,8 @@ public class CapturaCalificacionesController implements Initializable {
 
         btnRegistrarCalificacion.setDisable(true);
         cmbMes.setDisable(true);
+        btnBoletaInterna.setDisable(true);
+        btnBoletaExterna.setDisable(true);
 
     }
 
