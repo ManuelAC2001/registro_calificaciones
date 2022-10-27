@@ -15,6 +15,7 @@ import control_calificaciones.data.CalificacionDAOH;
 import control_calificaciones.data.CicloEscolarDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
+import control_calificaciones.helpers.pdf.BoletaExterna;
 import control_calificaciones.helpers.pdf.BoletaInterna;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
@@ -178,6 +179,38 @@ public class CapturaCalificacionesController implements Initializable {
 
     }
 
+
+    @FXML
+    private void generarBoletaExterna(ActionEvent event) {
+
+        //Manipulando el fileChooser
+        String workPath = System.getProperty("user.dir");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(workPath));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Acción cancelada");
+            alert.setContentText("la boleta externa no se guardo");
+            alert.showAndWait();
+            return;
+        }
+
+        //capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta =  getCalificacionesActuales();
+        BoletaExterna.generarPDF(file, calificacionesBoleta);
+
+
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Acción cancelada");
+        alert.setContentText("la boleta externa alumnos se guardo correctamente");
+        alert.showAndWait();
+
+    }
+
     @FXML
     private void generarBoletaInterna(ActionEvent event) throws IOException {
 
@@ -192,7 +225,7 @@ public class CapturaCalificacionesController implements Initializable {
         if (file == null) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Acción cancelada");
-            alert.setContentText("la bole interna no se guardo");
+            alert.setContentText("la boleta interna no se guardo");
             alert.showAndWait();
             return;
         }
@@ -204,7 +237,7 @@ public class CapturaCalificacionesController implements Initializable {
 
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Acción cancelada");
-        alert.setContentText("la lista de alumnos se guardo correctamente");
+        alert.setContentText("la boleta interna se guardo correctamente");
         alert.showAndWait();
 
     }

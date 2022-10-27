@@ -284,7 +284,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="btnBoletaExterna" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="27.0" prefWidth="199.0" style="-fx-background-color: #47B556;" text="GENERAR BOLETA EXTERNA" textFill="WHITE">
+                                                <Button fx:id="btnBoletaExterna" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#generarBoletaExterna" prefHeight="27.0" prefWidth="199.0" style="-fx-background-color: #47B556;" text="GENERAR BOLETA EXTERNA" textFill="WHITE">
                                                    <font>
                                                       <Font name="System Bold" size="13.0" />
                                                    </font>

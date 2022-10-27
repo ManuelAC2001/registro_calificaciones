@@ -39,9 +39,9 @@ public class BoletaInterna {
 
             // manipulando el DOM
 
-            //....para materias academicas
             agregarInformacioPersonal(documentHTML, calificacionesBoleta);
-            
+
+            //....para materias academicas
             agregarMateriasAcademicas(documentHTML, calificacionesBoleta);
             
             agregarCalificacionesAcademicasMensual(documentHTML, calificacionesBoleta, "septiembre","tbody__septiembre");

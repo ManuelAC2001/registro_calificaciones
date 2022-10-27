@@ -94,7 +94,8 @@
 
                 <section class="container alumno__informacion">
                     <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1>
-                    <p style="color: gray; text-align: center;">1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020</p>
+                    <!-- <p style="color: gray; text-align: center;">1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020</p> -->
+                    <p id="alumno__grado__ciclo_escolar" style="color: gray; text-align: center;"></p>
                 </section>
 
                 <img src="secr_gue.png" width="100px" style="margin-left: 2rem;"/>
@@ -110,11 +111,19 @@
                 <p style="font-size: 10px; margin-bottom: 1.5rem;">DATOS DEL ALUMNO</p>
 
                 <tr>
+                    <td id="apellido_paterno" style="border: none;"></td>
+                    <td id="apellido_materno" style="border: none;"></td>
+                    <td id="nombre" style="border: none;"></td>
+                    <td id="curp" style="border: none;"></td>
+                </tr>
+
+                <tr>
                     <td class="borde">PRIMER APELLIDO</td>
                     <td class="borde">SEGUNDO APELLIDO</td>
-                    <td class="borde">NOMBRE(S) APELLIDO</td>
+                    <td class="borde">NOMBRE(S)</td>
                     <td class="borde">CURP</td>
                 </tr>
+
             </tbody>
         </table>
 
@@ -122,6 +131,13 @@
             <tbody>
 
                 <p style="font-size: 10px; margin-top: 1rem; margin-bottom: 1.5rem;">DATOS DE LA ESCUELA</p>
+
+                <tr>
+                    <td id="escuela__nombre" style="border: none;">INSTITUTO HISPANOAMERICANO MEXICANO</td>
+                    <td id="alumno__grupo" style="border: none;"></td>
+                    <td id="turno" style="border: none;">MATUTINO</td>
+                    <td id="curp" style="border: none;">12PPR0395H</td>
+                </tr>
 
                 <tr>
                     <td class="borde">NOMBRE DE LA ESCUELA</td>
@@ -136,29 +152,22 @@
     <!-- CALIFICACIONES -->
     <center class="espacio">
         <table class="tabla">
-            <tbody>
+            <tbody id="tbody___materias">
+
+                <tr class="gris">
+                    <th colspan="2" style="color: gray;">ASIGNATURAS/ÁREAS</th>
+                </tr>
+
                 <tr class="gris">
                     <th colspan="2">ASIGNATURAS/ÁREAS</th>
-                </tr>
-
-                <tr>
-                    <td style="height: 10rem; width: 10px;">
-                        <p style="transform: rotate(-90deg);">FORMACIÓN ACADÉMICA</p>    
-                    </td>
-                    <td>LENGUA MATERNA(ESPAÑOL)</td>
-                </tr>
-
-                <tr>
-                    <td style="height: 5rem;">
-                        <p style="transform: rotate(-90deg);">DESARROLLO PERSONAL Y SOCIAL</p>    
-                    </td>
-                    <td>LENGUA MATERNA(ESPAÑOL)</td>
                 </tr>
             </tbody>
         </table>
 
         <table class="tabla">
-            <tbody>
+            <tbody id="tbody__trimestre">
+                
+
                 <tr class="gris">
                     <th colspan="3">PERIODOS DE EVALACIÓN</th>
                     <th>PROMEDIO FINAL</th>
@@ -168,7 +177,10 @@
                     <td>1er</td>
                     <td>2do</td>
                     <td>3er</td>
+
+                    <td style="color: gray;">1er</td>
                 </tr>
+
             </tbody>
         </table>
 
@@ -220,13 +232,13 @@
         </table>
 
         <table class="tabla" style="margin-left: 2rem;">
-            <tbody>
+            <tbody id="tbody__promedio_final">
                 <tr>
                     <th>PROMEDIO FINAL DE GRADO</th>
                 </tr>
 
                 <tr>
-                    <td>6.6</td>
+                    <td id="promedio_final">  </td>
                 </tr>
             </tbody>
         </table>
@@ -236,11 +248,21 @@
     <center class="espacio">
         <table class="tabla">
             <tbody>
+
                 <tr>
-                    <td class="borde">NOMBRE Y FIRMA DEL DOCENTE</td>
+                    <td id="tutor__nombre" style="border: none;"></td>
                 </tr>
+
                 <tr>
-                    <td class="borde" style="margin-top: 3rem;">NOMBRE Y FIRMA DEL DIRECTOR</td>
+                    <td class="borde" style="padding-bottom: 15px;">NOMBRE Y FIRMA DEL DOCENTE</td>
+                </tr>
+
+                <tr>
+                    <td style="border: none;"></td>
+                </tr>
+
+                <tr>
+                    <td class="borde" style="padding-bottom: 30px;">NOMBRE Y FIRMA DEL DIRECTOR</td>
                 </tr>
                 <tr>
                     <td class="borde">LUGAR DE EXPEDICIÓN</td>
@@ -273,10 +295,17 @@
                 </tr>
 
                 <tr>
-                    <td style="border-top: none;">AÑO</td>
-                    <td style="border-top: none;">MES</td>
-                    <td style="border-top: none;">DÍA</td>
+                    <td id="anio" style="border-top: none;"></td>
+                    <td id="mes" style="border-top: none;"></td>
+                    <td id="dia" style="border-top: none;"></td>
                 </tr>
+
+                <tr>
+                    <td style="border: none;">AÑO</td>
+                    <td style="border: none;">MES</td>
+                    <td style="border: none;">DÍA</td>
+                </tr>
+
             </tbody>
         </table>
     </center>
@@ -307,7 +336,7 @@
 
     <center class="espacio">
         <footer class="container">
-            <p style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO:</p>
+            <p style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO: 154</p>
             <p style="font-size: 7px; text-align: center;">
                 SE SANCIONARÁ A QUIEN CON DOLO O FINES LUCRATIVOS REPODUZCA TOTAL O PARCIALMENTE ESTE FORMATO
             </p>

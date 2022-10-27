@@ -1,0 +1,377 @@
+<html>
+ <head>
+  <title>Boleta Interna</title> <!-- RESETEANDO LA TABLA -->
+  <style>
+        @page {
+            size: 60rem;
+            margin: 0;
+        }
+
+        .container {
+            display: inline-block;
+        }
+
+        .container:first-child {
+            margin-right: 100px;
+        }
+
+        .container img {
+            margin-right: 10px;
+        }
+
+        .alumno__informacion {
+            font-size: 7px;
+            text-align: left;
+        }
+
+        .alumno__informacion>p {
+            margin: 2px;
+        }
+
+        .escuela__informacion {
+            font-size: 4px;
+            text-align: center;
+        }
+
+        table {
+            font-size: 7px;
+        }
+
+        table,
+        th,
+        td {
+            border-spacing: 0;
+            text-align: center;
+            border: .5px solid;
+        }
+
+        table {
+            border: none;
+        }
+
+        .tabla th,
+        .tabla td {
+            padding: 8px 4px;
+        }
+
+        .tabla__container {
+            margin-top: 22px;
+        }
+
+        .tabla {
+            display: inline;
+        }
+
+        .espacio {
+            margin-top: 2rem;
+        }
+
+        .borde {
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            padding-left: 2rem;
+            width: 10rem;
+        }
+
+        .gris {
+            background-color: gray;
+            color: #fff;
+        }
+    </style>
+ </head>
+ <body><!-- HEADER -->
+  <center>
+   <header>
+    <section class="container escuela__informacion"><img src="educacion.png" width="100px" style="margin-right: 2rem;" />
+     <section class="container alumno__informacion">
+      <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1> <!-- <p style="color: gray; text-align: center;">1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020</p> -->
+      <p id="alumno__grado__ciclo_escolar" style="color: gray; text-align: center;">QUINTOGRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2022-2023</p>
+     </section> <img src="secr_gue.png" width="100px" style="margin-left: 2rem;" />
+    </section>
+   </header>
+  </center> <!-- DATOS ALUMNO -->
+  <center class="espacio">
+   <p style="font-size: 10px; margin-bottom: 1.5rem;">DATOS DEL ALUMNO</p>
+   <table class="tabla">
+    <tbody>
+     <tr>
+      <td id="apellido_paterno" style="border: none;">ASTUDILLO</td>
+      <td id="apellido_materno" style="border: none;">HERNANDEZ</td>
+      <td id="nombre" style="border: none;">CAROLINA</td>
+      <td id="curp" style="border: none;">AOCM120101HGRPSNA9</td>
+     </tr>
+     <tr>
+      <td class="borde">PRIMER APELLIDO</td>
+      <td class="borde">SEGUNDO APELLIDO</td>
+      <td class="borde">NOMBRE(S)</td>
+      <td class="borde">CURP</td>
+     </tr>
+    </tbody>
+   </table>
+   <p style="font-size: 10px; margin-top: 1rem; margin-bottom: 1.5rem;">DATOS DE LA ESCUELA</p>
+   <table class="tabla">
+    <tbody>
+     <tr>
+      <td id="escuela__nombre" style="border: none;">INSTITUTO HISPANOAMERICANO MEXICANO</td>
+      <td id="alumno__grupo" style="border: none;">A</td>
+      <td id="turno" style="border: none;">MATUTINO</td>
+      <td id="curp" style="border: none;">12PPR0395H</td>
+     </tr>
+     <tr>
+      <td class="borde">NOMBRE DE LA ESCUELA</td>
+      <td class="borde">GRUPO</td>
+      <td class="borde">TURNO</td>
+      <td class="borde">CCT</td>
+     </tr>
+    </tbody>
+   </table>
+  </center> <!-- CALIFICACIONES -->
+  <center class="espacio">
+   <table class="tabla">
+    <tbody id="tbody___materias">
+     <tr class="gris">
+      <th colspan="2" style="color: gray;">ASIGNATURAS/ÁREAS</th>
+     </tr>
+     <tr class="gris">
+      <th colspan="2">ASIGNATURAS/ÁREAS</th>
+     </tr>
+     <tr>
+      <td>ESPAÑOL</td>
+     </tr>
+     <tr>
+      <td>MATEMÁTICAS</td>
+     </tr>
+     <tr>
+      <td>INGLES</td>
+     </tr>
+     <tr>
+      <td>CIENCIAS NATURALES</td>
+     </tr>
+     <tr>
+      <td>GEOGRAFIA</td>
+     </tr>
+     <tr>
+      <td>HISTORIA</td>
+     </tr>
+     <tr>
+      <td>FORMACION CIVICA ETICA</td>
+     </tr>
+     <tr>
+      <td>ARTES</td>
+     </tr>
+     <tr>
+      <td>ED. FISICA</td>
+     </tr>
+     <tr>
+      <td>COMPUTACION</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla">
+    <tbody id="tbody__trimestre">
+     <tr class="gris">
+      <th colspan="3">PERIODOS DE EVALACIÓN</th>
+      <th>PROMEDIO FINAL</th>
+     </tr>
+     <tr class="gris">
+      <td>1er</td>
+      <td>2do</td>
+      <td>3er</td>
+      <td style="color: gray;">1er</td>
+     </tr>
+     <tr>
+      <td>8.67</td>
+      <td>9.33</td>
+      <td>9.67</td>
+      <td>9.22</td>
+     </tr>
+     <tr>
+      <td>8.33</td>
+      <td>9.33</td>
+      <td>9.67</td>
+      <td>9.11</td>
+     </tr>
+     <tr>
+      <td>8.00</td>
+      <td>9.33</td>
+      <td>9.67</td>
+      <td>9.00</td>
+     </tr>
+     <tr>
+      <td>7.67</td>
+      <td>9.33</td>
+      <td>9.67</td>
+      <td>8.89</td>
+     </tr>
+     <tr>
+      <td>8.67</td>
+      <td>9.33</td>
+      <td>9.67</td>
+      <td>9.22</td>
+     </tr>
+     <tr>
+      <td>8.33</td>
+      <td>9.33</td>
+      <td>9.33</td>
+      <td>9.00</td>
+     </tr>
+     <tr>
+      <td>8.33</td>
+      <td>9.00</td>
+      <td>9.00</td>
+      <td>8.78</td>
+     </tr>
+     <tr>
+      <td>8.00</td>
+      <td>8.67</td>
+      <td>8.67</td>
+      <td>8.44</td>
+     </tr>
+     <tr>
+      <td>8.67</td>
+      <td>9.67</td>
+      <td>9.67</td>
+      <td>9.33</td>
+     </tr>
+     <tr>
+      <td>7.67</td>
+      <td>9.67</td>
+      <td>9.67</td>
+      <td>9.00</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla" style="margin-left: 2rem;">
+    <tbody>
+     <tr class="gris">
+      <th colspan="2">ASISTENCIA</th>
+     </tr>
+     <tr>
+      <td>Calendario Escolar</td>
+      <td>-</td>
+     </tr>
+     <tr>
+      <td>Asistencias</td>
+      <td>-</td>
+     </tr>
+     <tr>
+      <td>% Asistencia %</td>
+      <td>-</td>
+     </tr>
+     <tr>
+      <td colspan="2">* Asistencia mínima para ser promovido 80%</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla">
+    <tbody>
+     <tr>
+      <td style="background-color: gray; color: #fff">Promovido</td>
+      <td>-</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla">
+    <tbody>
+     <tr>
+      <td style="background-color: gray; color: #fff">Promovido</td>
+      <td>-</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla" style="margin-left: 2rem;">
+    <tbody id="tbody__promedio_final">
+     <tr>
+      <th>PROMEDIO FINAL DE GRADO</th>
+     </tr>
+     <tr>
+      <td id="promedio_final">8.10</td>
+     </tr>
+    </tbody>
+   </table>
+  </center>
+  <center class="espacio">
+   <table class="tabla">
+    <tbody>
+     <tr>
+      <td id="tutor__nombre" style="border: none;">APOLINAR CASTILLO MANUEL:</td>
+     </tr>
+     <tr>
+      <td class="borde" style="padding-bottom: 15px;">NOMBRE Y FIRMA DEL DOCENTE</td>
+     </tr>
+     <tr>
+      <td style="border: none;"></td>
+     </tr>
+     <tr>
+      <td class="borde" style="padding-bottom: 30px;">NOMBRE Y FIRMA DEL DIRECTOR</td>
+     </tr>
+     <tr>
+      <td class="borde">LUGAR DE EXPEDICIÓN</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla" style="margin-left: 10px;">
+    <tbody>
+     <tr class="gris">
+      <th>FIRMA DE LA MADRE. PADRE DE FAMILIA O TUTOR</th>
+     </tr>
+     <tr>
+      <td>1er Periodo</td>
+     </tr>
+     <tr>
+      <td>2do Periodo</td>
+     </tr>
+     <tr>
+      <td>3er Periodo</td>
+     </tr>
+    </tbody>
+   </table>
+   <table class="tabla" style="margin-left: 10px;">
+    <tbody>
+     <tr>
+      <th colspan="3" style="color: gray; border: none; font-weight: 100;">SELLO SISTEMA EDUCATIVO NACIONAL</th>
+     </tr>
+     <tr>
+      <td id="anio" style="border-top: none;">2022</td>
+      <td id="mes" style="border-top: none;">OCTOBER</td>
+      <td id="dia" style="border-top: none;">27</td>
+     </tr>
+     <tr>
+      <td style="border: none;">AÑO</td>
+      <td style="border: none;">MES</td>
+      <td style="border: none;">DÍA</td>
+     </tr>
+    </tbody>
+   </table>
+  </center>
+  <center class="espacio">
+   <table class="tabla" style="margin-top: 5rem;">
+    <tbody>
+     <tr class="gris">
+      <th></th>
+      <th style="width: 35rem;">OBSERVACIONES O RECOMENDACIONES GENERALES DEL DOCENTE</th>
+     </tr>
+     <tr>
+      <td style="height: 10rem;">PRIMER PERIODO</td>
+      <td></td>
+     </tr>
+     <tr>
+      <td style="height: 8rem;">SEGUNDO PERIODO</td>
+      <td></td>
+     </tr>
+     <tr>
+      <td style="height: 8rem;">TERCER PERIODO</td>
+      <td></td>
+     </tr>
+    </tbody>
+   </table>
+  </center>
+  <center class="espacio">
+   <footer class="container">
+    <p style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO: 154</p>
+    <p style="font-size: 7px; text-align: center;">SE SANCIONARÁ A QUIEN CON DOLO O FINES LUCRATIVOS REPODUZCA TOTAL O PARCIALMENTE ESTE FORMATO</p>
+   </footer>
+  </center>
+ </body>
+</html>
