@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Boleta Interna</title>
 
@@ -25,7 +26,8 @@
             font-size: 7px;
             text-align: left;
         }
-        .alumno__informacion > p {
+
+        .alumno__informacion>p {
             margin: 2px;
         }
 
@@ -71,33 +73,37 @@
         .primer__trimestre {
             background-color: #F8CBAD;
         }
+
         .segundo__trimestre {
             background-color: #FFE699;
         }
+
         .tercer__trimestre {
-            background-color: #C6E0B4 ;
+            background-color: #C6E0B4;
         }
+
         .promedio__final {
             background-color: #B4C6E7;
         }
     </style>
 
 </head>
+
 <body>
     <!-- HEADER -->
     <center>
         <header>
             <section class="container escuela__informacion">
 
-                <img id="img__logo" src="http://localhost:5500/logo.png" width="40px"/>
+                <img id="img__logo" src="http://localhost:5500/logo.png" width="40px" />
 
                 <section class="container alumno__informacion">
                     <h1>INSTITUTO HISPANOAMERICANO-MEXICANO</h1>
-                    <p>SECCION: PRIMARIA        CLAVE: 12PPR0395H</p>
-                    <p id="grado__grupo_info">GRADO Y GRUPO: CUARTO "A"</p>
+                    <p>SECCION: PRIMARIA CLAVE: 12PPR0395H</p>
+                    <p id="grado__grupo_info"></p>
                     <p id="no__lista">NO. LISTA O</p>
-                    <p id="ciclo__escolar_info">CICLO ESCOLAR: 2021:2022</p>
-                    <p i="nombre__alumno">ALUMNO(A):</p>
+                    <p id="ciclo__escolar_info"></p>
+                    <p id="nombre__alumno"></p>
                 </section>
 
             </section>
@@ -110,35 +116,97 @@
     <center>
         <div class="tabla__container">
             <table class="tabla">
-                <tbody>
+                <tbody id="tbody___materias">
                     <tr>
                         <th style="border: .5px solid #000;" colspan="1">CAMPOS DE FORMACIÓN ACADÉMICA </th>
                     </tr>
-                    
+
                     <!-- MATERIAS -->
-                    <tr>
+                    <!-- <tr>
                         <td>PROM.MENSUAL</td>
+                    </tr> -->
+
+                    <!-- TRAER INFO DE LAS MATERIAS -->
+
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__septiembre">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="primer__trimestre">SEPTIEMBRE</th>
                     </tr>
                 </tbody>
             </table>
 
-            <!-- TABLA DE CALIFICACIONES MENSUALES -->
             <table class="tabla">
-                <tbody>
+                <tbody id="tbody__octubre">
                     <tr>
-                        <th style="border: .5px solid #000; height: 26.5px;" colspan="10">CALIFICACIONES MENSUALES</th>
-                    </tr>
-
-                    <tr>
-                        <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th>
-                        <th class="primer__trimestre">SEPTIEMBRE</th>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="primer__trimestre">OCTUBRE</th>
-                        <th class="primer__trimestre">NOV/DIC</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__noviembre_diciembre">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="primer__trimestre">NOVIEMBRE/DICIEMBRE</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__enero">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="segundo__trimestre">ENERO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__febrero">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="segundo__trimestre">FEBRERO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__marzo">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="segundo__trimestre">MARZO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__abril">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="tercer__trimestre">ABRIL</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__mayo">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="tercer__trimestre">MAYO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__junio">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="tercer__trimestre">JUNIO</th>
                     </tr>
                 </tbody>
@@ -146,99 +214,168 @@
 
             <!-- TABLA DE PERIODOS -->
             <table class="tabla" style="margin-left: 1rem;">
-                <tbody>
+                <tbody id="tbody__trimestre">
                     <tr>
-                        <th style="border: .5px solid #000;" colspan="10">PERIODOS</th>
-                        <th class="promedio__final">PROMEDIO FINAL</th>
+                        <th style="border: .5px solid #000;" colspan="3">PERIODOS</th>
+                        <th class="promedio__final" style="border-bottom: none;">PROMEDIO FINAL</th>
                     </tr>
 
                     <tr>
                         <th class="primer__trimestre">1° TRIM</th>
                         <th class="segundo__trimestre">2° TRIM</th>
                         <th class="tercer__trimestre">3° TRIM</th>
+                        <th class="promedio__final" style="border-bottom: none; border-top: none;"></th>
                     </tr>
                     <tr>
                         <th class="primer__trimestre">CAL</th>
                         <th class="segundo__trimestre">CAL</th>
                         <th class="tercer__trimestre">CAL</th>
+                        <th class="promedio__final" style="border-top: none;"></th>
                     </tr>
+
+
+
                 </tbody>
             </table>
         </div>
     </center>
 
     <center style="margin-top: 2rem;">
-        <table class="tabla">
-            <tbody>
-                <tr>
-                    <th>ASIGNATURA COMPLEMENTARIA</th>
-                    <th>D</th>
-                    <th class="primer__trimestre">S</th>
-                    <th class="primer__trimestre">O</th>
-                    <th class="primer__trimestre">N/D</th>
-                    <th class="segundo__trimestre">E</th>
-                    <th class="segundo__trimestre">F</th>
-                    <th class="segundo__trimestre">M</th>
-                    <th class="tercer__trimestre">A</th>
-                    <th class="tercer__trimestre">M</th>
-                    <th class="tercer__trimestre">J</th>
-                </tr>
+        
+        <div class="tabla__container">
+            <table class="tabla">
+                <tbody id="tbody___complementarias">
+                    <tr>
+                        <th style="border: .5px solid #000;" colspan="1">ASIGNATURA COMPLEMENTARIA </th>
+                    </tr>
 
-                <tr>
-                    <td>EDU.SOCIOEMOCIONAL</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>INACISTENCIAS</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </tbody>
-        </table>
+                    <!-- MATERIAS -->
+                    <!-- <tr>
+                        <td>PROM.MENSUAL</td>
+                    </tr> -->
 
-        <table class="tabla"  style="margin-left: 1rem;">
-            <tbody>
-                <tr>
-                    <th style="width: 1rem;" class="primer__trimestre">C</th>
-                    <th style="width: 1rem;" class="segundo__trimestre">C</th>
-                    <th style="width: 1rem;" class="tercer__trimestre">C</th>
-                    <th style="width: 1rem;" class="promedio__final">PF</th>
-                </tr>
+                    <!-- TRAER INFO DE LAS MATERIAS -->
 
-                <tr>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__septiembre_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="primer__trimestre">SEPTIEMBRE</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__octubre_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="primer__trimestre">OCTUBRE</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__noviembre_diciembre_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="primer__trimestre">NOVIEMBRE/DICIEMBRE</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__enero_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="segundo__trimestre">ENERO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__febrero_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="segundo__trimestre">FEBRERO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__marzo_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="segundo__trimestre">MARZO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__abril_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="tercer__trimestre">ABRIL</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__mayo_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="tercer__trimestre">MAYO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="tabla">
+                <tbody id="tbody__junio_complementaria">
+                    <tr>
+                        <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
+                        <th class="tercer__trimestre">JUNIO</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- TABLA DE PERIODOS -->
+            <table class="tabla" style="margin-left: 1rem;">
+                <tbody id="tbody__trimestre_complementaria">
+                    <tr>
+                        <th style="border: .5px solid #000;" colspan="3">PERIODOS</th>
+                        <th class="promedio__final" style="border-bottom: none;">PROMEDIO FINAL</th>
+                    </tr>
+
+                    <tr>
+                        <th class="primer__trimestre">1° TRIM</th>
+                        <th class="segundo__trimestre">2° TRIM</th>
+                        <th class="tercer__trimestre">3° TRIM</th>
+                        <th class="promedio__final" style="border-bottom: none; border-top: none;"></th>
+                    </tr>
+                    <tr>
+                        <th class="primer__trimestre">CAL</th>
+                        <th class="segundo__trimestre">CAL</th>
+                        <th class="tercer__trimestre">CAL</th>
+                        <th class="promedio__final" style="border-top: none;"></th>
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+        </div>
+       
     </center>
 
     <center style="margin-top: 2rem;">
-        <table class="tabla" >
+        <table class="tabla">
             <tbody>
                 <tr>
                     <th>NIVELES DE DESEMPEÑO</th>
                     <td>
-                        El estudiante tiene carencias fundamentales en valores y principios para desarrollar una 
+                        El estudiante tiene carencias fundamentales en valores y principios para desarrollar una
                         convivencia sana y pacífica, dentro y fuera del aula.
                     </td>
                 </tr>
@@ -337,4 +474,5 @@
         </table>
     </center>
 </body>
+
 </html>

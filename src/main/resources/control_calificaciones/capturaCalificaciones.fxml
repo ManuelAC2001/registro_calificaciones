@@ -274,11 +274,43 @@
                                                 <TextField fx:id="txtCalificacion13" prefHeight="15.0" prefWidth="216.0" style="-fx-alignment: center;" />
                                              </children>
                                           </VBox>
-                                          <ComboBox fx:id="cmbMes" onAction="#seleccionarMes" prefWidth="150.0" style="-fx-background-color: #c6e0b4; -fx-cursor: hand;">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
+                                          <VBox alignment="CENTER" prefHeight="822.0" prefWidth="277.0">
+                                             <children>
+                                                <Button fx:id="btnBoletaInterna" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#generarBoletaInterna" prefHeight="27.0" prefWidth="199.0" style="-fx-background-color: #106bcd;" text="GENERAR BOLETA INTERNA" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="btnBoletaExterna" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="27.0" prefWidth="199.0" style="-fx-background-color: #47B556;" text="GENERAR BOLETA EXTERNA" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <HBox prefHeight="357.0" prefWidth="277.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="TOP_CENTER" prefHeight="822.0" prefWidth="181.0">
+                                             <children>
+                                                <Label prefHeight="22.0" prefWidth="182.0" text="SELECCIONAR MES">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <ComboBox fx:id="cmbMes" onAction="#seleccionarMes" prefWidth="150.0" style="-fx-background-color: #c6e0b4; -fx-cursor: hand;" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </HBox>
                                  </children>

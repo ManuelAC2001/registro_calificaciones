@@ -18,7 +18,7 @@ public class CalificacionH {
     @EqualsAndHashCode.Include
     private Integer idCalificacion;
 
-    private Integer resultado;    
+    private Double resultado;    
 
     @ManyToOne(cascade =  CascadeType.PERSIST)
     @JoinColumn(name = "curp", referencedColumnName = "curp")

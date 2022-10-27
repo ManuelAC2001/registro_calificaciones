@@ -1,5 +1,6 @@
 package control_calificaciones.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import control_calificaciones.data.CalificacionDAOH;
 import control_calificaciones.data.CicloEscolarDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
+import control_calificaciones.helpers.pdf.BoletaInterna;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
@@ -29,6 +31,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class CapturaCalificacionesController implements Initializable {
@@ -36,6 +40,11 @@ public class CapturaCalificacionesController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    private Alert alert;
+
+    private String regexCalificacion = "^[0-9]+(\\,[0-9]{1,2})?$";
+
+
 
     @FXML
     private Button btnRegistrarCalificacion;
@@ -150,8 +159,15 @@ public class CapturaCalificacionesController implements Initializable {
 
         if (alumno == null) {
             limpiarUI();
+            cmbMes.setDisable(true);
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Alumno no encontrado");
+            alert.showAndWait();
             return;
         }
+
+        cmbMes.setDisable(false);
 
         // asignamos grado y grupo
         txtGrupoAlumno.setText(alumno.getAula().getGrupo().getNombre());
@@ -159,6 +175,37 @@ public class CapturaCalificacionesController implements Initializable {
 
         // creamos la interfaz grafica de llenado de calificacioenes por materia
         llenarAsignaturasColumns(alumno.getAula().getGrado().getAsignaturas());
+
+    }
+
+    @FXML
+    private void generarBoletaInterna(ActionEvent event) throws IOException {
+
+        //Manipulando el fileChooser
+        String workPath = System.getProperty("user.dir");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(workPath));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Acción cancelada");
+            alert.setContentText("la bole interna no se guardo");
+            alert.showAndWait();
+            return;
+        }
+
+        //capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta =  getCalificacionesActuales();
+
+        BoletaInterna.generarPDF(file, calificacionesBoleta);
+
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Acción cancelada");
+        alert.setContentText("la lista de alumnos se guardo correctamente");
+        alert.showAndWait();
 
     }
 
@@ -203,48 +250,99 @@ public class CapturaCalificacionesController implements Initializable {
 
     @FXML
     private void seleccionarMes(ActionEvent event) {
-        
+
         String mesNombre = cmbMes.getSelectionModel().getSelectedItem();
-        
+
         if (mesNombre.equals("octubre") && !esMesCalificado(alumno, "septiembre")) {
-            System.out.println("NOOOO");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
             return;
         }
 
         if (mesNombre.equals("noviembre/diciembre") && !esMesCalificado(alumno, "octubre")) {
-            System.out.println("NOOOO");
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
             return;
         }
 
+        if (mesNombre.equals("enero") && !esMesCalificado(alumno, "noviembre/diciembre")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
+        if (mesNombre.equals("febrero") && !esMesCalificado(alumno, "enero")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
+        if (mesNombre.equals("marzo") && !esMesCalificado(alumno, "febrero")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
+        if (mesNombre.equals("abril") && !esMesCalificado(alumno, "marzo")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
+        if (mesNombre.equals("mayo") && !esMesCalificado(alumno, "abril")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
+        if (mesNombre.equals("junio") && !esMesCalificado(alumno, "mayo")) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
 
         if (esMesCalificado(alumno, mesNombre)) {
 
-            //desabilitamos el boton de registrar
-            btnRegistrarCalificacion.setDisable(true);    
+            // desabilitamos el boton de registrar
+            btnRegistrarCalificacion.setDisable(true);
 
             // llenar la informacion que anteriormente se guardo
-            //para las materias academicas
+            // para las materias academicas
             for (int i = 0; i < getCalificacionesAcademicasMensuales(mesNombre).size(); i++) {
                 txtMateriasAcademicas.get(i)
-                .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
+                        .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
                 txtMateriasAcademicas.get(i).setEditable(false);
             }
-            
-            //para las materias complementarias
+
+            // para las materias complementarias
             for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
                 txtMateriasComplementarias.get(i)
-                .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
+                        .setText(getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().toString());
                 txtMateriasComplementarias.get(i).setEditable(false);
             }
             return;
         }
 
-
-
         btnRegistrarCalificacion.setDisable(false);
         limpiarTxtMaterias();
 
-        //habilitamos de nuevo los txt de las materias
+        // habilitamos de nuevo los txt de las materias
         txtMateriasAcademicas.forEach(txt -> {
             txt.setEditable(true);
         });
@@ -253,12 +351,11 @@ public class CapturaCalificacionesController implements Initializable {
             txt.setEditable(true);
         });
 
-
         mesSeleccionado = new MesH(mesNombre);
         mesSeleccionado = new MesDAOH().buscarPoNombre(mesSeleccionado);
     }
 
-    private void limpiarTxtMaterias(){
+    private void limpiarTxtMaterias() {
         txtMateriasAcademicas.forEach(txt -> {
             txt.clear();
         });
@@ -288,7 +385,16 @@ public class CapturaCalificacionesController implements Initializable {
                     &&
                     c.getMes().getNombre().equals(mesNombre);
         })
-                .collect(Collectors.toList());
+        .collect(Collectors.toList());
+    }
+
+    private List<CalificacionH> getCalificacionesActuales() {
+        return alumno.getCalificaciones().stream().filter(c -> {
+            return c.getGrado().getNombre().equals(alumno.getAula().getGrado().getNombre())
+                    &&
+                    c.getGrupo().getNombre().equals(alumno.getAula().getGrupo().getNombre());
+        })
+        .collect(Collectors.toList());
     }
 
     private boolean esMesCalificado(AlumnoH alumno, String mesNombre) {
@@ -296,14 +402,35 @@ public class CapturaCalificacionesController implements Initializable {
     }
 
     private void setCalifiacionesAcademicas(AlumnoH alumno) {
+
         List<AsignaturaH> listAcademicas = alumno.getAula().getGrado().getAsignaturas().stream()
                 .filter(a -> a.getTipoAsignatura().getNombre().equals("academica"))
                 .collect(Collectors.toList());
 
         for (int i = 0; i < listAcademicas.size(); i++) {
-            CalificacionDAOH calificacionDAO = new CalificacionDAOH();
-            Integer calificacionMateria = Integer.parseInt(txtMateriasAcademicas.get(i).getText());
+            String calificacionMateriaUi =  txtMateriasAcademicas.get(i).getText().trim();
 
+            if(!calificacionMateriaUi.matches(regexCalificacion)){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("Formato no valido para la calificacion");
+                alert.showAndWait();
+                return;
+            }
+
+            Double calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+
+            if(calificacionMateria <= 6){
+                txtMateriasAcademicas.get(i).setText("7");
+                calificacionMateria = 7.0;
+            }
+
+            if(calificacionMateria > 10){
+                txtMateriasAcademicas.get(i).setText("10");
+                calificacionMateria = 10.0;
+            }
+            
+            CalificacionDAOH calificacionDAO = new CalificacionDAOH();
             CalificacionH calificacion = new CalificacionH();
             calificacion.setAlumno(alumno);
             calificacion.setGrupo(alumno.getAula().getGrupo());
@@ -315,10 +442,10 @@ public class CapturaCalificacionesController implements Initializable {
 
             calificacionDAO.insertar(calificacion);
 
-            //agregando las calificaciones recien agregadas
+            // agregando las calificaciones recien agregadas
             alumno.getCalificaciones().add(calificacion);
         }
-        
+
     }
 
     private void setCalifiacionesComplementarias(AlumnoH alumno) {
@@ -330,7 +457,27 @@ public class CapturaCalificacionesController implements Initializable {
                 .collect(Collectors.toList());
 
         for (int i = 0; i < listComplementarias.size(); i++) {
-            Integer calificacionMateria = Integer.parseInt(txtMateriasComplementarias.get(i).getText());
+            String calificacionMateriaUi =  txtMateriasComplementarias.get(i).getText().trim();
+
+            if(!calificacionMateriaUi.matches(regexCalificacion)){
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("Formato no valido para la calificacion");
+                alert.showAndWait();
+                return;
+            }
+
+            Double calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+
+            if(calificacionMateria <= 6){
+                txtMateriasComplementarias.get(i).setText("7");
+                calificacionMateria = 7.0;
+            }
+
+            if(calificacionMateria > 10){
+                txtMateriasComplementarias.get(i).setText("10");
+                calificacionMateria = 10.0;
+            }
 
             CalificacionH calificacion = new CalificacionH();
             calificacion.setAlumno(alumno);
@@ -343,7 +490,7 @@ public class CapturaCalificacionesController implements Initializable {
 
             calificacionDAO.insertar(calificacion);
 
-            //agregando las calificaciones recien agregadas
+            // agregando las calificaciones recien agregadas
             alumno.getCalificaciones().add(calificacion);
         }
     }
@@ -382,7 +529,9 @@ public class CapturaCalificacionesController implements Initializable {
     }
 
     public void iniciarSesion() {
-        // lblNombreUsuario.setText(Sesion.nombreUsuario);
+        if(Sesion.nombreUsuario != null){
+            lblNombreUsuario.setText(Sesion.nombreUsuario);
+        }
     }
 
     private void limpiarUI() {
@@ -453,6 +602,7 @@ public class CapturaCalificacionesController implements Initializable {
         });
 
         btnRegistrarCalificacion.setDisable(true);
+        cmbMes.setDisable(true);
 
     }
 
