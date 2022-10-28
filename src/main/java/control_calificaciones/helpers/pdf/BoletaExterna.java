@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,6 +91,7 @@ public class BoletaExterna {
         String msg = gradoInfo + "GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR " + cicloEscolarInfo;
 
 
+
         documentHTML.getElementById("apellido_paterno").append(alumno.getApellidoPaterno().toUpperCase());
         documentHTML.getElementById("apellido_materno").append(alumno.getApellidoMaterno().toUpperCase());
         documentHTML.getElementById("nombre").append(alumno.getNombre().toUpperCase());
@@ -101,6 +101,8 @@ public class BoletaExterna {
         documentHTML.getElementById("alumno__grado__ciclo_escolar").append(msg);
 
         documentHTML.getElementById("tutor__nombre").append(tutor.getNombreCompleto().toUpperCase() + ": ");
+
+
 
     }
     
@@ -227,6 +229,7 @@ public class BoletaExterna {
 
         String infoAnio = Integer.toString(fecha.getYear());
         String infoMes = fecha.getMonth().toString();
+        String infoMesNumero = Integer.toString(fecha.getMonthValue());
         String infoDia = Integer.toString(fecha.getDayOfMonth());
         
 
@@ -237,6 +240,10 @@ public class BoletaExterna {
         tdAnio.append(infoAnio);
         tdMes.append(infoMes);
         tdDia.append(infoDia);
+
+        String folio = calificacionesBoleta.get(0).getIdCalificacion() + infoDia + infoMesNumero + infoAnio; 
+
+        documentHTML.getElementById("folio").append("FOLIO: " + folio);
 
     }
 }

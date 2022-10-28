@@ -17,6 +17,7 @@ import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
+import control_calificaciones.data.AlumnoDAOH;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
@@ -114,9 +115,21 @@ public class BoletaInterna {
 
         String nombreInfo = alumno.getNombreCompleto().toUpperCase();
 
+        //Obteniendo el numero de lista
+        Integer numeroLista = 0;
+        List<AlumnoH> alumnosLista =  new AlumnoDAOH().listar();
+        for (int i = 0; i < alumnosLista.size(); i++) {
+            if(alumnosLista.get(i).getCurp().equalsIgnoreCase(alumno.getCurp())){
+                numeroLista = i;
+                break;
+            }
+        }
+
         documentHTML.getElementById("grado__grupo_info").append("GRADO Y GRUPO: " + gradoGrupoInfo);
         documentHTML.getElementById("ciclo__escolar_info").append("CICLO ESCOLAR: " + cicloEscolarInfo);
         documentHTML.getElementById("nombre__alumno").append("ALUMNO(A): " + nombreInfo);
+        documentHTML.getElementById("no__lista").append("NO. LISTA: " + (numeroLista + 1) );
+
     }
 
     private static void agregarMateriasAcademicas(Document documentHTML, List<CalificacionH> calificacionesBoleta) {

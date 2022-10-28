@@ -7,7 +7,7 @@ import control_calificaciones.models.AlumnoH;
 public class AlumnoDAOH extends GenericDAO {
 
     public List<AlumnoH> listar() {
-        String consulta = "SELECT alumno FROM AlumnoH alumno";
+        String consulta = "SELECT alumno FROM AlumnoH alumno ORDER BY apellidoPaterno ASC";
         entityManager = getEntityManager();
         Query query = entityManager.createQuery(consulta);
         return query.getResultList();
