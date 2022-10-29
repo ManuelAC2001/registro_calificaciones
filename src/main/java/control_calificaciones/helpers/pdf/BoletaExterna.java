@@ -87,10 +87,7 @@ public class BoletaExterna {
 
         TutorH tutor = alumno.getTutor();
 
-        // String msg = "1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020";
         String msg = gradoInfo + "GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR " + cicloEscolarInfo;
-
-
 
         documentHTML.getElementById("apellido_paterno").append(alumno.getApellidoPaterno().toUpperCase());
         documentHTML.getElementById("apellido_materno").append(alumno.getApellidoMaterno().toUpperCase());
@@ -101,9 +98,6 @@ public class BoletaExterna {
         documentHTML.getElementById("alumno__grado__ciclo_escolar").append(msg);
 
         documentHTML.getElementById("tutor__nombre").append(tutor.getNombreCompleto().toUpperCase() + ": ");
-
-
-
     }
     
     private static void agregarMateriasAcademicas(Document documentHTML, List<CalificacionH> calificacionesBoleta) {
@@ -203,7 +197,6 @@ public class BoletaExterna {
             tbodyTrimestre.appendChild(trTrimestre);
 
         }
-
         //promedios finales de cada trimestre
         promedioFinalTrimestre1 /= materias.size();
         promedioFinalTrimestre2 /= materias.size();
@@ -212,15 +205,6 @@ public class BoletaExterna {
         promedioFinal /= materias.size();
         Element tdPromedioFinal = documentoHTML.getElementById("promedio_final");
         tdPromedioFinal.append(String.format("%.2f", promedioFinal));
-
-
-
-        // Element trTrimestre = documentoHTML.createElement("tr");
-        // trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalTrimestre1) +"</td>");
-        // trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalTrimestre2) +"</td>");
-        // trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalTrimestre3) +"</td>");
-        // trTrimestre.append("<td>"+ String.format("%.2f", promedioFinal) +"</td>");
-        // tbodyTrimestre.appendChild(trTrimestre);
     }
 
     private static void agregarInformacionFecha(Document documentHTML, List<CalificacionH> calificacionesBoleta) {

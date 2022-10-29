@@ -147,7 +147,7 @@ public class BoletaInterna {
         asignaturasAcademicas.forEach(c -> {
             // creamos un tr para cada materia
             Element trMateria = documentHTML.createElement("tr");
-            trMateria.append("<td>" + c.getNombre() + "</td>");
+            trMateria.append("<td rowspan='0'>" + c.getNombre() + "</td>");
             tbodyMaterias.appendChild(trMateria);
         });
 
@@ -342,15 +342,14 @@ public class BoletaInterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            promedioFinal += promedioFinalMateria;
-            
-
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");
-            
+
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3; 
             promedioFinalMateria /= 3;
+            promedioFinal += promedioFinalMateria;
+
             trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalMateria) +"</td>");
             tbodyTrimestre.appendChild(trTrimestre);
         }
@@ -436,15 +435,13 @@ public class BoletaInterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            promedioFinal += promedioFinalMateria;
-            
-
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");
             
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3; 
             promedioFinalMateria /= 3;
+            promedioFinal += promedioFinalMateria;
             trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalMateria) +"</td>");
             tbodyTrimestre.appendChild(trTrimestre);
         }
