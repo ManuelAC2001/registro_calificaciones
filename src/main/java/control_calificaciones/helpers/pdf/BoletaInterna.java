@@ -45,6 +45,7 @@ public class BoletaInterna {
             //....para materias academicas
             agregarMateriasAcademicas(documentHTML, calificacionesBoleta);
             
+            agregarCalificacionesAcademicasMensual(documentHTML, calificacionesBoleta, "diagnostico","tbody__diagnostico");
             agregarCalificacionesAcademicasMensual(documentHTML, calificacionesBoleta, "septiembre","tbody__septiembre");
             agregarCalificacionesAcademicasMensual(documentHTML, calificacionesBoleta, "octubre", "tbody__octubre");
             agregarCalificacionesAcademicasMensual(documentHTML, calificacionesBoleta, "noviembre/diciembre","tbody__noviembre_diciembre");
@@ -60,6 +61,7 @@ public class BoletaInterna {
             //....para materias complementarias
             agregarMateriasComplementarias(documentHTML, calificacionesBoleta);
 
+            agregarCalificacionesComplementariasMensual(documentHTML, calificacionesBoleta, "diagnostico", "tbody__diagnostico_complementaria");
             agregarCalificacionesComplementariasMensual(documentHTML, calificacionesBoleta, "septiembre", "tbody__septiembre_complementaria");
             agregarCalificacionesComplementariasMensual(documentHTML, calificacionesBoleta, "octubre", "tbody__octubre_complementaria");
             agregarCalificacionesComplementariasMensual(documentHTML, calificacionesBoleta, "noviembre/diciembre", "tbody__noviembre_diciembre_complementaria");
@@ -369,8 +371,6 @@ public class BoletaInterna {
         trTrimestre.append("<td>"+ String.format("%.2f", promedioFinal) +"</td>");
         tbodyTrimestre.appendChild(trTrimestre);
     }
-
-
 
     private static void agregarPromedioTrimestralomplementaria(Document documentoHTML,
             List<CalificacionH> calificacionesBoleta) {

@@ -386,6 +386,15 @@ public class CapturaCalificacionesController implements Initializable {
 
         String mesNombre = cmbMes.getSelectionModel().getSelectedItem();
 
+        if (mesNombre.equals("septiembre") && !esMesCalificado(alumno, "diagnostico")) {
+            btnRegistrarCalificacion.setDisable(true);
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Aun no puede registrar calificaciones para este mes");
+            alert.showAndWait();
+            return;
+        }
+
         if (mesNombre.equals("octubre") && !esMesCalificado(alumno, "septiembre")) {
             btnRegistrarCalificacion.setDisable(true);
             alert = new Alert(AlertType.ERROR);
