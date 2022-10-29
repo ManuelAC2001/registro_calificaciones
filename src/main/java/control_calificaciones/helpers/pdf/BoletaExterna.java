@@ -181,9 +181,6 @@ public class BoletaExterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            promedioFinal += promedioFinalMateria;
-            
-
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");            
@@ -191,7 +188,7 @@ public class BoletaExterna {
             
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3; 
             promedioFinalMateria /= 3;
-            
+            promedioFinal += promedioFinalMateria;
 
             trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalMateria) +"</td>");            
             tbodyTrimestre.appendChild(trTrimestre);
