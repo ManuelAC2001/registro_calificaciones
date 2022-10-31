@@ -40,7 +40,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CapturaCalificacionesController implements Initializable {
+public class ModificacionCalificacionesController implements Initializable {
 
     private Parent root;
     private Stage stage;
@@ -50,7 +50,7 @@ public class CapturaCalificacionesController implements Initializable {
     private String regexCalificacion = "^(\\d{1}\\.)?(\\d+\\.?)+(,\\d{2})?$";
 
     @FXML
-    private Button btnRegistrarCalificacion;
+    private Button btnModificarCalificacion;
 
     @FXML
     private Label lblAsignatura1;
@@ -171,7 +171,7 @@ public class CapturaCalificacionesController implements Initializable {
 
         if (alumno == null) {
             cmbMes.setDisable(true);
-            btnRegistrarCalificacion.setDisable(true);
+            btnModificarCalificacion.setDisable(true);
             btnBoletaInterna.setDisable(true);
             btnBoletaExterna.setDisable(true);
 
@@ -319,8 +319,7 @@ public class CapturaCalificacionesController implements Initializable {
 
     // IMPORTANTEE
     @FXML
-    private void registrarCalifiaciones(ActionEvent event) {
-        btnRegistrarCalificacion.setDisable(true);
+    private void modificarCalifiaciones(ActionEvent event) {
         setCalificaciones(alumno);
     }
 
@@ -328,127 +327,41 @@ public class CapturaCalificacionesController implements Initializable {
     private void seleccionarMes(ActionEvent event) {
 
         String mesNombre = cmbMes.getSelectionModel().getSelectedItem();
-        
-        if (mesNombre.equals("septiembre") && !esMesCalificado(alumno,
-        "diagnostico")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
+        btnModificarCalificacion.setDisable(true);
 
-        if (mesNombre.equals("octubre") && !esMesCalificado(alumno, "septiembre")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
+        mesSeleccionado = new MesH(mesNombre);
+        mesSeleccionado = new MesDAOH().buscarPoNombre(mesSeleccionado);
 
-        if (mesNombre.equals("noviembre/diciembre") && !esMesCalificado(alumno,
-        "octubre")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("enero") && !esMesCalificado(alumno,
-        "noviembre/diciembre")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("febrero") && !esMesCalificado(alumno, "enero")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("marzo") && !esMesCalificado(alumno, "febrero")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("abril") && !esMesCalificado(alumno, "marzo")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("mayo") && !esMesCalificado(alumno, "abril")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
-        }
-
-        if (mesNombre.equals("junio") && !esMesCalificado(alumno, "mayo")) {
-        btnRegistrarCalificacion.setDisable(true);
-        alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Mensaje");
-        alert.setContentText("Aun no puede registrar calificaciones para este mes");
-        alert.showAndWait();
-        return;
+        if (!esMesCalificado(alumno, mesNombre)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("No se puede modificar un mes que no haya sido capturado anteriormente");
+            alert.showAndWait();
+            return;
         }
 
         if (esMesCalificado(alumno, mesNombre)) {
 
-            // desabilitamos el boton de registrar
-            btnRegistrarCalificacion.setDisable(true);
+            btnModificarCalificacion.setDisable(false);
 
             // llenar la informacion que anteriormente se guardo
             // para las materias academicas
             for (int i = 0; i < getCalificacionesAcademicasMensuales(mesNombre).size(); i++) {
-                txtMateriasAcademicas.get(i)
-                        .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
-                txtMateriasAcademicas.get(i).setEditable(false);
+                txtMateriasAcademicas.get(i).setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
+                txtMateriasAcademicas.get(i).setEditable(true);
             }
 
             // para las materias complementarias
             for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
                 txtMateriasComplementarias.get(i)
                         .setText(getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().toString());
-                txtMateriasComplementarias.get(i).setEditable(false);
+                txtMateriasComplementarias.get(i).setEditable(true);
             }
             return;
         }
 
-        btnRegistrarCalificacion.setDisable(false);
         limpiarTxtMaterias();
 
-        // habilitamos de nuevo los txt de las materias
-        txtMateriasAcademicas.forEach(txt -> {
-            txt.setEditable(true);
-        });
-
-        txtMateriasComplementarias.forEach(txt -> {
-            txt.setEditable(true);
-        });
-
-        mesSeleccionado = new MesH(mesNombre);
-        mesSeleccionado = new MesDAOH().buscarPoNombre(mesSeleccionado);
     }
 
     private void limpiarTxtMaterias() {
@@ -532,25 +445,20 @@ public class CapturaCalificacionesController implements Initializable {
             }
         }
 
+        // empezamos con la modificacion de la calificacion
+
+        List<CalificacionH> calificacionesMensual = getCalificacionesMensuales(mesSeleccionado.getNombre());
+
         for (int i = 0; i < listaMaterias.size(); i++) {
 
             calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
             calificacionMateria = Double.parseDouble(calificacionMateriaUi);
 
             CalificacionDAOH calificacionDAO = new CalificacionDAOH();
-            CalificacionH calificacion = new CalificacionH();
-            calificacion.setAlumno(alumno);
-            calificacion.setGrupo(alumno.getAula().getGrupo());
-            calificacion.setGrado(alumno.getAula().getGrado());
-            calificacion.setAsignatura(listaMaterias.get(i));
-            calificacion.setCicloEscolar(cicloEscolar);
-            calificacion.setMes(mesSeleccionado);
+            CalificacionH calificacion = calificacionesMensual.get(i);
             calificacion.setResultado(calificacionMateria);
+            calificacionDAO.actualizar(calificacion);
 
-            calificacionDAO.insertar(calificacion);
-
-            // // agregando las calificaciones recien agregadas
-            alumno.getCalificaciones().add(calificacion);
         }
 
         alert = new Alert(AlertType.CONFIRMATION);
@@ -677,11 +585,11 @@ public class CapturaCalificacionesController implements Initializable {
             cmbMes.getItems().add(mes.getNombre());
         });
 
-        btnRegistrarCalificacion.setDisable(true);
+        btnModificarCalificacion.setDisable(true);
         cmbMes.setDisable(true);
         btnBoletaInterna.setDisable(true);
         btnBoletaExterna.setDisable(true);
 
     }
-    
+
 }
