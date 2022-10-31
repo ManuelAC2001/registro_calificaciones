@@ -133,9 +133,9 @@ public class SesionController {
     @FXML
     private void entrarCapturaCalificaciones(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("capturaCalificaciones.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("panelCalificaciones.fxml"));
         root = loader.load();
-        CapturaCalificacionesController controller = loader.getController();
+        PanelCalificacionesController controller = loader.getController();
         controller.iniciarSesion();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

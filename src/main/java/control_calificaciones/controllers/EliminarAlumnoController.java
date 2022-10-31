@@ -264,6 +264,8 @@ public class EliminarAlumnoController {
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         alumnoDAO.eliminar(alumno);
 
+        //eliminamos sus calificaciones tambien
+
         // vamos a la siguiente ventana
         alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Mensaje");
