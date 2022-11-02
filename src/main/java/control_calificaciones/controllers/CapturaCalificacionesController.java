@@ -215,17 +215,17 @@ public class CapturaCalificacionesController implements Initializable {
         }
 
         List<MesH> meses = new MesDAOH().listar();
-
+        Boolean esBoletaOficial = false;
+        
         for (MesH mes : meses) {
             if (!esMesCalificado(alumno, mes.getNombre())) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("No se puede generar la boleta externa");
-                alert.setContentText(
-                        "El alumno aun no tiene calificaciones registradas para el mes de " + mes.getNombre());
-                alert.showAndWait();
-                return;
+                esBoletaOficial = false;
+                continue;
             }
+            esBoletaOficial = true;
         }
+
+        System.out.println("es boleta oficial?: " + esBoletaOficial);
 
         // Manipulando el fileChooser
         String workPath = System.getProperty("user.dir");
@@ -245,7 +245,7 @@ public class CapturaCalificacionesController implements Initializable {
 
         // capturamos la calificacion por mes
         List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
-        BoletaExterna.generarPDF(file, calificacionesBoleta);
+        BoletaExterna.generarPDF(file, calificacionesBoleta, esBoletaOficial);
 
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Acción cancelada");

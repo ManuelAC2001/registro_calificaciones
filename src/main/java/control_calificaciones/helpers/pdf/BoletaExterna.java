@@ -25,7 +25,7 @@ import control_calificaciones.models.TutorH;
 
 public class BoletaExterna {
 
-    public static void generarPDF(File file, List<CalificacionH> calificacionesBoleta) {
+    public static void generarPDF(File file, List<CalificacionH> calificacionesBoleta, Boolean esBoletaOficial) {
 
         final String RUTA_LISTA_PDF = file.toString() + ".pdf";
 
@@ -44,6 +44,8 @@ public class BoletaExterna {
             agregarMateriasAcademicas(documentHTML, calificacionesBoleta);
             agregarPromedioTrimestralAcademico(documentHTML, calificacionesBoleta);
             agregarInformacionFecha(documentHTML, calificacionesBoleta);
+
+            setDocumentoOficial(documentHTML, esBoletaOficial);
 
 
             // obtencion del contenido de la plantilla HTML
@@ -227,4 +229,15 @@ public class BoletaExterna {
         documentHTML.getElementById("folio").append("FOLIO: " + folio);
 
     }
+
+    private static void setDocumentoOficial(Document documentHTML, Boolean esBoletaOficial) {
+
+        Element divMarcaAgua = documentHTML.getElementById("marca_agua");
+
+        if(esBoletaOficial){
+            divMarcaAgua.addClass("hide");
+        }
+
+    }
+
 }

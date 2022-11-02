@@ -106,7 +106,6 @@ public class BoletaInterna {
             org.w3c.dom.Document w3cDoc = w3cDom.fromJsoup(documentHTML);
 
             pdfBuilder.useFastMode();
-            // pdfBuilder.withFile(listaHTML);
             pdfBuilder.withW3cDocument(w3cDoc, null);
             pdfBuilder.toStream(os);
             pdfBuilder.run();
