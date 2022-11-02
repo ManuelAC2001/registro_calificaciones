@@ -133,7 +133,11 @@ public class BoletaInterna {
 
         // Obteniendo el numero de lista
         Integer numeroLista = 0;
-        List<AlumnoH> alumnosLista = new AlumnoDAOH().listar();
+        List<AlumnoH> alumnosLista = new AlumnoDAOH().listar().stream().filter(a -> {
+            return
+            a.getAula().equals(alumno.getAula());
+        })
+        .collect(Collectors.toList());
         for (int i = 0; i < alumnosLista.size(); i++) {
             if (alumnosLista.get(i).getCurp().equalsIgnoreCase(alumno.getCurp())) {
                 numeroLista = i;
@@ -539,10 +543,6 @@ public class BoletaInterna {
         trInasistencias.append("<td>" + inasistenciasPeriodo3 + "</td>");        
         trInasistencias.append("<td>" + inasistenciasTotal + "</td>");        
         tbodyTrimestre.appendChild(trInasistencias);
-
-
-
-
 
     }
     // FUNCIONES "HELPERS"

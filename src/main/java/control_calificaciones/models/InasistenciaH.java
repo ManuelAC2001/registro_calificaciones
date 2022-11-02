@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.*;
 
 @Getter @Setter
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "inasistencias")

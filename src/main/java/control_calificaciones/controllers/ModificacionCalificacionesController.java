@@ -13,6 +13,7 @@ import control_calificaciones.App;
 import control_calificaciones.data.AlumnoDAOH;
 import control_calificaciones.data.CalificacionDAOH;
 import control_calificaciones.data.CicloEscolarDAOH;
+import control_calificaciones.data.InasistenciaDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.pdf.BoletaExterna;
@@ -21,6 +22,7 @@ import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
 import control_calificaciones.models.CicloEscolarH;
+import control_calificaciones.models.InasistenciaH;
 import control_calificaciones.models.MesH;
 import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;
@@ -48,6 +50,7 @@ public class ModificacionCalificacionesController implements Initializable {
     private Alert alert;
 
     private String regexCalificacion = "^(\\d{1}\\.)?(\\d+\\.?)+(,\\d{2})?$";
+    private String regexInasistencias = "^[0-9]+$";
 
     @FXML
     private Button btnModificarCalificacion;
@@ -137,6 +140,9 @@ public class ModificacionCalificacionesController implements Initializable {
     private TextField txtCalificacion13;
 
     @FXML
+    private TextField txtInasistencias;
+
+    @FXML
     private Button btnBoletaExterna;
 
     @FXML
@@ -174,6 +180,7 @@ public class ModificacionCalificacionesController implements Initializable {
             btnModificarCalificacion.setDisable(true);
             btnBoletaInterna.setDisable(true);
             btnBoletaExterna.setDisable(true);
+            txtInasistencias.setVisible(false);
 
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -181,6 +188,8 @@ public class ModificacionCalificacionesController implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        txtInasistencias.setVisible(true);
         btnBoletaInterna.setDisable(false);
         btnBoletaExterna.setDisable(false);
         cmbMes.setDisable(false);
@@ -340,28 +349,38 @@ public class ModificacionCalificacionesController implements Initializable {
             return;
         }
 
-        if (esMesCalificado(alumno, mesNombre)) {
-
-            btnModificarCalificacion.setDisable(false);
-
-            // llenar la informacion que anteriormente se guardo
-            // para las materias academicas
-            for (int i = 0; i < getCalificacionesAcademicasMensuales(mesNombre).size(); i++) {
-                txtMateriasAcademicas.get(i).setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
-                txtMateriasAcademicas.get(i).setEditable(true);
-            }
-
-            // para las materias complementarias
-            for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
-                txtMateriasComplementarias.get(i)
-                        .setText(getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().toString());
-                txtMateriasComplementarias.get(i).setEditable(true);
-            }
+        if (!esMesCalificado(alumno, mesNombre)) {
+            limpiarTxtMaterias();
             return;
         }
 
-        limpiarTxtMaterias();
+        // llenar la informacion que anteriormente se guardo
+        // para las materias academicas
+        for (int i = 0; i < getCalificacionesAcademicasMensuales(mesNombre).size(); i++) {
+            txtMateriasAcademicas.get(i)
+                    .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
+            txtMateriasAcademicas.get(i).setEditable(true);
+        }
 
+        // para las materias complementarias
+        for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
+            txtMateriasComplementarias.get(i)
+                    .setText(getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().toString());
+            txtMateriasComplementarias.get(i).setEditable(true);
+        }
+
+        // smell code :P
+        List<InasistenciaH> inasistenciasMensual = alumno.getInasistencias().stream().filter(i -> {
+            return i.getMes().getNombre().equals(mesNombre)
+                    &&
+                    i.getCicloEscolar().equals(cicloEscolar);
+        })
+                .collect(Collectors.toList());
+
+        InasistenciaH numeroInasistencias = inasistenciasMensual.get(0);
+        txtInasistencias.setText(numeroInasistencias.getCantidad().toString());
+
+        btnModificarCalificacion.setDisable(false);
     }
 
     private void limpiarTxtMaterias() {
@@ -445,8 +464,31 @@ public class ModificacionCalificacionesController implements Initializable {
             }
         }
 
-        // empezamos con la modificacion de la calificacion
+        String inasistenciasUI = txtInasistencias.getText().trim();
 
+        if (!inasistenciasUI.matches(regexInasistencias)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("FORMATO NO VALIDO PARA EL NUMERO DE INASISTENCIAS");
+            alert.showAndWait();
+            return;
+        }
+
+        Integer cantidadInasistencias = Integer.parseInt(inasistenciasUI);
+
+        if(cantidadInasistencias > 5){ //este valor puede cambiar, aun tengo dudas
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("EL NÚMERO DE INASISTENCIAS NO PUEDE SOBREPASAR MÁS DE 5");
+            alert.showAndWait();
+            
+            txtInasistencias.setText("5");
+            return;
+        }
+
+        // ENVIAMOS LOS DATOS A LA BD
+
+        // empezamos con la modificacion de la calificacion
         List<CalificacionH> calificacionesMensual = getCalificacionesMensuales(mesSeleccionado.getNombre());
 
         for (int i = 0; i < listaMaterias.size(); i++) {
@@ -461,6 +503,20 @@ public class ModificacionCalificacionesController implements Initializable {
 
         }
 
+        // agregar numero de inasistencias
+        List<InasistenciaH> inasistencias = alumno.getInasistencias().stream().filter(i -> {
+            return
+            i.getMes().equals(mesSeleccionado)
+            &&
+            i.getCicloEscolar().equals(cicloEscolar);
+        })
+        .collect(Collectors.toList());
+
+        InasistenciaH inasistenciaMensual = inasistencias.get(0);
+        InasistenciaDAOH inasistenciaDAO = new InasistenciaDAOH();
+        inasistenciaMensual.setCantidad(cantidadInasistencias);
+        inasistenciaDAO.actualizar(inasistenciaMensual);
+        
         alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("Calificaciones capturadas correctamente");
@@ -589,6 +645,7 @@ public class ModificacionCalificacionesController implements Initializable {
         cmbMes.setDisable(true);
         btnBoletaInterna.setDisable(true);
         btnBoletaExterna.setDisable(true);
+        txtInasistencias.setVisible(false);
 
     }
 

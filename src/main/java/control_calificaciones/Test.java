@@ -9,8 +9,9 @@ public class Test {
         String regexCalificacion = "^(\\d{1}\\.)?(\\d+\\.?)+(,\\d{2})?$";
         Double calif = 10.0;
         
+        String regexInasistencias = "^[0-9]+$";
 
-        System.out.println(String.format("%.2f", calif));
+        System.out.println("0".matches(regexInasistencias));
 
     }
 }

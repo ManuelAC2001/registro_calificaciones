@@ -50,6 +50,7 @@ public class CapturaCalificacionesController implements Initializable {
     private Alert alert;
 
     private String regexCalificacion = "^(\\d{1}\\.)?(\\d+\\.?)+(,\\d{2})?$";
+    private String regexInasistencias = "^[0-9]+$";
 
     @FXML
     private Button btnRegistrarCalificacion;
@@ -179,6 +180,7 @@ public class CapturaCalificacionesController implements Initializable {
             btnRegistrarCalificacion.setDisable(true);
             btnBoletaInterna.setDisable(true);
             btnBoletaExterna.setDisable(true);
+            txtInasistencias.setVisible(false);
 
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -327,7 +329,7 @@ public class CapturaCalificacionesController implements Initializable {
     // IMPORTANTEE
     @FXML
     private void registrarCalifiaciones(ActionEvent event) {
-        btnRegistrarCalificacion.setDisable(true);
+        // 
         setCalificaciones(alumno);
     }
 
@@ -449,15 +451,13 @@ public class CapturaCalificacionesController implements Initializable {
             txtMateriasComplementarias.get(i).setEditable(false);
         }
 
-        //smell code :P
-
-        List<InasistenciaH> inasistenciasMensual =  alumno.getInasistencias().stream().filter(i -> {
-            return
-            i.getMes().getNombre().equals(mesNombre)
-            &&
-            i.getCicloEscolar().equals(cicloEscolar);
+        // smell code :P
+        List<InasistenciaH> inasistenciasMensual = alumno.getInasistencias().stream().filter(i -> {
+            return i.getMes().getNombre().equals(mesNombre)
+                    &&
+                    i.getCicloEscolar().equals(cicloEscolar);
         })
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
         InasistenciaH numeroInasistencias = inasistenciasMensual.get(0);
         txtInasistencias.setText(numeroInasistencias.getCantidad().toString());
@@ -545,6 +545,31 @@ public class CapturaCalificacionesController implements Initializable {
             }
         }
 
+        String inasistenciasUI = txtInasistencias.getText().trim();
+
+        if (!inasistenciasUI.matches(regexInasistencias)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("FORMATO NO VALIDO PARA EL NUMERO DE INASISTENCIAS");
+            alert.showAndWait();
+            return;
+        }
+
+        Integer cantidadInasistencias = Integer.parseInt(inasistenciasUI);
+
+        if(cantidadInasistencias > 5){ //este valor puede cambiar, aun tengo dudas
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("EL NÚMERO DE INASISTENCIAS NO PUEDE SOBREPASAR MÁS DE 5");
+            alert.showAndWait();
+            
+            txtInasistencias.setText("5");
+            return;
+        }
+
+        //ENVIO DE INFORMACION EN LA BD
+
+        //agregar las calificaciones establecidas
         for (int i = 0; i < listaMaterias.size(); i++) {
 
             calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
@@ -570,9 +595,6 @@ public class CapturaCalificacionesController implements Initializable {
         InasistenciaDAOH inasistenciaDAO = new InasistenciaDAOH();
         InasistenciaH inasistencia = new InasistenciaH();
 
-        String inasistenciasUI = txtInasistencias.getText().trim();
-        Integer cantidadInasistencias = Integer.parseInt(inasistenciasUI);
-
         inasistencia.setCantidad(cantidadInasistencias);
         inasistencia.setAlumno(alumno);
         inasistencia.setMes(mesSeleccionado);
@@ -585,6 +607,7 @@ public class CapturaCalificacionesController implements Initializable {
         alert.setTitle("Mensaje");
         alert.setContentText("Calificaciones capturadas correctamente");
         alert.showAndWait();
+        btnRegistrarCalificacion.setDisable(true);
 
     }
 
