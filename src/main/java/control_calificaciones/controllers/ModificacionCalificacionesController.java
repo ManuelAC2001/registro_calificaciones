@@ -431,12 +431,12 @@ public class ModificacionCalificacionesController implements Initializable {
 
     private void setCalificaciones(AlumnoH alumno) {
 
-        txtMateriasAcademicas = txtMateriasAcademicas.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
-        txtMateriasComplementarias = txtMateriasComplementarias.stream().filter(t -> t.isVisible())
-                .collect(Collectors.toList());
+        // txtMateriasAcademicas = txtMateriasAcademicas.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
+        // txtMateriasComplementarias = txtMateriasComplementarias.stream().filter(t -> t.isVisible())
+        //         .collect(Collectors.toList());
 
-        txtMateriasGeneral.addAll(txtMateriasAcademicas);
-        txtMateriasGeneral.addAll(txtMateriasComplementarias);
+        // txtMateriasGeneral.addAll(txtMateriasAcademicas);
+        // txtMateriasGeneral.addAll(txtMateriasComplementarias);
 
         List<AsignaturaH> listaMaterias = alumno.getAula().getGrado().getAsignaturas();
         String calificacionMateriaUi = "";
@@ -528,6 +528,7 @@ public class ModificacionCalificacionesController implements Initializable {
 
         setInvisibleLblMaterias();
         setInvisibleTxtMaterias();
+        txtMateriasGeneral.clear();
 
         List<AsignaturaH> academicas = asignaturas.stream()
                 .filter(a -> a.getTipoAsignatura().getNombre().equals("academica"))
@@ -540,6 +541,7 @@ public class ModificacionCalificacionesController implements Initializable {
 
         for (int i = 0; i < academicas.size(); i++) {
             txtMateriasAcademicas.get(i).setVisible(true);
+            txtMateriasGeneral.add(txtMateriasAcademicas.get(i));
         }
 
         List<AsignaturaH> complementarias = asignaturas.stream()
@@ -553,6 +555,7 @@ public class ModificacionCalificacionesController implements Initializable {
 
         for (int i = 0; i < complementarias.size(); i++) {
             txtMateriasComplementarias.get(i).setVisible(true);
+            txtMateriasGeneral.add(txtMateriasComplementarias.get(i));
         }
 
     }
