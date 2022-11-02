@@ -244,6 +244,12 @@
                                                 <Label fx:id="lblAsignatura11" prefHeight="25.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-alignment: center;" textAlignment="CENTER" />
                                                 <Label fx:id="lblAsignatura12" prefHeight="25.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-alignment: center;" textAlignment="CENTER" />
                                                 <Label fx:id="lblAsignatura13" prefHeight="25.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-alignment: center;" textAlignment="CENTER" />
+                                                <Label prefHeight="35.0" prefWidth="234.0" />
+                                                <Label prefHeight="29.0" prefWidth="216.0" style="-fx-background-color: e6862d; -fx-border-color: black; -fx-alignment: center;" text="NÚMERO DE INASISTENCIAS" textAlignment="CENTER" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" prefHeight="822.0" prefWidth="95.0">
@@ -272,6 +278,8 @@
                                                 <TextField fx:id="txtCalificacion11" prefHeight="15.0" prefWidth="216.0" style="-fx-alignment: center;" />
                                                 <TextField fx:id="txtCalificacion12" prefHeight="15.0" prefWidth="216.0" style="-fx-alignment: center;" />
                                                 <TextField fx:id="txtCalificacion13" prefHeight="15.0" prefWidth="216.0" style="-fx-alignment: center;" />
+                                                <Label prefHeight="35.0" prefWidth="234.0" />
+                                                <TextField fx:id="txtInasistencias" prefHeight="30.0" prefWidth="95.0" style="-fx-alignment: center;" />
                                              </children>
                                           </VBox>
                                           <VBox alignment="CENTER" prefHeight="822.0" prefWidth="277.0">

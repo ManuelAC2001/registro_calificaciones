@@ -50,6 +50,10 @@ public class AlumnoH {
     @ToString.Exclude
     private List<CalificacionH> calificaciones;
 
+    @OneToMany(mappedBy = "alumno")
+    @ToString.Exclude
+    private List<InasistenciaH> inasistencias;
+
     public String getNombreCompleto(){
         return 
                 this.apellidoPaterno + " " + 
