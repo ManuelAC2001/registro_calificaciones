@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -327,7 +329,7 @@ public class CapturaCalificacionesController implements Initializable {
     // IMPORTANTEE
     @FXML
     private void registrarCalifiaciones(ActionEvent event) {
-        // 
+        //
         setCalificaciones(alumno);
     }
 
@@ -510,12 +512,6 @@ public class CapturaCalificacionesController implements Initializable {
 
     private void setCalificaciones(AlumnoH alumno) {
 
-        // txtMateriasAcademicas =     txtMateriasAcademicas.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
-        // txtMateriasComplementarias = txtMateriasComplementarias.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
-
-        // txtMateriasGeneral.addAll(txtMateriasAcademicas);
-        // txtMateriasGeneral.addAll(txtMateriasComplementarias);
-
         List<AsignaturaH> listaMaterias = alumno.getAula().getGrado().getAsignaturas();
         String calificacionMateriaUi = "";
         Double calificacionMateria = 0.0;
@@ -532,6 +528,7 @@ public class CapturaCalificacionesController implements Initializable {
             }
 
             calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+            txtMateriasGeneral.get(i).setText(String.valueOf(Math.round(calificacionMateria)));
 
             if (calificacionMateria < 6) {
                 txtMateriasGeneral.get(i).setText("6");
@@ -540,6 +537,7 @@ public class CapturaCalificacionesController implements Initializable {
             if (calificacionMateria > 10) {
                 txtMateriasGeneral.get(i).setText("10");
             }
+
         }
 
         String inasistenciasUI = txtInasistencias.getText().trim();
@@ -554,19 +552,33 @@ public class CapturaCalificacionesController implements Initializable {
 
         Integer cantidadInasistencias = Integer.parseInt(inasistenciasUI);
 
-        if(cantidadInasistencias > 5){ //este valor puede cambiar, aun tengo dudas
+        if (cantidadInasistencias > 5) { // este valor puede cambiar, aun tengo dudas
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("EL NÚMERO DE INASISTENCIAS NO PUEDE SOBREPASAR MÁS DE 5");
             alert.showAndWait();
-            
+
             txtInasistencias.setText("5");
             return;
         }
 
-        //ENVIO DE INFORMACION EN LA BD
+        // confirmacion de envio de datos
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación del envio de calificaciones");
+        alert.setContentText("¿Esta seguro que desea enviar las calificaciones?");
+        Optional<ButtonType> btnRespuesta = alert.showAndWait();
 
-        //agregar las calificaciones establecidas
+        if (btnRespuesta.get() != ButtonType.OK) {
+            alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Operación cancelada");
+            alert.setContentText("Las calificaciones no se registraron");
+            alert.showAndWait();
+            return;
+        }
+
+        // ENVIO DE INFORMACION EN LA BD
+
+        // agregar las calificaciones establecidas
         for (int i = 0; i < listaMaterias.size(); i++) {
 
             calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
@@ -600,7 +612,7 @@ public class CapturaCalificacionesController implements Initializable {
         inasistenciaDAO.insertar(inasistencia);
         alumno.getInasistencias().add(inasistencia);
 
-        alert = new Alert(AlertType.CONFIRMATION);
+        alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("Calificaciones capturadas correctamente");
         alert.showAndWait();

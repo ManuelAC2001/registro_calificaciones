@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -431,13 +433,6 @@ public class ModificacionCalificacionesController implements Initializable {
 
     private void setCalificaciones(AlumnoH alumno) {
 
-        // txtMateriasAcademicas = txtMateriasAcademicas.stream().filter(t -> t.isVisible()).collect(Collectors.toList());
-        // txtMateriasComplementarias = txtMateriasComplementarias.stream().filter(t -> t.isVisible())
-        //         .collect(Collectors.toList());
-
-        // txtMateriasGeneral.addAll(txtMateriasAcademicas);
-        // txtMateriasGeneral.addAll(txtMateriasComplementarias);
-
         List<AsignaturaH> listaMaterias = alumno.getAula().getGrado().getAsignaturas();
         String calificacionMateriaUi = "";
         Double calificacionMateria = 0.0;
@@ -454,6 +449,7 @@ public class ModificacionCalificacionesController implements Initializable {
             }
 
             calificacionMateria = Double.parseDouble(calificacionMateriaUi);
+            txtMateriasGeneral.get(i).setText(String.valueOf(Math.round(calificacionMateria)));
 
             if (calificacionMateria < 6) {
                 txtMateriasGeneral.get(i).setText("6");
@@ -483,6 +479,20 @@ public class ModificacionCalificacionesController implements Initializable {
             alert.showAndWait();
             
             txtInasistencias.setText("5");
+            return;
+        }
+
+        // confirmacion de envio de datos
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de la modificación de calificaciones");
+        alert.setContentText("¿Esta seguro que desea modificar las calificaciones?");
+        Optional<ButtonType> btnRespuesta = alert.showAndWait();
+
+        if (btnRespuesta.get() != ButtonType.OK) {
+            alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Operación cancelada");
+            alert.setContentText("Las calificaciones no se modificaron");
+            alert.showAndWait();
             return;
         }
 
@@ -517,7 +527,7 @@ public class ModificacionCalificacionesController implements Initializable {
         inasistenciaMensual.setCantidad(cantidadInasistencias);
         inasistenciaDAO.actualizar(inasistenciaMensual);
         
-        alert = new Alert(AlertType.CONFIRMATION);
+        alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("Calificaciones capturadas correctamente");
         alert.showAndWait();
