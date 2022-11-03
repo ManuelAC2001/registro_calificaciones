@@ -216,20 +216,55 @@ public class CapturaCalificacionesController implements Initializable {
 
         // capturamos los correo del padre
 
+        btnEnviarBoletas.setDisable(true);
+
         List<CorreoTutorH> correos = alumno.getTutor().getCorreos();
 
-        // capturamos el path de la ubicacion de los archivos generados
         String filePath = System.getProperty("user.dir");
-        String boletaInternaPath = filePath + "\\boletasCorreos\\boletaExterna" + alumno.getCurp();
+        String boletaInternaPath = filePath + "\\boletasCorreos\\boletaInterna" + alumno.getCurp();
+        String boletaExternaPath = filePath + "\\boletasCorreos\\boletaExterna" + alumno.getCurp();
+
         File boletaInterna = getBoletaInterna(boletaInternaPath);
+        File boletaExterna = getBoletaExterna(boletaExternaPath);
 
         for (CorreoTutorH correo : correos) {
             String asunto = "Boletas de calificaciones internas y externas del alumno: " + alumno.getNombreCompleto();
             String contenido = "Fecha de envio: " + LocalDate.now();
-
-            EnviarEmails enviarEmail = new EnviarEmails(correo.getCorreo(), asunto, contenido, boletaInterna);
-
+            EnviarEmails enviarEmail = new EnviarEmails(correo.getCorreo(), asunto, contenido, boletaInterna,
+                    boletaExterna);
         }
+
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Operación exitosa");
+        alert.setContentText("Las boletas se enviaron correctamente al email del tutor");
+        alert.showAndWait();
+
+        btnEnviarBoletas.setDisable(false);
+
+    }
+
+    private File getBoletaExterna(String path) {
+
+        List<MesH> meses = new MesDAOH().listar();
+
+        Boolean esBoletaOficial = false;
+        for (MesH mes : meses) {
+            if (!esMesCalificado(alumno, mes.getNombre())) {
+                esBoletaOficial = false;
+                continue;
+            }
+            esBoletaOficial = true;
+        }
+
+        // creamos el archivo de la boleta interna para enviar
+        File boletaInternaFile = new File(path);
+
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
+        BoletaExterna.generarPDF(boletaInternaFile, calificacionesBoleta, esBoletaOficial);
+
+        // recueperamos el archivo que pasamos en el metodo de generar boleta externa
+        return new File(boletaInternaFile.toString() + ".pdf");
 
     }
 

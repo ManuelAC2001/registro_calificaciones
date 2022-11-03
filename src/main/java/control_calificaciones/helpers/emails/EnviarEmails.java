@@ -6,6 +6,8 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import control_calificaciones.helpers.pdf.BoletaExterna;
+
 public class EnviarEmails {
     private static String emailFrom = "tovi.rob20@gmail.com";
     private static String password = "pjjlumumotjbdcxn";
@@ -24,17 +26,17 @@ public class EnviarEmails {
      * @param contenido archivo o mensaje que contendra el email
      */
 
-    public EnviarEmails(String emailTo, String asunto, String contenido, File boletaInterna) {
+    public EnviarEmails(String emailTo, String asunto, String contenido, File boletaInterna, File boletaExterna) {
         this.emailTo = emailTo;
         this.asuunto = asunto;
         this.contenido = contenido;
 
         mailPropiedades = new Properties();
-        crearEmail(emailTo, asunto, contenido, boletaInterna);
+        crearEmail(emailTo, asunto, contenido, boletaInterna, boletaExterna);
         enviarCorreo();
     }
 
-    private void crearEmail(String emailTo, String asunto, String contenido, File boletaInterna) {
+    private void crearEmail(String emailTo, String asunto, String contenido, File boletaInterna, File boletaExterna) {
         // Simple mail transfer protocol
         mailPropiedades.put("mail.smtp.host", "smtp.gmail.com");
         mailPropiedades.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -57,18 +59,18 @@ public class EnviarEmails {
             messageBodyPart.setText(contenido);
 
             //archivos de boleta interna a enviar
-            MimeBodyPart attachmentPart = new MimeBodyPart();
-            attachmentPart.attachFile(boletaInterna);
+            MimeBodyPart attachmentPartInterna = new MimeBodyPart();
+            attachmentPartInterna.attachFile(boletaInterna);
             
             //archivos de boleta interna a enviar
-            // MimeBodyPart attachmentPart2 = new MimeBodyPart();
-            // attachmentPart2.attachFile(new File(getFileName2()));
+            MimeBodyPart attachmentPartExterna = new MimeBodyPart();
+            attachmentPartExterna.attachFile(boletaExterna);
 
 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
-            multipart.addBodyPart(attachmentPart);
-            // multipart.addBodyPart(attachmentPart2);
+            multipart.addBodyPart(attachmentPartInterna);
+            multipart.addBodyPart(attachmentPartExterna);
 
             // mailCorreo.setText(contenido, "ISO-8859-1", "html");
             mailCorreo.setContent(multipart);
