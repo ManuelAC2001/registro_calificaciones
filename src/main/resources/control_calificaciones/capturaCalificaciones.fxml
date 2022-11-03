@@ -306,7 +306,7 @@
                                                 <HBox prefHeight="357.0" prefWidth="277.0" />
                                              </children>
                                           </VBox>
-                                          <VBox alignment="TOP_CENTER" prefHeight="822.0" prefWidth="181.0">
+                                          <VBox alignment="TOP_CENTER" prefHeight="822.0" prefWidth="210.0">
                                              <children>
                                                 <Label prefHeight="22.0" prefWidth="182.0" text="SELECCIONAR MES">
                                                    <font>
@@ -317,6 +317,15 @@
                                                    </VBox.margin>
                                                 </Label>
                                                 <ComboBox fx:id="cmbMes" onAction="#seleccionarMes" prefWidth="150.0" style="-fx-background-color: #c6e0b4; -fx-cursor: hand;" />
+                                                <Label prefHeight="178.0" prefWidth="181.0" />
+                                                <Button fx:id="btnEnviarBoletas" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#EnviarBoletas" prefHeight="27.0" prefWidth="194.0" style="-fx-background-color: e6862d;" text="ENVIAR BOLETAS AL TUTOR" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
                                              </children>
                                           </VBox>
                                        </children>

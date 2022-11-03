@@ -3,6 +3,7 @@ package control_calificaciones.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ import control_calificaciones.data.CicloEscolarDAOH;
 import control_calificaciones.data.InasistenciaDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
+import control_calificaciones.helpers.emails.EnviarEmails;
 import control_calificaciones.helpers.pdf.BoletaExterna;
 import control_calificaciones.helpers.pdf.BoletaInterna;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
 import control_calificaciones.models.CicloEscolarH;
+import control_calificaciones.models.CorreoTutorH;
 import control_calificaciones.models.InasistenciaH;
 import control_calificaciones.models.MesH;
 import control_calificaciones.models.usuarios.Sesion;
@@ -150,6 +153,9 @@ public class CapturaCalificacionesController implements Initializable {
     @FXML
     private Button btnBoletaInterna;
 
+    @FXML
+    private Button btnEnviarBoletas;
+
     private List<Label> lblMateriasAcademicas = new ArrayList<>();
     private List<Label> lblMateriasComplementarias = new ArrayList<>();
 
@@ -204,6 +210,44 @@ public class CapturaCalificacionesController implements Initializable {
     }
 
     @FXML
+    private void EnviarBoletas(ActionEvent event) {
+
+        // validamos si hay boletas disponibles para el envio
+
+        // capturamos los correo del padre
+
+        List<CorreoTutorH> correos = alumno.getTutor().getCorreos();
+
+        // capturamos el path de la ubicacion de los archivos generados
+        String filePath = System.getProperty("user.dir");
+        String boletaInternaPath = filePath + "\\boletasCorreos\\boletaExterna" + alumno.getCurp();
+        File boletaInterna = getBoletaInterna(boletaInternaPath);
+
+        for (CorreoTutorH correo : correos) {
+            String asunto = "Boletas de calificaciones internas y externas del alumno: " + alumno.getNombreCompleto();
+            String contenido = "Fecha de envio: " + LocalDate.now();
+
+            EnviarEmails enviarEmail = new EnviarEmails(correo.getCorreo(), asunto, contenido, boletaInterna);
+
+        }
+
+    }
+
+    private File getBoletaInterna(String path) {
+
+        // creamos el archivo de la boleta interna para enviar
+        File boletaInternaFile = new File(path);
+
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
+        BoletaInterna.generarPDF(boletaInternaFile, calificacionesBoleta);
+
+        // recueperamos el archivo que pasamos en el metodo de generar boleta externa
+        return new File(boletaInternaFile.toString() + ".pdf");
+
+    }
+
+    @FXML
     private void generarBoletaExterna(ActionEvent event) {
 
         if (alumno.getCalificaciones().isEmpty()) {
@@ -216,7 +260,7 @@ public class CapturaCalificacionesController implements Initializable {
 
         List<MesH> meses = new MesDAOH().listar();
         Boolean esBoletaOficial = false;
-        
+
         for (MesH mes : meses) {
             if (!esMesCalificado(alumno, mes.getNombre())) {
                 esBoletaOficial = false;
@@ -224,8 +268,6 @@ public class CapturaCalificacionesController implements Initializable {
             }
             esBoletaOficial = true;
         }
-
-        System.out.println("es boleta oficial?: " + esBoletaOficial);
 
         // Manipulando el fileChooser
         String workPath = System.getProperty("user.dir");

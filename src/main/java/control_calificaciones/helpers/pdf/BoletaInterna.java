@@ -32,8 +32,8 @@ public class BoletaInterna {
 
         String filePath = System.getProperty("user.dir");
         File templateHTML = new File(filePath + "\\boletaInterna.html");
-        File listaHTML = new File(filePath + "\\boletaInternaGenerada.html");
-        File listaPDF = new File(RUTA_LISTA_PDF);
+        File boletaHTML = new File(filePath + "\\boletaInternaGenerada.html");
+        File boletaPDF = new File(RUTA_LISTA_PDF);
 
         try {
             Document documentHTML;
@@ -92,13 +92,13 @@ public class BoletaInterna {
             // obtencion del contenido de la plantilla HTML
             String contenidoHTML = documentHTML.html();
 
-            // Escribiendo en el archivo lista HTML
-            BufferedWriter bfr = new BufferedWriter(new FileWriter(listaHTML));
+            // Escribiendo en el archivo boleta HTML
+            BufferedWriter bfr = new BufferedWriter(new FileWriter(boletaHTML));
             bfr.write(contenidoHTML);
             bfr.close();
 
-            // Convirtiendo en PDF el archivo lista.html
-            OutputStream os = new FileOutputStream(listaPDF);
+            // Convirtiendo en PDF el archivo boleta.html
+            OutputStream os = new FileOutputStream(boletaPDF);
             PdfRendererBuilder pdfBuilder = new PdfRendererBuilder();
 
             // Arreglando bug de caracteres UTF-8

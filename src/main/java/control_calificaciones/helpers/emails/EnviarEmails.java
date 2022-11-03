@@ -1,5 +1,7 @@
 package control_calificaciones.helpers.emails;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -11,27 +13,28 @@ public class EnviarEmails {
     private String emailTo;
     private String asuunto;
     private String contenido;
-    
+
     private Properties mailPropiedades;
     private Session mailSession;
     private MimeMessage mailCorreo;
 
-    /** 
-     * @param emailTo email a quién va dirigido
-     * @param asunto sobre lo que trata el email
+    /**
+     * @param emailTo   email a quién va dirigido
+     * @param asunto    sobre lo que trata el email
      * @param contenido archivo o mensaje que contendra el email
      */
-    public EnviarEmails(String emailTo, String asunto, String contenido) {
+
+    public EnviarEmails(String emailTo, String asunto, String contenido, File boletaInterna) {
         this.emailTo = emailTo;
         this.asuunto = asunto;
         this.contenido = contenido;
-         
+
         mailPropiedades = new Properties();
-        crearEmail(emailTo, asunto, contenido);
+        crearEmail(emailTo, asunto, contenido, boletaInterna);
         enviarCorreo();
     }
-    
-    private void crearEmail(String emailTo, String asunto, String contenido) {
+
+    private void crearEmail(String emailTo, String asunto, String contenido, File boletaInterna) {
         // Simple mail transfer protocol
         mailPropiedades.put("mail.smtp.host", "smtp.gmail.com");
         mailPropiedades.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -44,11 +47,34 @@ public class EnviarEmails {
         mailSession = Session.getDefaultInstance(mailPropiedades);
 
         try {
+
             mailCorreo = new MimeMessage(mailSession);
             mailCorreo.setFrom(new InternetAddress(emailFrom));
             mailCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
             mailCorreo.setSubject(asunto);
-            mailCorreo.setText(contenido, "ISO-8859-1", "html");
+
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(contenido);
+
+            //archivos de boleta interna a enviar
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            attachmentPart.attachFile(boletaInterna);
+            
+            //archivos de boleta interna a enviar
+            // MimeBodyPart attachmentPart2 = new MimeBodyPart();
+            // attachmentPart2.attachFile(new File(getFileName2()));
+
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(attachmentPart);
+            // multipart.addBodyPart(attachmentPart2);
+
+            // mailCorreo.setText(contenido, "ISO-8859-1", "html");
+            mailCorreo.setContent(multipart);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         } catch (AddressException ex) {
             ex.printStackTrace();
         } catch (MessagingException ex) {
@@ -57,6 +83,7 @@ public class EnviarEmails {
     }
 
     private void enviarCorreo() {
+
         try {
             Transport mTransport = mailSession.getTransport("smtp");
             mTransport.connect(emailFrom, password);
@@ -68,6 +95,8 @@ public class EnviarEmails {
             ex.printStackTrace();
         } catch (MessagingException e) {
             e.printStackTrace();
-        } 
+        }
+
     }
+    
 }
