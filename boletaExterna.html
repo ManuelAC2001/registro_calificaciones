@@ -6,7 +6,6 @@
     <!-- RESETEANDO LA TABLA -->
     <style>
         @page {
-            size: 60rem;
             margin: 0;
         }
 
@@ -14,21 +13,17 @@
             display: inline-block;
         }
 
-        .container:first-child {
-            margin-right: 100px;
+        .container img:first-child {
+            margin-right: 14px;
         }
 
-        .container img {
-            margin-right: 10px;
+        .container img:last-child {
+            margin-left: 14px;
         }
 
         .alumno__informacion {
             font-size: 7px;
             text-align: left;
-        }
-
-        .alumno__informacion>p {
-            margin: 2px;
         }
 
         .escuela__informacion {
@@ -45,7 +40,7 @@
         td {
             border-spacing: 0;
             text-align: center;
-            border: .5px solid;
+            border: .5px solid black;
         }
 
         table {
@@ -102,11 +97,10 @@
             right: 0;
             top: 30%;
         }
-        
+
         .hide {
             display: none;
         }
-
     </style>
 
 </head>
@@ -120,15 +114,15 @@
             <center>
                 <header>
                     <section class="container escuela__informacion">
-                        <img src="http://localhost:5500/educacion.png" width="100px" style="margin-right: 2rem;" />
+                        <img src="http://localhost:5500/educacion.png" width="100px" />
 
                         <section class="container alumno__informacion">
                             <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1>
-                            <!-- <p style="color: gray; text-align: center;">1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020</p> -->
-                            <p id="alumno__grado__ciclo_escolar" style="color: gray; text-align: center;"></p>
+                            <p id="alumno__grado__ciclo_escolar"
+                                style="color: gray; text-align: center; font-size: 10px;"></p>
                         </section>
 
-                        <img src="http://localhost:5500/secr_gue.png" width="100px" style="margin-left: 2rem;" />
+                        <img src="http://localhost:5500/secr_gue.png" width="100px" />
                     </section>
                 </header>
             </center>
@@ -342,7 +336,8 @@
             </center>
 
             <center class="espacio">
-                <table class="tabla" style="margin-top: 5rem;">
+
+                <table class="tabla">
                     <tbody>
                         <tr class="gris">
                             <th></th>

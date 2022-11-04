@@ -18,9 +18,11 @@ import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
+import control_calificaciones.data.PeriodoDAOH;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
+import control_calificaciones.models.PeriodoH;
 import control_calificaciones.models.TutorH;
 
 public class BoletaExterna {
@@ -42,7 +44,7 @@ public class BoletaExterna {
             // manipulando el DOM
             agregarInformacioPersonal(documentHTML, calificacionesBoleta);
             agregarMateriasAcademicas(documentHTML, calificacionesBoleta);
-            agregarPromedioTrimestralAcademico(documentHTML, calificacionesBoleta);
+            agregarPromedioTrimestral(documentHTML, calificacionesBoleta);
             agregarInformacionFecha(documentHTML, calificacionesBoleta);
 
             setDocumentoOficial(documentHTML, esBoletaOficial);
@@ -76,6 +78,27 @@ public class BoletaExterna {
             e.printStackTrace();
         }
         
+    }
+
+    private static Boolean trimestreCalificado(List<CalificacionH> calificacionesBoleta, String nombrePeriodo) {
+        
+        AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
+        List<AsignaturaH> materias = alumno.getAula().getGrado().getAsignaturas();
+
+        PeriodoH periodo = new PeriodoH(nombrePeriodo);
+        periodo = new PeriodoDAOH().buscarNombre(periodo);
+
+        Integer numeroCalificacionesByPeriodo = calificacionesBoleta.stream().filter(c -> {
+            return
+            c.getMes().getPeriodo().getNombre().equals(nombrePeriodo);
+        })
+        .collect(Collectors.toList())
+        .size();        
+
+        Integer maximoCalificacionesByPeriodo = periodo.getMeses().size() * materias.size();
+
+        return numeroCalificacionesByPeriodo == maximoCalificacionesByPeriodo;
+
     }
 
     private static void agregarInformacioPersonal(Document documentHTML, List<CalificacionH> calificacionesBoleta) {
@@ -122,7 +145,7 @@ public class BoletaExterna {
         });
     }
     
-    private static void agregarPromedioTrimestralAcademico(Document documentoHTML,
+    private static void agregarPromedioTrimestral(Document documentoHTML,
             List<CalificacionH> calificacionesBoleta) {
 
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
@@ -147,6 +170,10 @@ public class BoletaExterna {
         Double promedioFinalMateria = 0.0;
 
         Double promedioFinal = 0.0;
+
+        Boolean trimestreCalificado1 = trimestreCalificado(calificacionesBoleta, "1°");
+        Boolean trimestreCalificado2 = trimestreCalificado(calificacionesBoleta, "2°");
+        Boolean trimestreCalificado3 = trimestreCalificado(calificacionesBoleta, "3°");
 
         for( AsignaturaH m : materias ){
 
@@ -183,19 +210,39 @@ public class BoletaExterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");            
+            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
+            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
+            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");            
             
             
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3; 
             promedioFinalMateria /= 3;
             promedioFinal += promedioFinalMateria;
 
+            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
+            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
+            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");
             trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalMateria) +"</td>");            
+
+
+            if(!trimestreCalificado1){
+                trTrimestre.child(0).attr("style", "color:white");
+            }
+
+            if(!trimestreCalificado2){
+                trTrimestre.child(1).attr("style", "color:white");
+            }
+
+            if(!trimestreCalificado3){
+                trTrimestre.child(2).attr("style", "color:white");
+                trTrimestre.child(3).attr("style", "color:white");
+            }
+
             tbodyTrimestre.appendChild(trTrimestre);
 
         }
+
+        
         //promedios finales de cada trimestre
         promedioFinalTrimestre1 /= materias.size();
         promedioFinalTrimestre2 /= materias.size();
@@ -203,6 +250,11 @@ public class BoletaExterna {
 
         promedioFinal /= materias.size();
         Element tdPromedioFinal = documentoHTML.getElementById("promedio_final");
+
+        if(!trimestreCalificado3){
+            tdPromedioFinal.attr("style", "color:white");
+        }
+
         tdPromedioFinal.append(String.format("%.2f", promedioFinal));
     }
 

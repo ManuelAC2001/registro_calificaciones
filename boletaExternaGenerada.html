@@ -3,7 +3,6 @@
   <title>Boleta Interna</title> <!-- RESETEANDO LA TABLA -->
   <style>
         @page {
-            size: 60rem;
             margin: 0;
         }
 
@@ -11,21 +10,17 @@
             display: inline-block;
         }
 
-        .container:first-child {
-            margin-right: 100px;
+        .container img:first-child {
+            margin-right: 14px;
         }
 
-        .container img {
-            margin-right: 10px;
+        .container img:last-child {
+            margin-left: 14px;
         }
 
         .alumno__informacion {
             font-size: 7px;
             text-align: left;
-        }
-
-        .alumno__informacion>p {
-            margin: 2px;
         }
 
         .escuela__informacion {
@@ -42,7 +37,7 @@
         td {
             border-spacing: 0;
             text-align: center;
-            border: .5px solid;
+            border: .5px solid black;
         }
 
         table {
@@ -99,11 +94,10 @@
             right: 0;
             top: 30%;
         }
-        
+
         .hide {
             display: none;
         }
-
     </style>
  </head>
  <body>
@@ -111,11 +105,11 @@
    <section><!-- HEADER -->
     <center>
      <header>
-      <section class="container escuela__informacion"><img src="http://localhost:5500/educacion.png" width="100px" style="margin-right: 2rem;" />
+      <section class="container escuela__informacion"><img src="http://localhost:5500/educacion.png" width="100px" />
        <section class="container alumno__informacion">
-        <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1> <!-- <p style="color: gray; text-align: center;">1er GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2019-2020</p> -->
-        <p id="alumno__grado__ciclo_escolar" style="color: gray; text-align: center;">PRIMEROGRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2022-2023</p>
-       </section> <img src="http://localhost:5500/secr_gue.png" width="100px" style="margin-left: 2rem;" />
+        <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1>
+        <p id="alumno__grado__ciclo_escolar" style="color: gray; text-align: center; font-size: 10px;">PRIMEROGRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR 2022-2023</p>
+       </section> <img src="http://localhost:5500/secr_gue.png" width="100px" />
       </section>
      </header>
     </center> <!-- DATOS ALUMNO -->
@@ -124,10 +118,10 @@
      <table class="tabla">
       <tbody>
        <tr>
-        <td id="apellido_paterno" style="border: none;">APOLINAR</td>
-        <td id="apellido_materno" style="border: none;">CASTILLO</td>
-        <td id="nombre" style="border: none;">MANUEL</td>
-        <td id="curp" style="border: none;">AOCM160101HGRPSNA9</td>
+        <td id="apellido_paterno" style="border: none;">TORRES</td>
+        <td id="apellido_materno" style="border: none;">VILLANUEVA</td>
+        <td id="nombre" style="border: none;">ROBERTO</td>
+        <td id="curp" style="border: none;">AOCM011012HGRPSNA1</td>
        </tr>
        <tr>
         <td class="borde">PRIMER APELLIDO</td>
@@ -200,46 +194,46 @@
         <td style="color: gray;">1er</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>6.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.00</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>7.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.33</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>8.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.67</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>8.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.67</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>6.33</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.11</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>7.33</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.44</td>
        </tr>
        <tr>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
-        <td>0.00</td>
+        <td>7.33</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">0.00</td>
+        <td style="color:white">2.44</td>
        </tr>
       </tbody>
      </table>
@@ -287,7 +281,7 @@
         <th>PROMEDIO FINAL DE GRADO</th>
        </tr>
        <tr>
-        <td id="promedio_final">0.00</td>
+        <td id="promedio_final" style="color:white">2.38</td>
        </tr>
       </tbody>
      </table>
@@ -296,7 +290,7 @@
      <table class="tabla">
       <tbody>
        <tr>
-        <td id="tutor__nombre" style="border: none;">APOLINAR CASTILLO MANUEL:</td>
+        <td id="tutor__nombre" style="border: none;">TORRES CRUZ ROBERTO:</td>
        </tr>
        <tr>
         <td class="borde" style="padding-bottom: 15px;">NOMBRE Y FIRMA DEL DOCENTE</td>
@@ -336,7 +330,7 @@
        <tr>
         <td id="anio" style="border-top: none;">2022</td>
         <td id="mes" style="border-top: none;">NOVEMBER</td>
-        <td id="dia" style="border-top: none;">2</td>
+        <td id="dia" style="border-top: none;">4</td>
        </tr>
        <tr>
         <td style="border: none;">AÑO</td>
@@ -347,7 +341,7 @@
      </table>
     </center>
     <center class="espacio">
-     <table class="tabla" style="margin-top: 5rem;">
+     <table class="tabla">
       <tbody>
        <tr class="gris">
         <th></th>
@@ -370,7 +364,7 @@
     </center>
     <center class="espacio">
      <footer class="container"><!-- <p id="folio" style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO: 154</p> -->
-      <p id="folio" style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO: 16832112022</p>
+      <p id="folio" style="font-size: 10px; text-align: left; margin-bottom: 1.5rem;">FOLIO: 17834112022</p>
       <p style="font-size: 7px; text-align: center;">SE SANCIONARÁ A QUIEN CON DOLO O FINES LUCRATIVOS REPODUZCA TOTAL O PARCIALMENTE ESTE FORMATO</p>
      </footer>
     </center>
