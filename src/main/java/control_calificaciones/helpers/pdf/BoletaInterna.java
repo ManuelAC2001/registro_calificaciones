@@ -145,7 +145,9 @@ public class BoletaInterna {
             }
         }
 
-        documentHTML.getElementById("grado__grupo_info").append("GRADO Y GRUPO: " + gradoGrupoInfo);
+        documentHTML.getElementById("grado__grupo_info").append(gradoGrupoInfo);
+
+
         documentHTML.getElementById("ciclo__escolar_info").append("CICLO ESCOLAR: " + cicloEscolarInfo);
         documentHTML.getElementById("nombre__alumno").append("ALUMNO(A): " + nombreInfo);
         documentHTML.getElementById("no__lista").append("NO. LISTA: " + (numeroLista + 1));

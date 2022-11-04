@@ -6,7 +6,7 @@
     <!-- RESETEANDO LA TABLA -->
     <style>
         @page {
-            size: 60rem;
+            size: 60%;
             margin: 0;
         }
 
@@ -54,7 +54,8 @@
 
         .tabla th,
         .tabla td {
-            padding: 8px 4px;
+            /* padding: 8px 4px; */
+            padding: 6px 1px;
         }
 
         .tabla__container {
@@ -85,6 +86,15 @@
         .promedio__final {
             background-color: #B4C6E7;
         }
+
+        .lineas .linea:first-child {
+            margin-right: 50px;
+        }
+
+        .linea {
+            display: inline-block;
+        }
+
     </style>
 
 </head>
@@ -98,12 +108,25 @@
                 <img id="img__logo" src="http://localhost:5500/logo.png" width="40px" />
 
                 <section class="container alumno__informacion">
-                    <h1>INSTITUTO HISPANOAMERICANO-MEXICANO</h1>
-                    <p>SECCION: PRIMARIA CLAVE: 12PPR0395H</p>
-                    <p id="grado__grupo_info"></p>
-                    <p id="no__lista"></p>
-                    <p id="ciclo__escolar_info"></p>
+                    <section>
+                        <h1>INSTITUTO HISPANOAMERICANO-MEXICANO</h1>
+                    </section>
+
+                    <div class="lineas">
+                        <div class="linea">
+                            <p>SECCION: PRIMARIA</p>
+                            <p id="">GRADO Y GRUPO: </p>
+                            <p id="no__lista"></p>
+                        </div>
+                        
+                        <div class="linea">
+                            <p>CLAVE: 12PPR0395H</p>
+                            <p id="grado__grupo_info"></p>
+                            <p id="ciclo__escolar_info"></p>
+                        </div>
+                    </div>
                     <p id="nombre__alumno"></p>
+
                 </section>
 
             </section>
@@ -151,7 +174,7 @@
                         <th style="border: none; color: white;">.</th>
                     </tr>
 
-                    <tr >
+                    <tr>
                         <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th>
                     </tr>
                 </tbody>
@@ -168,7 +191,7 @@
                         <th style="border: none; color: white;">.</th>
                     </tr>
 
-                    <tr >
+                    <tr>
                         <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
                         <th class="primer__trimestre">SEPTIEMBRE</th>
                     </tr>
@@ -207,7 +230,7 @@
 
                     <tr>
                         <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
-                        <th class="primer__trimestre">NOVIEMBRE/DICIEMBRE</th>
+                        <th class="primer__trimestre">NOV/DIC</th>
                     </tr>
                 </tbody>
             </table>
@@ -349,7 +372,7 @@
     </center>
 
     <center style="margin-top: 2rem;">
-        
+
         <div class="tabla__container">
             <table class="tabla">
                 <tbody id="tbody___complementarias">
@@ -444,7 +467,7 @@
 
                     <tr>
                         <!-- <th style="background-color: #D9D9D9 ;">DIAGNOSTICO</th> -->
-                        <th class="primer__trimestre">NOVIEMBRE/DICIEMBRE</th>
+                        <th class="primer__trimestre">NOV/DIC</th>
                     </tr>
                 </tbody>
             </table>
@@ -583,7 +606,7 @@
                 </tbody>
             </table>
         </div>
-       
+
     </center>
 
     <center style="margin-top: 2rem;">
