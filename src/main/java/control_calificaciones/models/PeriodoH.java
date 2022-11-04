@@ -18,6 +18,10 @@ public class PeriodoH {
         this.idPeriodo = idPeriodo;
     }
 
+    public PeriodoH(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( name = "id_periodo" )

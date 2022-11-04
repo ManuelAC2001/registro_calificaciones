@@ -51,8 +51,7 @@ public class ModificacionCalificacionesController implements Initializable {
     private Scene scene;
     private Alert alert;
 
-    private String regexCalificacion = "^(\\d{1}\\.)?(\\d+\\.?)+(,\\d{2})?$";
-    private String regexInasistencias = "^[0-9]+$";
+    private String regexNumeroPositivo = "^[0-9]+$";
 
     @FXML
     private Button btnModificarCalificacion;
@@ -438,7 +437,7 @@ public class ModificacionCalificacionesController implements Initializable {
         for (int i = 0; i < listaMaterias.size(); i++) {
             calificacionMateriaUi = txtMateriasGeneral.get(i).getText().trim();
 
-            if (!calificacionMateriaUi.matches(regexCalificacion)) {
+            if (!calificacionMateriaUi.matches(regexNumeroPositivo)) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Mensaje");
                 alert.setContentText("Formato no valido para la calificacion");
@@ -450,17 +449,25 @@ public class ModificacionCalificacionesController implements Initializable {
             txtMateriasGeneral.get(i).setText(String.valueOf(Math.round(calificacionMateria)));
 
             if (calificacionMateria < 6) {
-                txtMateriasGeneral.get(i).setText("6");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("La calificación no puede ser menor a 6");
+                alert.showAndWait();
+                return;
             }
-
+            
             if (calificacionMateria > 10) {
-                txtMateriasGeneral.get(i).setText("10");
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("La calificación no puede ser mayor a 10");
+                alert.showAndWait();
+                return;
             }
         }
 
         String inasistenciasUI = txtInasistencias.getText().trim();
 
-        if (!inasistenciasUI.matches(regexInasistencias)) {
+        if (!inasistenciasUI.matches(regexNumeroPositivo)) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("FORMATO NO VALIDO PARA EL NUMERO DE INASISTENCIAS");

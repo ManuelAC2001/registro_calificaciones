@@ -64,4 +64,17 @@ public class PeriodoDAOH extends GenericDAO{
         entityManager = getEntityManager();
         return entityManager.find(PeriodoH.class, periodo.getIdPeriodo());
     }
+
+    public PeriodoH buscarNombre(PeriodoH periodo) {
+        String consulta = "SELECT p FROM PeriodoH p WHERE " + 
+                          "p.nombre = " +"'"+ periodo.getNombre() +"'";
+                
+        entityManager = getEntityManager();
+        Query query = entityManager.createQuery(consulta);
+
+        if (query.getResultList().isEmpty()) {
+            return null;
+        }
+        return (PeriodoH) query.getSingleResult();
+    }
 }

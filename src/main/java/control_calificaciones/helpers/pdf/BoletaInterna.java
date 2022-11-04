@@ -18,11 +18,13 @@ import org.jsoup.nodes.Element;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import control_calificaciones.data.AlumnoDAOH;
+import control_calificaciones.data.PeriodoDAOH;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
 import control_calificaciones.models.CicloEscolarH;
 import control_calificaciones.models.InasistenciaH;
+import control_calificaciones.models.PeriodoH;
 
 public class BoletaInterna {
 
@@ -133,10 +135,9 @@ public class BoletaInterna {
         // Obteniendo el numero de lista
         Integer numeroLista = 0;
         List<AlumnoH> alumnosLista = new AlumnoDAOH().listar().stream().filter(a -> {
-            return
-            a.getAula().equals(alumno.getAula());
+            return a.getAula().equals(alumno.getAula());
         })
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
         for (int i = 0; i < alumnosLista.size(); i++) {
             if (alumnosLista.get(i).getCurp().equalsIgnoreCase(alumno.getCurp())) {
                 numeroLista = i;
@@ -230,11 +231,11 @@ public class BoletaInterna {
 
             for (int i = 0; i < numeroMaterias; i++) {
                 Element trCalificacion = documentHTML.createElement("tr");
-                trCalificacion.append("<td>" + " - " + "</td>");
+                trCalificacion.append("<td style='color:white;'>" + " - " + "</td>");
                 tbodyHelper.appendChild(trCalificacion);
             }
             Element trCalificacion = documentHTML.createElement("tr");
-            trCalificacion.append("<td>" + " - " + "</td>");
+            trCalificacion.append("<td style='color:white;'>" + " - " + "</td>");
             tbodyHelper.appendChild(trCalificacion);
 
             return;
@@ -282,12 +283,12 @@ public class BoletaInterna {
 
             for (int i = 0; i < numeroMaterias; i++) {
                 Element trCalificacion = documentHTML.createElement("tr");
-                trCalificacion.append("<td>" + " - " + "</td>");
+                trCalificacion.append("<td style='color:white;'>" + " - " + "</td>");
                 tbodyHelper.appendChild(trCalificacion);
             }
 
             Element trPromedioMensual = documentHTML.createElement("tr");
-            trPromedioMensual.append("<td>" + " - " + "</td>");
+            trPromedioMensual.append("<td style='color:white;'>" + " - " + "</td>");
             tbodyHelper.appendChild(trPromedioMensual);
 
             Element trWhiteSpace = documentHTML.createElement("tr");
@@ -295,7 +296,7 @@ public class BoletaInterna {
             tbodyHelper.appendChild(trWhiteSpace);
 
             Element trInasistencia = documentHTML.createElement("tr");
-            trInasistencia.append("<td>" + "-" + "</td>");
+            trInasistencia.append("<td style='color:white;'>" + "-" + "</td>");
             tbodyHelper.appendChild(trInasistencia);
 
             return;
@@ -353,8 +354,6 @@ public class BoletaInterna {
 
         List<CalificacionH> calificacionesMaterias = calificacionesBoleta.stream().filter(c -> {
             return c.getAsignatura().getTipoAsignatura().getNombre().equals("academica");
-            // &&
-            // c.getMes().getPeriodo().getNombre().equals("1°");
         })
                 .collect(Collectors.toList());
 
@@ -366,8 +365,11 @@ public class BoletaInterna {
 
         Double promedioFinal = 0.0;
 
-        for (AsignaturaH m : materias) {
+        Boolean  trimestreCalificado1 =  trimestreCalificado(calificacionesBoleta, "1°");
+        Boolean  trimestreCalificado2 =  trimestreCalificado(calificacionesBoleta, "2°");
+        Boolean  trimestreCalificado3 =  trimestreCalificado(calificacionesBoleta, "3°");
 
+        for (AsignaturaH m : materias) {
             Double promedioTrimestre1 = 0.0;
             Double promedioTrimestre2 = 0.0;
             Double promedioTrimestre3 = 0.0;
@@ -403,32 +405,84 @@ public class BoletaInterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre1) + "</td>");
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre2) + "</td>");
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre3) + "</td>");
-
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3;
             promedioFinalMateria /= 3;
             promedioFinal += promedioFinalMateria;
 
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre1) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre2) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre3) + "</td>");
+
             trTrimestre.append("<td>" + String.format("%.2f", promedioFinalMateria) + "</td>");
+
+            if (!trimestreCalificado1) {
+                trTrimestre.child(0).attr("style", "color:white");
+            }
+    
+            if (!trimestreCalificado2) {
+                trTrimestre.child(1).attr("style", "color:white");
+            }
+    
+            if (!trimestreCalificado3) {
+                trTrimestre.child(2).attr("style", "color:white");
+                trTrimestre.child(3).attr("style", "color:white");
+            }
+
             tbodyTrimestre.appendChild(trTrimestre);
         }
 
+        
         // promedios finales de cada trimestre
         promedioFinalTrimestre1 /= materias.size();
         promedioFinalTrimestre2 /= materias.size();
         promedioFinalTrimestre3 /= materias.size();
-
+        
         promedioFinal /= materias.size();
 
+        
         Element tbodyTrimestre = documentoHTML.getElementById("tbody__trimestre");
         Element trTrimestre = documentoHTML.createElement("tr");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinalTrimestre1) + "</td>");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinalTrimestre2) + "</td>");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinalTrimestre3) + "</td>");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinal) + "</td>");
+
+        if (!trimestreCalificado1) {
+            trTrimestre.child(0).attr("style", "color:white");
+        }
+
+        if (!trimestreCalificado2) {
+            trTrimestre.child(1).attr("style", "color:white");
+        }
+
+        if (!trimestreCalificado3) {
+            trTrimestre.child(2).attr("style", "color:white");
+            trTrimestre.child(3).attr("style", "color:white");
+        }
+
+
         tbodyTrimestre.appendChild(trTrimestre);
+    }
+
+    private static Boolean trimestreCalificado(List<CalificacionH> calificacionesBoleta, String nombrePeriodo) {
+        
+        AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
+        List<AsignaturaH> materias = alumno.getAula().getGrado().getAsignaturas();
+
+        PeriodoH periodo = new PeriodoH(nombrePeriodo);
+        periodo = new PeriodoDAOH().buscarNombre(periodo);
+
+        Integer numeroCalificacionesByPeriodo = calificacionesBoleta.stream().filter(c -> {
+            return
+            c.getMes().getPeriodo().getNombre().equals(nombrePeriodo);
+        })
+        .collect(Collectors.toList())
+        .size();        
+
+        Integer maximoCalificacionesByPeriodo = periodo.getMeses().size() * materias.size();
+
+        return numeroCalificacionesByPeriodo == maximoCalificacionesByPeriodo;
+
     }
 
     private static void agregarPromedioTrimestralomplementaria(Document documentoHTML,
@@ -444,8 +498,6 @@ public class BoletaInterna {
 
         List<CalificacionH> calificacionesMaterias = calificacionesBoleta.stream().filter(c -> {
             return c.getAsignatura().getTipoAsignatura().getNombre().equals("complementaria");
-            // &&
-            // c.getMes().getPeriodo().getNombre().equals("1°");
         })
                 .collect(Collectors.toList());
 
@@ -457,6 +509,10 @@ public class BoletaInterna {
 
         Double promedioFinal = 0.0;
 
+        Boolean  trimestreCalificado1 =  trimestreCalificado(calificacionesBoleta, "1°");
+        Boolean  trimestreCalificado2 =  trimestreCalificado(calificacionesBoleta, "2°");
+        Boolean  trimestreCalificado3 =  trimestreCalificado(calificacionesBoleta, "3°");
+
         for (AsignaturaH m : materias) {
 
             Double promedioTrimestre1 = 0.0;
@@ -465,7 +521,7 @@ public class BoletaInterna {
 
             Element tbodyTrimestre = documentoHTML.getElementById("tbody__trimestre_complementaria");
             Element trTrimestre = documentoHTML.createElement("tr");
-            
+
             for (CalificacionH c : calificacionesMaterias) {
 
                 if (m.getNombre().equals(c.getAsignatura().getNombre())
@@ -494,14 +550,28 @@ public class BoletaInterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre1) + "</td>");
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre2) + "</td>");
-            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre3) + "</td>");
-
             promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3;
             promedioFinalMateria /= 3;
             promedioFinal += promedioFinalMateria;
+
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre1) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre2) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre3) + "</td>");
             trTrimestre.append("<td>" + String.format("%.2f", promedioFinalMateria) + "</td>");
+
+            if (!trimestreCalificado1) {
+                trTrimestre.child(0).attr("style", "color:white");
+            }
+    
+            if (!trimestreCalificado2) {
+                trTrimestre.child(1).attr("style", "color:white");
+            }
+    
+            if (!trimestreCalificado3) {
+                trTrimestre.child(2).attr("style", "color:white");
+                trTrimestre.child(3).attr("style", "color:white");
+            }
+
             tbodyTrimestre.appendChild(trTrimestre);
         }
 
@@ -518,49 +588,93 @@ public class BoletaInterna {
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinalTrimestre2) + "</td>");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinalTrimestre3) + "</td>");
         trTrimestre.append("<td>" + String.format("%.2f", promedioFinal) + "</td>");
+
+        if (!trimestreCalificado1) {
+            trTrimestre.child(0).attr("style", "color:white");
+        }
+
+        if (!trimestreCalificado2) {
+            trTrimestre.child(1).attr("style", "color:white");
+        }
+
+        if (!trimestreCalificado3) {
+            trTrimestre.child(2).attr("style", "color:white");
+            trTrimestre.child(3).attr("style", "color:white");
+        }
+
         tbodyTrimestre.appendChild(trTrimestre);
 
-        //DEJAMOS EL ESPACIO EN BLANCO PARA EL FORMATO
+        // DEJAMOS EL ESPACIO EN BLANCO PARA EL FORMATO
         Element trWhiteSpace = documentoHTML.createElement("tr");
         trWhiteSpace.append("<td style='border: none; color: white;'>" + "-" + "</td>");
         trWhiteSpace.append("<td style='border: none; color: white;'>" + "-" + "</td>");
         trWhiteSpace.append("<td style='border: none; color: white;'>" + "-" + "</td>");
         trWhiteSpace.append("<td style='border: none; color: white;'>" + "-" + "</td>");
         tbodyTrimestre.appendChild(trWhiteSpace);
-        
-        
-        //AGREGAMOS las inasistencias
-        Integer inasistenciasPeriodo1 =  getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "1°");
-        Integer inasistenciasPeriodo2 =  getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "2°");
-        Integer inasistenciasPeriodo3 =  getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "3°");
-        Integer inasistenciasTotal = inasistenciasPeriodo1 + inasistenciasPeriodo2 + inasistenciasPeriodo3; 
 
+        // AGREGAMOS las inasistencias
+        Integer inasistenciasPeriodo1 = getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "1°");
+        Integer inasistenciasPeriodo2 = getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "2°");
+        Integer inasistenciasPeriodo3 = getInasistenciasTrimestralesByPeriodo(calificacionesBoleta, "3°");
+        Integer inasistenciasTotal = inasistenciasPeriodo1 + inasistenciasPeriodo2 + inasistenciasPeriodo3;
+
+        Boolean inasistenciasCompletaPeriodo1 = sonInasistenciasCompletaByPeriodo(calificacionesBoleta, "1°");
+        Boolean inasistenciasCompletaPeriodo2 = sonInasistenciasCompletaByPeriodo(calificacionesBoleta, "2°");
+        Boolean inasistenciasCompletaPeriodo3 = sonInasistenciasCompletaByPeriodo(calificacionesBoleta, "3°");
 
         Element trInasistencias = documentoHTML.createElement("tr");
-        trInasistencias.append("<td>" + inasistenciasPeriodo1 + "</td>");        
-        trInasistencias.append("<td>" + inasistenciasPeriodo2 + "</td>");        
-        trInasistencias.append("<td>" + inasistenciasPeriodo3 + "</td>");        
-        trInasistencias.append("<td>" + inasistenciasTotal + "</td>");        
+
+        trInasistencias.append("<td>" + inasistenciasPeriodo1 + "</td>");
+        trInasistencias.append("<td>" + inasistenciasPeriodo2 + "</td>");
+        trInasistencias.append("<td>" + inasistenciasPeriodo3 + "</td>");
+        trInasistencias.append("<td>" + inasistenciasTotal + "</td>");
+
+        if (!inasistenciasCompletaPeriodo1) {
+            trInasistencias.child(0).attr("style", "color:white");
+        }
+
+        if (!inasistenciasCompletaPeriodo2) {
+            trInasistencias.child(1).attr("style", "color:white");
+        }
+
+        if (!inasistenciasCompletaPeriodo3) {
+            trInasistencias.child(2).attr("style", "color:white");
+            trInasistencias.child(3).attr("style", "color:white");
+        }
+
         tbodyTrimestre.appendChild(trInasistencias);
 
     }
     // FUNCIONES "HELPERS"
 
-    private static Integer getInasistenciasTrimestralesByPeriodo(List<CalificacionH> calificacionesBoleta, String nombrePeriodo) {
+    private static Boolean sonInasistenciasCompletaByPeriodo(List<CalificacionH> calificacionesBoleta,
+            String nombrePeriodo) {
+        return getListInasistenciasByPeriodo(calificacionesBoleta, nombrePeriodo).size() == 3;
+    }
+
+    private static List<InasistenciaH> getListInasistenciasByPeriodo(List<CalificacionH> calificacionesBoleta,
+            String nombrePeriodo) {
 
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
+        CicloEscolarH cicloEscolar = calificacionesBoleta.get(0).getCicloEscolar();
+
+        List<InasistenciaH> inasistenciasTrimestre = alumno.getInasistencias().stream().filter(i -> {
+            return i.getMes().getPeriodo().getNombre().equals(nombrePeriodo)
+                    &&
+                    i.getCicloEscolar().equals(cicloEscolar);
+        })
+                .collect(Collectors.toList());
+        return inasistenciasTrimestre;
+
+    }
+
+    private static Integer getInasistenciasTrimestralesByPeriodo(List<CalificacionH> calificacionesBoleta,
+            String nombrePeriodo) {
 
         Integer numeroInasistencias = 0;
-        CicloEscolarH cicloEscolar = calificacionesBoleta.get(0).getCicloEscolar();
-        List<InasistenciaH> inasistenciasTrimestre1 =  alumno.getInasistencias().stream().filter(i -> {
-            return
-            i.getMes().getPeriodo().getNombre().equals(nombrePeriodo)
-            &&
-            i.getCicloEscolar().equals(cicloEscolar);
-        })
-        .collect(Collectors.toList());
+        List<InasistenciaH> inasistenciasTrimestre = getListInasistenciasByPeriodo(calificacionesBoleta, nombrePeriodo);
 
-        for (InasistenciaH i : inasistenciasTrimestre1) {
+        for (InasistenciaH i : inasistenciasTrimestre) {
             numeroInasistencias += i.getCantidad();
         }
 
