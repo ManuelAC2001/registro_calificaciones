@@ -3,6 +3,7 @@ package control_calificaciones.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ import control_calificaciones.data.CicloEscolarDAOH;
 import control_calificaciones.data.InasistenciaDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
+import control_calificaciones.helpers.emails.EnviarEmails;
 import control_calificaciones.helpers.pdf.BoletaExterna;
 import control_calificaciones.helpers.pdf.BoletaInterna;
 import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.AsignaturaH;
 import control_calificaciones.models.CalificacionH;
 import control_calificaciones.models.CicloEscolarH;
+import control_calificaciones.models.CorreoTutorH;
 import control_calificaciones.models.InasistenciaH;
 import control_calificaciones.models.MesH;
 import control_calificaciones.models.usuarios.Sesion;
@@ -164,6 +167,9 @@ public class ModificacionCalificacionesController implements Initializable {
     private ComboBox<String> cmbMes;
 
     @FXML
+    private Button btnEnviarBoletas;
+
+    @FXML
     private void buscar(ActionEvent event) {
 
         limpiarUI();
@@ -182,6 +188,7 @@ public class ModificacionCalificacionesController implements Initializable {
             btnBoletaInterna.setDisable(true);
             btnBoletaExterna.setDisable(true);
             txtInasistencias.setVisible(false);
+            btnEnviarBoletas.setDisable(true);
 
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -194,6 +201,7 @@ public class ModificacionCalificacionesController implements Initializable {
         btnBoletaInterna.setDisable(false);
         btnBoletaExterna.setDisable(false);
         cmbMes.setDisable(false);
+        btnEnviarBoletas.setDisable(false);
 
         // asignamos grado y grupo
         txtGrupoAlumno.setText(alumno.getAula().getGrupo().getNombre());
@@ -201,6 +209,105 @@ public class ModificacionCalificacionesController implements Initializable {
 
         // creamos la interfaz grafica de llenado de calificacioenes por materia
         llenarAsignaturasColumns(alumno.getAula().getGrado().getAsignaturas());
+
+    }
+
+    @FXML
+    private void EnviarBoletas(ActionEvent event) {
+
+        if (alumno.getCalificaciones().isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede hacer envios de correos");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas");
+            alert.showAndWait();
+            return;
+        }
+
+        // confirmacion de envio de datos
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación del envio de boletas");
+        alert.setContentText("¿Esta seguro que desea enviar las boletas internas y externas al email del tutor?");
+        Optional<ButtonType> btnRespuesta = alert.showAndWait();
+
+        if (btnRespuesta.get() != ButtonType.OK) {
+            alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Operación cancelada");
+            alert.setContentText("Las boletas no fueron enviadas");
+            alert.showAndWait();
+            return;
+        }
+
+        btnEnviarBoletas.setDisable(true);
+
+        // capturamos los correos del padre
+        List<CorreoTutorH> correos = alumno.getTutor().getCorreos();
+
+        String filePath = System.getProperty("user.dir");
+        String boletaInternaPath = filePath + "\\boletasCorreos\\boletaInterna" + alumno.getCurp();
+        String boletaExternaPath = filePath + "\\boletasCorreos\\boletaExterna" + alumno.getCurp();
+
+        File boletaInterna = getBoletaInterna(boletaInternaPath);
+        File boletaExterna = getBoletaExterna(boletaExternaPath);
+
+        for (CorreoTutorH correo : correos) {
+            String asunto = "Boletas de calificaciones internas y externas del alumno: " + alumno.getNombreCompleto();
+            String contenido = "Fecha de envio: " + LocalDate.now();
+
+            new EnviarEmails(
+                correo.getCorreo(),
+                asunto,
+                contenido,
+                boletaInterna,
+                boletaExterna
+            );
+
+        }
+
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Operación exitosa");
+        alert.setContentText("Las boletas se enviaron correctamente al email del tutor");
+        alert.showAndWait();
+
+        btnEnviarBoletas.setDisable(false);
+
+    }
+
+    private File getBoletaExterna(String path) {
+
+        List<MesH> meses = new MesDAOH().listar();
+
+        Boolean esBoletaOficial = false;
+        for (MesH mes : meses) {
+            if (!esMesCalificado(alumno, mes.getNombre())) {
+                esBoletaOficial = false;
+                continue;
+            }
+            esBoletaOficial = true;
+        }
+
+        // creamos el archivo de la boleta interna para enviar
+        File boletaInternaFile = new File(path);
+
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
+        BoletaExterna.generarPDF(boletaInternaFile, calificacionesBoleta, esBoletaOficial);
+
+        // recueperamos el archivo que pasamos en el metodo de generar boleta externa
+        return new File(boletaInternaFile.toString() + ".pdf");
+
+    }
+
+    private File getBoletaInterna(String path) {
+
+        // creamos el archivo de la boleta interna para enviar
+        File boletaInternaFile = new File(path);
+
+        // capturamos la calificacion por mes
+        List<CalificacionH> calificacionesBoleta = getCalificacionesActuales();
+        BoletaInterna.generarPDF(boletaInternaFile, calificacionesBoleta);
+
+        // recueperamos el archivo que pasamos en el metodo de generar boleta externa
+        return new File(boletaInternaFile.toString() + ".pdf");
 
     }
 
@@ -455,7 +562,7 @@ public class ModificacionCalificacionesController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            
+
             if (calificacionMateria > 10) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Mensaje");
@@ -477,12 +584,12 @@ public class ModificacionCalificacionesController implements Initializable {
 
         Integer cantidadInasistencias = Integer.parseInt(inasistenciasUI);
 
-        if(cantidadInasistencias > 5){ //este valor puede cambiar, aun tengo dudas
+        if (cantidadInasistencias > 5) { // este valor puede cambiar, aun tengo dudas
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("EL NÚMERO DE INASISTENCIAS NO PUEDE SOBREPASAR MÁS DE 5");
             alert.showAndWait();
-            
+
             txtInasistencias.setText("5");
             return;
         }
@@ -520,18 +627,17 @@ public class ModificacionCalificacionesController implements Initializable {
 
         // agregar numero de inasistencias
         List<InasistenciaH> inasistencias = alumno.getInasistencias().stream().filter(i -> {
-            return
-            i.getMes().equals(mesSeleccionado)
-            &&
-            i.getCicloEscolar().equals(cicloEscolar);
+            return i.getMes().equals(mesSeleccionado)
+                    &&
+                    i.getCicloEscolar().equals(cicloEscolar);
         })
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
         InasistenciaH inasistenciaMensual = inasistencias.get(0);
         InasistenciaDAOH inasistenciaDAO = new InasistenciaDAOH();
         inasistenciaMensual.setCantidad(cantidadInasistencias);
         inasistenciaDAO.actualizar(inasistenciaMensual);
-        
+
         alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("Calificaciones capturadas correctamente");
@@ -664,6 +770,7 @@ public class ModificacionCalificacionesController implements Initializable {
         btnBoletaInterna.setDisable(true);
         btnBoletaExterna.setDisable(true);
         txtInasistencias.setVisible(false);
+        btnEnviarBoletas.setDisable(true);
 
     }
 

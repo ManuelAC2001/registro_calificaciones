@@ -187,6 +187,7 @@ public class CapturaCalificacionesController implements Initializable {
             btnBoletaInterna.setDisable(true);
             btnBoletaExterna.setDisable(true);
             txtInasistencias.setVisible(false);
+            btnEnviarBoletas.setDisable(true);
 
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -199,6 +200,7 @@ public class CapturaCalificacionesController implements Initializable {
         btnBoletaInterna.setDisable(false);
         btnBoletaExterna.setDisable(false);
         cmbMes.setDisable(false);
+        btnEnviarBoletas.setDisable(false);
 
         // asignamos grado y grupo
         txtGrupoAlumno.setText(alumno.getAula().getGrupo().getNombre());
@@ -212,11 +214,31 @@ public class CapturaCalificacionesController implements Initializable {
     private void EnviarBoletas(ActionEvent event) {
 
         // validamos si hay boletas disponibles para el envio
+        if (alumno.getCalificaciones().isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No se puede hacer envios de correos");
+            alert.setContentText("El alumno aun no tiene calificaciones registradas");
+            alert.showAndWait();
+            return;
+        }
 
-        // capturamos los correo del padre
+        // confirmacion de envio de datos
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación del envio de boletas");
+        alert.setContentText("¿Esta seguro que desea enviar las boletas internas y externas al email del tutor?");
+        Optional<ButtonType> btnRespuesta = alert.showAndWait();
+
+        if (btnRespuesta.get() != ButtonType.OK) {
+            alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Operación cancelada");
+            alert.setContentText("Las boletas no fueron enviadas");
+            alert.showAndWait();
+            return;
+        }
 
         btnEnviarBoletas.setDisable(true);
 
+        // capturamos los correos del padre
         List<CorreoTutorH> correos = alumno.getTutor().getCorreos();
 
         String filePath = System.getProperty("user.dir");
@@ -229,8 +251,14 @@ public class CapturaCalificacionesController implements Initializable {
         for (CorreoTutorH correo : correos) {
             String asunto = "Boletas de calificaciones internas y externas del alumno: " + alumno.getNombreCompleto();
             String contenido = "Fecha de envio: " + LocalDate.now();
-            EnviarEmails enviarEmail = new EnviarEmails(correo.getCorreo(), asunto, contenido, boletaInterna,
-                    boletaExterna);
+
+            new EnviarEmails(
+                correo.getCorreo(),
+                asunto,
+                contenido,
+                boletaInterna,
+                boletaExterna
+            );
         }
 
         alert = new Alert(AlertType.INFORMATION);
@@ -619,7 +647,7 @@ public class CapturaCalificacionesController implements Initializable {
                 alert.setTitle("Mensaje");
                 alert.setContentText("La calificación no puede ser mayor a 10");
                 alert.showAndWait();
-                return; 
+                return;
             }
 
         }
@@ -641,8 +669,6 @@ public class CapturaCalificacionesController implements Initializable {
             alert.setTitle("Mensaje");
             alert.setContentText("EL NÚMERO DE INASISTENCIAS NO PUEDE SOBREPASAR MÁS DE 5");
             alert.showAndWait();
-
-            // txtInasistencias.setText("5");
             return;
         }
 
@@ -784,6 +810,7 @@ public class CapturaCalificacionesController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
         lblMateriasAcademicas.add(lblAsignatura1);
         lblMateriasAcademicas.add(lblAsignatura2);
         lblMateriasAcademicas.add(lblAsignatura3);
@@ -829,6 +856,7 @@ public class CapturaCalificacionesController implements Initializable {
         btnBoletaInterna.setDisable(true);
         btnBoletaExterna.setDisable(true);
         txtInasistencias.setVisible(false);
+        btnEnviarBoletas.setDisable(true);
 
     }
 

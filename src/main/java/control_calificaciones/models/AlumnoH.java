@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 import lombok.*;
-
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
@@ -35,12 +35,12 @@ public class AlumnoH {
 
     private Character genero;
 
-    @Column(name =  "fecha_nacimiento")
+    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
     @ManyToOne
-    @JoinColumn(name = "id_tutor", referencedColumnName = "id_tutor") 
-    private TutorH tutor; 
+    @JoinColumn(name = "id_tutor", referencedColumnName = "id_tutor")
+    private TutorH tutor;
 
     @ManyToOne
     @JoinColumn(name = "id_aula", referencedColumnName = "id_aula")
@@ -54,14 +54,14 @@ public class AlumnoH {
     @ToString.Exclude
     private List<InasistenciaH> inasistencias;
 
-    public String getNombreCompleto(){
-        return 
-                this.apellidoPaterno + " " + 
-                this.apellidoMaterno + " " + 
+    public String getNombreCompleto() {
+        return this.apellidoPaterno + " " +
+                this.apellidoMaterno + " " +
                 this.nombre;
     }
-
-    public Integer getEdad(){
+    
+    public Integer getEdad() {
         return LocalDate.now().getYear() - this.fechaNacimiento.getYear();
     }
+
 }

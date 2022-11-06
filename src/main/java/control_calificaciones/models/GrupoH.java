@@ -9,13 +9,12 @@ import lombok.*;
 @Entity
 @Table( name = "grupos" )
 public class GrupoH {
-
     public GrupoH() {}
 
     public GrupoH(Integer idGrupo) {
         this.idGrupo = idGrupo;
     }
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grupo")
@@ -24,5 +23,4 @@ public class GrupoH {
     private Integer idGrupo;
     
     private String nombre;
-    
 }

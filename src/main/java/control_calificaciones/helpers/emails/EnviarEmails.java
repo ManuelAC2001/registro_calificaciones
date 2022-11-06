@@ -6,14 +6,13 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-import control_calificaciones.helpers.pdf.BoletaExterna;
 
 public class EnviarEmails {
     private static String emailFrom = "tovi.rob20@gmail.com";
     private static String password = "pjjlumumotjbdcxn";
 
     private String emailTo;
-    private String asuunto;
+    private String asunto;
     private String contenido;
 
     private Properties mailPropiedades;
@@ -28,15 +27,15 @@ public class EnviarEmails {
 
     public EnviarEmails(String emailTo, String asunto, String contenido, File boletaInterna, File boletaExterna) {
         this.emailTo = emailTo;
-        this.asuunto = asunto;
+        this.asunto = asunto;
         this.contenido = contenido;
 
         mailPropiedades = new Properties();
-        crearEmail(emailTo, asunto, contenido, boletaInterna, boletaExterna);
+        crearEmail(boletaInterna, boletaExterna);
         enviarCorreo();
     }
 
-    private void crearEmail(String emailTo, String asunto, String contenido, File boletaInterna, File boletaExterna) {
+    private void crearEmail(File boletaInterna, File boletaExterna) {
         // Simple mail transfer protocol
         mailPropiedades.put("mail.smtp.host", "smtp.gmail.com");
         mailPropiedades.put("mail.smtp.ssl.trust", "smtp.gmail.com");

@@ -241,8 +241,7 @@ public class BoletaExterna {
             tbodyTrimestre.appendChild(trTrimestre);
 
         }
-
-        
+                
         //promedios finales de cada trimestre
         promedioFinalTrimestre1 /= materias.size();
         promedioFinalTrimestre2 /= materias.size();
