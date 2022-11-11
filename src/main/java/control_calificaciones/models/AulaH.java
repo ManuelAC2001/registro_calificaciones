@@ -1,9 +1,12 @@
 package control_calificaciones.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
@@ -11,9 +14,10 @@ import lombok.*;
 @Table(name = "aulas")
 public class AulaH {
 
-    public AulaH(){}
+    public AulaH() {
+    }
 
-    public AulaH(Integer idAula){
+    public AulaH(Integer idAula) {
         this.idAula = idAula;
     }
 
@@ -31,4 +35,13 @@ public class AulaH {
     @ManyToOne
     @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
     private GrupoH grupo;
+
+    @OneToMany(mappedBy = "aula")
+    @ToString.Exclude
+    private List<AlumnoH> alumnos;
+
+    public String getNombreAula() {
+        return this.getGrado().getNombre() + " " + this.getGrupo().getNombre();
+    }
+
 }

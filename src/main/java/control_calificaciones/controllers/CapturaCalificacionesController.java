@@ -433,7 +433,6 @@ public class CapturaCalificacionesController implements Initializable {
     // IMPORTANTEE
     @FXML
     private void registrarCalifiaciones(ActionEvent event) {
-        //
         setCalificaciones(alumno);
     }
 

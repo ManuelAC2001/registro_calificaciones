@@ -1,12 +1,6 @@
 package control_calificaciones.helpers.pdf;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,11 +13,7 @@ import org.jsoup.nodes.Element;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import control_calificaciones.data.PeriodoDAOH;
-import control_calificaciones.models.AlumnoH;
-import control_calificaciones.models.AsignaturaH;
-import control_calificaciones.models.CalificacionH;
-import control_calificaciones.models.PeriodoH;
-import control_calificaciones.models.TutorH;
+import control_calificaciones.models.*;
 
 public class BoletaExterna {
 
@@ -48,7 +38,6 @@ public class BoletaExterna {
             agregarInformacionFecha(documentHTML, calificacionesBoleta);
 
             setDocumentoOficial(documentHTML, esBoletaOficial);
-
 
             // obtencion del contenido de la plantilla HTML
             String contenidoHTML = documentHTML.html();
@@ -77,23 +66,22 @@ public class BoletaExterna {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     private static Boolean trimestreCalificado(List<CalificacionH> calificacionesBoleta, String nombrePeriodo) {
-        
+
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
         List<AsignaturaH> materias = alumno.getAula().getGrado().getAsignaturas();
 
         PeriodoH periodo = new PeriodoH(nombrePeriodo);
         periodo = new PeriodoDAOH().buscarNombre(periodo);
 
-        Integer numeroCalificacionesByPeriodo = calificacionesBoleta.stream().filter(c -> {
-            return
-            c.getMes().getPeriodo().getNombre().equals(nombrePeriodo);
-        })
-        .collect(Collectors.toList())
-        .size();        
+        Integer numeroCalificacionesByPeriodo = calificacionesBoleta
+                .stream()
+                .filter(c -> c.getMes().getPeriodo().getNombre().equals(nombrePeriodo))
+                .collect(Collectors.toList())
+                .size();
 
         Integer maximoCalificacionesByPeriodo = periodo.getMeses().size() * materias.size();
 
@@ -106,7 +94,7 @@ public class BoletaExterna {
         // obteniendo al alumno
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
         String grupoInfo = calificacionesBoleta.get(0).getGrupo().getNombre().toUpperCase();
-        
+
         String gradoInfo = calificacionesBoleta.get(0).getGrado().getNombre().toUpperCase();
         String cicloEscolarInfo = calificacionesBoleta.get(0).getCicloEscolar().getNombre();
 
@@ -124,13 +112,14 @@ public class BoletaExterna {
 
         documentHTML.getElementById("tutor__nombre").append(tutor.getNombreCompleto().toUpperCase() + ": ");
     }
-    
+
     private static void agregarMateriasAcademicas(Document documentHTML, List<CalificacionH> calificacionesBoleta) {
 
         // obtenemos al alumno
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
 
         Element tbodyMaterias = documentHTML.getElementById("tbody___materias");
+        Element trFirmaEspacio = documentHTML.getElementById("tr__firma_espacio");
 
         List<AsignaturaH> asignaturasAcademicas = alumno.getAula().getGrado().getAsignaturas().stream().filter(c -> {
             return c.getTipoAsignatura().getNombre().equals("academica");
@@ -141,10 +130,11 @@ public class BoletaExterna {
             // creamos un tr para cada materia
             Element trMateria = documentHTML.createElement("tr");
             trMateria.append("<td>" + c.getNombre().toUpperCase() + "</td>");
-            tbodyMaterias.appendChild(trMateria);
+            // tbodyMaterias.appendChild(trMateria);
+            trFirmaEspacio.before(trMateria);
         });
     }
-    
+
     private static void agregarPromedioTrimestral(Document documentoHTML,
             List<CalificacionH> calificacionesBoleta) {
 
@@ -157,11 +147,9 @@ public class BoletaExterna {
                 .collect(Collectors.toList());
 
         List<CalificacionH> calificacionesMaterias = calificacionesBoleta.stream().filter(c -> {
-            return 
-            c.getAsignatura().getTipoAsignatura().getNombre().equals("academica");
+            return c.getAsignatura().getTipoAsignatura().getNombre().equals("academica");
         })
                 .collect(Collectors.toList());
-                
 
         Double promedioFinalTrimestre1 = 0.0;
         Double promedioFinalTrimestre2 = 0.0;
@@ -175,27 +163,33 @@ public class BoletaExterna {
         Boolean trimestreCalificado2 = trimestreCalificado(calificacionesBoleta, "2°");
         Boolean trimestreCalificado3 = trimestreCalificado(calificacionesBoleta, "3°");
 
-        for( AsignaturaH m : materias ){
+        // Element tbodyTrimestre = documentoHTML.getElementById("tbody__trimestre");
+        Element trFirmaDocente = documentoHTML.getElementById("tr__firma_docente");
+        
+
+        for (AsignaturaH m : materias) {
 
             Double promedioTrimestre1 = 0.0;
             Double promedioTrimestre2 = 0.0;
             Double promedioTrimestre3 = 0.0;
 
-
-            Element tbodyTrimestre = documentoHTML.getElementById("tbody__trimestre");
             Element trTrimestre = documentoHTML.createElement("tr");
+            
 
             for (CalificacionH c : calificacionesMaterias) {
 
-                if(m.getNombre().equals(c.getAsignatura().getNombre()) && c.getMes().getPeriodo().getNombre().equals("1°")){
+                if (m.getNombre().equals(c.getAsignatura().getNombre())
+                        && c.getMes().getPeriodo().getNombre().equals("1°")) {
                     promedioTrimestre1 += c.getResultado();
                 }
 
-                if(m.getNombre().equals(c.getAsignatura().getNombre()) && c.getMes().getPeriodo().getNombre().equals("2°")){
+                if (m.getNombre().equals(c.getAsignatura().getNombre())
+                        && c.getMes().getPeriodo().getNombre().equals("2°")) {
                     promedioTrimestre2 += c.getResultado();
                 }
 
-                if(m.getNombre().equals(c.getAsignatura().getNombre()) && c.getMes().getPeriodo().getNombre().equals("3°")){
+                if (m.getNombre().equals(c.getAsignatura().getNombre())
+                        && c.getMes().getPeriodo().getNombre().equals("3°")) {
                     promedioTrimestre3 += c.getResultado();
                 }
 
@@ -210,39 +204,34 @@ public class BoletaExterna {
             promedioTrimestre3 /= 3;
             promedioFinalTrimestre3 += promedioTrimestre3;
 
-            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
-            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
-            // trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");            
-            
-            
-            promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3; 
+            promedioFinalMateria = promedioTrimestre1 + promedioTrimestre2 + promedioTrimestre3;
             promedioFinalMateria /= 3;
             promedioFinal += promedioFinalMateria;
 
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre1) +"</td>");
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre2) +"</td>");
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioTrimestre3) +"</td>");
-            trTrimestre.append("<td>"+ String.format("%.2f", promedioFinalMateria) +"</td>");            
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre1) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre2) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioTrimestre3) + "</td>");
+            trTrimestre.append("<td>" + String.format("%.2f", promedioFinalMateria) + "</td>");
 
-
-            if(!trimestreCalificado1){
+            if (!trimestreCalificado1) {
                 trTrimestre.child(0).attr("style", "color:white");
             }
 
-            if(!trimestreCalificado2){
+            if (!trimestreCalificado2) {
                 trTrimestre.child(1).attr("style", "color:white");
             }
 
-            if(!trimestreCalificado3){
+            if (!trimestreCalificado3) {
                 trTrimestre.child(2).attr("style", "color:white");
                 trTrimestre.child(3).attr("style", "color:white");
             }
 
-            tbodyTrimestre.appendChild(trTrimestre);
+            // tbodyTrimestre.appendChild(trTrimestre);
+            trFirmaDocente.before(trTrimestre);
 
         }
-                
-        //promedios finales de cada trimestre
+
+        // promedios finales de cada trimestre
         promedioFinalTrimestre1 /= materias.size();
         promedioFinalTrimestre2 /= materias.size();
         promedioFinalTrimestre3 /= materias.size();
@@ -250,7 +239,7 @@ public class BoletaExterna {
         promedioFinal /= materias.size();
         Element tdPromedioFinal = documentoHTML.getElementById("promedio_final");
 
-        if(!trimestreCalificado3){
+        if (!trimestreCalificado3) {
             tdPromedioFinal.attr("style", "color:white");
         }
 
@@ -265,17 +254,16 @@ public class BoletaExterna {
         String infoMes = fecha.getMonth().toString();
         String infoMesNumero = Integer.toString(fecha.getMonthValue());
         String infoDia = Integer.toString(fecha.getDayOfMonth());
-        
 
-        Element tdAnio =  documentHTML.getElementById("anio");
-        Element tdMes =  documentHTML.getElementById("mes");
-        Element tdDia =  documentHTML.getElementById("dia");
+        Element tdAnio = documentHTML.getElementById("anio");
+        Element tdMes = documentHTML.getElementById("mes");
+        Element tdDia = documentHTML.getElementById("dia");
 
         tdAnio.append(infoAnio);
         tdMes.append(infoMes);
         tdDia.append(infoDia);
 
-        String folio = calificacionesBoleta.get(0).getIdCalificacion() + infoDia + infoMesNumero + infoAnio; 
+        String folio = calificacionesBoleta.get(0).getIdCalificacion() + infoDia + infoMesNumero + infoAnio;
 
         documentHTML.getElementById("folio").append("FOLIO: " + folio);
 
@@ -284,11 +272,12 @@ public class BoletaExterna {
     private static void setDocumentoOficial(Document documentHTML, Boolean esBoletaOficial) {
 
         Element divMarcaAgua = documentHTML.getElementById("marca_agua");
+        Element divMarcaAgua2 = documentHTML.getElementById("marca_agua2");
 
-        if(esBoletaOficial){
+        if (esBoletaOficial) {
             divMarcaAgua.addClass("hide");
+            divMarcaAgua2.addClass("hide");
         }
-
     }
 
 }
