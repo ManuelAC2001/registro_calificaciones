@@ -1,0 +1,314 @@
+<html>
+ <head>
+  <title>Lista de alumnos</title> <!-- RESETEANDO LA TABLA -->
+  <style>
+        @page {
+            size: landscape;
+            margin: 0;
+        }
+
+        .container {
+            display: inline-block;
+        }
+
+        .container:first-child {
+            margin-right: 100px;
+        }
+
+        .container img {
+            margin-right: 10px;
+        }
+
+        .alumno__informacion {
+            font-size: 7px;
+            text-align: left;
+        }
+
+        .escuela__informacion {
+            font-size: 4px;
+            text-align: center;
+        }
+
+        table {
+            font-size: 5px;
+        }
+
+        table,
+        th,
+        td {
+            border-spacing: 0;
+            text-align: center;
+            border: .5px solid;
+        }
+
+        table {
+            border: none;
+        }
+
+        .tabla th,
+        .tabla td {
+            padding: 8px 4px;
+        }
+
+        .tabla__container {
+            margin-top: 22px;
+        }
+
+        .tabla {
+            display: inline;
+        }
+
+        #tr_materias th:last-child {
+            background: #f7e7da;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 6px;
+        }
+
+
+        .firma {
+            border-bottom: 0.5px solid;
+        }
+
+        .firma.firma-vertical {
+            height: 15px;
+        }
+
+        .firma.firma-horizontal {
+            width: 30px;
+            background: pink;
+        }
+
+        .table__porcentajes {
+            font-size: 6px;
+            border: none;
+        }
+
+        .table__porcentajes tr th {
+            border: none;
+            padding-top: 6px;
+        }
+
+        .table__porcentajes td {
+            padding: 0 6px;
+        }
+
+        .promedio_grupo {
+            background: #b5dceb;
+        }
+
+        .info_container {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .tabla-opcionales {
+            margin-left: 10px;
+        }
+    </style>
+ </head>
+ <body><!-- HEADER -->
+  <center>
+   <header>
+    <section class="container alumno__informacion">
+     <p id="grado_info"></p>
+     <p id="grupo_info"></p>
+     <p>PROFESORA: CAROLINA ASTUDILLO HERNANDEZ</p>
+     <p id="mes_info"></p>
+     <p id="anio_info"></p>
+    </section>
+    <section class="container escuela__informacion"><img id="img__logo" src="http://localhost:5500/logo.png" width="40px" />
+     <section class="container">
+      <h1>INSTITUTO "HISPANOAMERICANO-MEXICANO"</h1>
+      <h2>PRESTIGIO Y CALIDAD ACADEMICA</h2>
+      <h2>VICENTE GUERRERO #49, CENTRO</h2>
+     </section>
+    </section>
+   </header>
+  </center>
+  <center>
+   <div class="tabla__container"><!-- TABLA DE INFO ALUMNO -->
+    <table style="border: none;" class="tabla">
+     <tbody id="tbody__alumnos">
+      <tr>
+       <th style="border: none;" colspan="3"></th>
+      </tr> <!-- DATOS DESDE LA BD DE LOS ALUMNOS EN GENERAL -->
+      <tr>
+       <th>No. lista</th>
+       <th>sexo</th>
+       <th>Nombre del alumno</th>
+      </tr> <!-- DATOS DESDE LA BD DEL ALUMNO -->
+      <tr>
+       <td>supa</td>
+       <td>info</td>
+       <td>info</td>
+      </tr>
+     </tbody>
+    </table> <!-- TABLA DE ASISTENCIAS -->
+    <table class="tabla">
+     <tbody id="tobody__asistencias">
+      <tr>
+       <th style="background: #dce6ef;" colspan="7">asistencias</th>
+      </tr>
+      <tr>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th>total</th>
+      </tr> <!-- DATOS DESDE LA BD DEL ALUMNO -->
+      <tr>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+      </tr>
+     </tbody>
+    </table> <!-- TABLA DE INASISTENCIAS -->
+    <table class="tabla">
+     <tbody id="tobody__inasistencias">
+      <tr>
+       <th style="background: #eaf1dc;" colspan="7">inasistencias</th>
+      </tr>
+      <tr>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th></th>
+       <th>total</th>
+      </tr> <!-- DATOS DESDE LA BD DEL ALUMNO -->
+      <tr>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+      </tr>
+     </tbody>
+    </table> <!-- TABLA DE RASGOS A EVALUAR -->
+    <table class="tabla">
+     <tbody id="tobody__rasgos">
+      <tr>
+       <th colspan="9" style="background: pink;">RASGOS A EVALUAR</th>
+      </tr> <!-- DATOS DESDE LA BD DE LOS ALUMNOS EN GENERAL -->
+      <tr>
+       <th>ortografia</th>
+       <th>disciplina</th>
+       <th>uniforme y aseo</th>
+       <th>puntualidad</th>
+       <th>material</th>
+       <th>participacion</th>
+       <th>comp. lect</th>
+       <th>trabajos</th>
+       <th>tareas</th>
+      </tr> <!-- DATOS DESDE LA BD DEL ALUMNO -->
+      <tr id="tr_promedio_materias">
+       <th colspan="9">PROMEDIO DE MATERIAS</th>
+      </tr>
+      <tr>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+      </tr>
+     </tbody>
+    </table> <!-- TABLA DE FORMACION ACADEMICA -->
+    <table class="tabla tabla-formacion">
+     <tbody id="tobody__formacion">
+      <tr>
+       <th style="background: #f7e7da;" colspan="11">FORMACION ACADEMICA</th>
+      </tr> <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
+      <tr id="tr_academicas"><!-- <th>leng materna</th>
+                        <th>ingles</th>
+                        <th>matematicas</th>
+                        <th>conocim del medio</th>
+                        <th>artes</th>
+                        <th>ed fisica</th>
+                        <th>materia</th> --> <!-- <th >promedio</th> -->
+      </tr> <!-- DATOS DE RASGOS A EVALUAR-->
+      <tr>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+       <td>-</td>
+      </tr>
+     </tbody>
+    </table> <!-- TABLA DE RASGOS ASIGNATURAS OPCIONALES-->
+    <table class="tabla tabla-opcionales">
+     <tbody id="tobody__opcionales">
+      <tr>
+       <th style="background: #b5dceb;" colspan="3">ASIGNATURAS OPCIONALES</th>
+      </tr> <!-- DATOS DESDE LA BD DE ALUMNOS EN GENERAL-->
+      <tr id="tr_opcionales"><!-- <th style="background: #b5dceb;">ed socio-emocional</th>
+                        <th style="background: #b5dceb;">inf. y robotica</th>
+                        <th style="background: #95cffe;">vida saludable</th> -->
+      </tr> <!-- DATOS DESDE LA BD DEL ALUMNO--> <!-- <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr> -->
+     </tbody>
+    </table>
+   </div>
+  </center>
+  <center>
+   <footer class="footer">
+    <section>
+     <div class="info_container"><span>FIRMA DEL MAESTRO(A)</span>
+      <div class="firma firma-vertical"></div>
+     </div>
+     <div class="info_container">
+      <table class="table__porcentajes">
+       <tbody>
+        <tr>
+         <th></th>
+        </tr>
+        <tr>
+         <td>% DE ASISTENCIAS</td>
+         <td></td>
+        </tr>
+        <tr>
+         <th></th>
+        </tr>
+        <tr>
+         <td>% DE ASISTENCIAS</td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+      <div style="margin-top: 20px;"><span>PROMEDIO DEL GRUPO</span>
+       <div class="firma firma-vertical"></div>
+      </div>
+     </div>
+     <div class="info_container"><span>NOMBRE Y FIRMA DEL DIRECTOR</span>
+      <div class="firma firma-vertical"></div>
+     </div> <!-- <div class="container">
+                    <span style="display: inline;">PROMEDIO DEL GRUPO:</span>
+
+                    <div class="container">
+                        <div class="firma firma-horizontal"></div>
+                    </div>
+                </div> -->
+    </section>
+   </footer>
+  </center>
+ </body>
+</html>

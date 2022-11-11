@@ -1,0 +1,526 @@
+<html>
+
+<head>
+    <title>Boleta Interna</title>
+
+    <!-- RESETEANDO LA TABLA -->
+    <style>
+        @page {
+            margin: 0;
+        }
+
+        .container {
+            display: inline-block;
+        }
+
+        .container img:first-child {
+            margin-right: 14px;
+        }
+
+        .container img:last-child {
+            margin-left: 14px;
+        }
+
+        .alumno__informacion {
+            font-size: 7px;
+            text-align: left;
+        }
+
+        .escuela__informacion {
+            font-size: 4px;
+            text-align: center;
+        }
+
+        table {
+            font-size: 7px;
+        }
+
+        table,
+        th,
+        td {
+            border-spacing: 0;
+            text-align: center;
+            border: .5px solid #85878b;
+        }
+
+        table {
+            border: none;
+        }
+
+        .tabla th,
+        .tabla td {
+            padding: 8px 20px;
+        }
+
+        .tabla__container {
+            margin-top: 22px;
+        }
+
+        .tabla {
+            display: inline;
+        }
+
+        .espacio {
+            margin-top: 2rem;
+        }
+
+        .borde {
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            padding-left: 2rem;
+            width: 10rem;
+        }
+
+        .gris {
+            background-color: gray;
+            color: #fff;
+        }
+
+        .boleta,
+        .boleta2 {
+            position: relative;
+        }
+
+        .marca_agua,
+        .marca_agua2 {
+            position: absolute;
+
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+            color: rgb(162, 162, 162);
+            font-family: 'Times New Roman', Times, serif;
+
+            transform: rotate(-45deg);
+
+            left: 0;
+            right: 0;
+            top: 30%;
+        }
+
+        .marca_agua2 {
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        td.caption {
+            font-size: 9px;
+            padding-bottom: 20px;
+            padding-top: 10px;
+            border: none;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="boleta">
+
+        <section>
+            <!-- HEADER -->
+            <center>
+                <header>
+                    <section class="container escuela__informacion">
+                        <img src="http://localhost:5500/educacion.png" width="100px" />
+
+                        <section class="container alumno__informacion">
+                            <h1 style="color: gray;">SISTEMA EDUCATIVO NACIONAL BOLETA DE EVALUACIÓN</h1>
+                            <p id="alumno__grado__ciclo_escolar"
+                                style="color: gray; text-align: center; font-size: 10px;"></p>
+                        </section>
+
+                        <img src="http://localhost:5500/secr_gue.png" width="100px" />
+                    </section>
+                </header>
+            </center>
+
+            <!-- DATOS ALUMNO -->
+            <center class="espacio">
+                <table class="tabla">
+                    <tbody>
+
+                        <td class="caption">DATOS DEL ALUMNO</td>
+
+                        <tr>
+                            <td id="apellido_paterno" style="border: none;"></td>
+                            <td id="apellido_materno" style="border: none;"></td>
+                            <td id="nombre" style="border: none;"></td>
+                            <td id="curp" style="border: none;"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="borde">PRIMER APELLIDO</td>
+                            <td class="borde">SEGUNDO APELLIDO</td>
+                            <td class="borde">NOMBRE(S)</td>
+                            <td class="borde">CURP</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <table class="tabla">
+                    <tbody>
+
+                        <td class="caption">DATOS DE LA ESCUELA</td>
+
+                        <tr>
+                            <td id="escuela__nombre" style="border: none;">INSTITUTO HISPANOAMERICANO MEXICANO</td>
+                            <td id="alumno__grupo" style="border: none;"></td>
+                            <td id="turno" style="border: none;">MATUTINO</td>
+                            <td id="curp" style="border: none;">12PPR0395H</td>
+                        </tr>
+
+                        <tr>
+                            <td class="borde">NOMBRE DE LA ESCUELA</td>
+                            <td class="borde">GRUPO</td>
+                            <td class="borde">TURNO</td>
+                            <td class="borde">CCT</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </center>
+
+            <!-- CALIFICACIONES -->
+            <center class="espacio">
+                <section style="display: inline;">
+
+
+                    <table class="tabla materias">
+                        <tbody id="tbody___materias">
+
+                            <tr class="gris">
+                                <th colspan="2" style="color: gray;">ASIGNATURAS/ÁREAS</th>
+                            </tr>
+
+                            <tr class="gris ">
+                                <th colspan="2">ASIGNATURAS/ÁREAS</th>
+                            </tr>
+
+                            <tr id="tr__firma_espacio">
+                                <td colspan="4" style="padding-top: 20px; border: none;">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding-top: 20px; border-right: none;">
+                                    <div style="margin-right: 100px; padding-bottom: 16px;">
+                                        <div></div>
+                                        <div style="padding-top: 10px; width: 100%;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding-top: 20px; border-right: none;">
+                                    <div style="margin-right: 100px; padding-bottom: 9px;">
+                                        <div></div>
+                                        <div style="padding-top: 10px; width: 100%;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding-top: 20px; border-right: none;">
+                                    <div style="margin-right: 100px; padding-bottom: 9px;">
+                                        <div></div>
+                                        <div style="padding-top: 10px; width: 100%;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                    <table class="tabla trimestre">
+                        <tbody id="tbody__trimestre">
+
+                            <tr class="gris">
+                                <th colspan="3">PERIODOS DE EVALACIÓN</th>
+                                <th>PROMEDIO FINAL</th>
+                            </tr>
+
+                            <tr class="gris">
+                                <td>1°</td>
+                                <td>2°</td>
+                                <td>3°</td>
+                                <td style="color: gray;">1°</td>
+                            </tr>
+
+                            <tr id="tr__firma_docente">
+                                <td colspan="4" style="padding-top: 20px; border: none;">
+                                </td>
+                            </tr>
+
+                            <tr id="tr__firma_docente">
+                                <td colspan="4" style="padding-top: 20px; border-left: none;">
+                                    <div style="margin-right: 100px;">
+                                        <div id="tutor__nombre"></div>
+                                        <div style="border-top: 1px solid black; padding-top: 10px; width: 100%;">
+                                            NOMBRE Y FIRMA DEL DOCENTE
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr id="tr__firma_director">
+
+                                <td colspan="4" style="padding-top: 20px; border-left: none;">
+                                    <div style="margin-right: 100px;">
+                                        <div></div>
+                                        <div style="border-top: 1px solid black; padding-top: 10px; width: 100%;">
+                                            NOMBRE Y FIRMA DEL DIRECTOR
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            <tr id="tr__firma_expedicion">
+
+                                <td colspan="4" style="padding-top: 20px; border-left: none;">
+                                    <div style="margin-right: 100px;">
+                                        <div></div>
+                                        <div style="border-top: 1px solid black; padding-top: 10px; width: 100%;">
+                                            LUGAR DE EXPEDICIÓN
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                </section>
+
+                <table class="tabla asistencias" style="margin-left: 20px;">
+                    <tbody>
+                        <tr class="gris">
+                            <th colspan="2">ASISTENCIA</th>
+                        </tr>
+
+                        <tr>
+                            <td>Calendario Escolar</td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Asistencias</td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td>% Asistencia %</td>
+                            <td> </td>
+                        </tr>
+
+                        <tr>
+                            <td style="border: none; padding-top: 30px;" colspan="2">* Asistencia mínima para ser
+                                promovido 80%</td>
+                        </tr>
+
+                        <!-- PROMEDIO FINAL DEL GRADO -->
+                        <tr>
+                            <th style="background-color: #85878b; color: white;" colspan="2">PROMEDIO FINAL DE GRADO
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" id="promedio_final"> </td>
+                        </tr>
+
+                        <tr>
+                            <td style="border: none; padding-bottom: 10px;" colspan="2" id="promedio_final"> </td>
+                        </tr>
+
+                        <!-- PROMOVIDO Y NO PROMOVIDO -->
+                        <tr>
+                            <td colspan="2" id="promedio_final" style="border: none;">
+
+                                <div>
+                                    <div style="margin-right: 1px; 
+                                                display: inline; 
+                                                background-color:#85878b; 
+                                                border: 1px solid #85878b;
+                                                color: white;
+                                                padding: 5px 4px;">
+                                        PROMOVIDO
+                                    </div>
+
+                                    <div style="display: inline; 
+                                                border: 1px solid black; 
+                                                padding: 5px 15px;
+                                                ">
+                                    </div>
+
+
+                                    <div style="display: inline; 
+                                                border: none; 
+                                                padding: 5px 50px;
+                                                ">
+                                    </div>
+
+
+                                    <div style="margin-right: 1px; 
+                                                display: inline; 
+                                                background-color:#85878b; 
+                                                border: 1px solid #85878b;
+                                                color: white;
+                                                padding: 5px 4px;">
+                                        NO PROMOVIDO
+                                    </div>
+
+                                    <div style="display: inline; 
+                                                border: 1px solid black; 
+                                                padding: 5px 15px;
+                                                ">
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="border: none; padding-bottom: 10px;" colspan="2" id="promedio_final"> </td>
+                        </tr>
+
+                        <!-- FIRMA DE LA MADRE, PADRE DE FAMILIA O TUTOR -->
+                        <tr class="gris">
+                            <th colspan="2" style="text-align: left;">FIRMA DE LA MADRE. PADRE DE FAMILIA O TUTOR
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td style="padding-bottom: 40px; text-align: left;" colspan="2">1er Periodo</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 40px; text-align: left;" colspan="2">2do Periodo</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 40px; text-align: left;" colspan="2">3er Periodo</td>
+                        </tr>
+
+                        <!-- AÑO MES Y DIA -->
+                        <tr>
+                            <td style="border: none; padding-top: 40px;" colspan="2">
+                                <img src="http://localhost:5500/logo_educativo.png" style="width: 50px;">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" style="border: none; padding-top: 40px;">
+
+                                <div style="display: inline-block;">
+                                    <div id="anio" style="display: inline;
+                                                    border: 1px solid black;
+                                                    border-top: none;
+                                                    padding: 2px 35px;
+                                                    margin: 0;">
+                                    </div>
+                                    <span style="display: block; margin-top: 10px;">AÑO</span>
+                                </div>
+
+                                <div style="display: inline-block;">
+                                    <div id="mes" style="display: inline;
+                                                    border: 1px solid black;
+                                                    border-top: none;
+                                                    padding: 2px 35px;
+                                                    margin: 0;">
+                                    </div>
+                                    <span style="display: block; margin-top: 10px;">MES</span>
+                                </div>
+
+                                <div style="display: inline-block;">
+                                    <div id="dia" style="display: inline;
+                                                    border: 1px solid black;
+                                                    border-top: none;
+                                                    padding: 2px 35px;
+                                                    margin: 0;">
+                                    </div>
+                                    <span style="display: block; margin-top: 10px;">DÍA</span>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        <tr></tr>
+
+
+
+
+                    </tbody>
+                </table>
+
+            </center>
+            <div id="marca_agua" class="marca_agua">
+                <span>DOCUMENTO SIN VALIDEZ OFICIAL</span>
+            </div>
+        </section>
+    </main>
+
+    <main boleta="">
+
+        <center>
+            <table class="tabla boleta2">
+                <tbody>
+                    <tr class="gris">
+                        <th></th>
+                        <th style="width: 35rem;">OBSERVACIONES O RECOMENDACIONES GENERALES DEL DOCENTE</th>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 10rem;">PRIMER PERIODO</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="height: 8rem;">SEGUNDO PERIODO</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="height: 8rem;">TERCER PERIODO</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <footer>
+                <p id="folio" style="font-size: 10px; text-align: left; margin-bottom: 1.5rem; margin-left: 30px;"></p>
+                <div class="container">
+                    <p style="font-size: 7px; text-align: center;">
+                        SE SANCIONARÁ A QUIEN CON DOLO O FINES LUCRATIVOS REPODUZCA TOTAL O PARCIALMENTE ESTE FORMATO
+                    </p>
+                </div>
+            </footer>
+
+            <div id="marca_agua2" class="marca_agua2">
+                <span>DOCUMENTO SIN VALIDEZ OFICIAL</span>
+            </div>
+
+        </center>
+
+
+
+    </main>
+
+
+
+</body>
+
+</html>
