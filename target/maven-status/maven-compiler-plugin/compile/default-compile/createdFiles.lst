@@ -1,6 +1,0 @@
-module-info.class
-control_calificaciones\models\usuarios\Usuarios.class
-control_calificaciones\controllers\SecondaryController.class
-control_calificaciones\controllers\PrimaryController.class
-control_calificaciones\models\usuarios\Test.class
-control_calificaciones\App.class
