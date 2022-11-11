@@ -100,7 +100,7 @@ public class BoletaExterna {
 
         TutorH tutor = alumno.getTutor();
 
-        String msg = gradoInfo + "GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR " + cicloEscolarInfo;
+        String msg = gradoInfo + " GRADO DE EDUCACIÓN PRIMARIA CICLO ESCOLAR " + cicloEscolarInfo;
 
         documentHTML.getElementById("apellido_paterno").append(alumno.getApellidoPaterno().toUpperCase());
         documentHTML.getElementById("apellido_materno").append(alumno.getApellidoMaterno().toUpperCase());
