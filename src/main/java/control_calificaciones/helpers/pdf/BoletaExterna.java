@@ -118,7 +118,7 @@ public class BoletaExterna {
         // obtenemos al alumno
         AlumnoH alumno = calificacionesBoleta.get(0).getAlumno();
 
-        Element tbodyMaterias = documentHTML.getElementById("tbody___materias");
+        // Element tbodyMaterias = documentHTML.getElementById("tbody___materias");
         Element trFirmaEspacio = documentHTML.getElementById("tr__firma_espacio");
 
         List<AsignaturaH> asignaturasAcademicas = alumno.getAula().getGrado().getAsignaturas().stream().filter(c -> {

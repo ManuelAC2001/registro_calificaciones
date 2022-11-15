@@ -16,177 +16,186 @@ import control_calificaciones.models.MesH;
 
 public class Test {
 
-    static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
-    static List<GradoH> grados = new GradoDAOH().listar();
-    static List<MesH> meses = new MesDAOH().listar();
+        static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
 
-    static List<AulaH> aulas = new AulaDAOH()
-            .listar()
-            .stream()
-            .filter(aula -> !aula.getAlumnos().isEmpty())
-            .collect(Collectors.toList());
+        static List<GradoH> grados = new GradoDAOH()
+                        .listar()
+                        .stream()
+                        .filter(g -> getNumeroAlumnosByGrado(g) != 0)
+                        .collect(Collectors.toList());
 
-    public static void main(String[] args) {
+        static List<MesH> meses = new MesDAOH().listar();
 
-        // // Numero total de alumnos
-        // System.out.println("Número total de alumnos" + alumnos.size());
+        static List<AulaH> aulas = new AulaDAOH()
+                        .listar()
+                        .stream()
+                        .filter(aula -> !aula.getAlumnos().isEmpty())
+                        .collect(Collectors.toList());
 
-        // // Numero total de alumnos por cada grado
-        // grados.forEach(grado -> {
-        // getNumeroAlumnosByGrado(grado);
-        // });
+        public static void main(String[] args) {
+                // ESTADISTICA BASICA
 
-        // // Calificacion maxima por total de alumnos
-        // getMaxCalificacion();
+                // Numero total de alumnos
+                // System.out.println("Número total de alumnos" + alumnos.size());
 
-        // //calificaciones maximas por aula
-        // aulas.forEach(aula -> {
-        // getMaxCalificacionByAula(aula);
-        // });
+                // Numero total de alumnos por cada grado
+                grados.forEach(grado -> {
+                        System.out.println("Numero de alumnos de grado: " + grado.getNombre() + ": "
+                                        + getNumeroAlumnosByGrado(grado));
+                });
 
-        // //Cantidad de alumnos total
-        // //cantidad de niños y niñas total
-        // getNumeroAlumnosTotal();
+                // // Cantidad de alumnos total
+                // // cantidad de niños y niñas total
+                // getNumeroAlumnosTotal();
 
-        // // Cantidad de alumnos total por salon y
-        // // cantidad de niños y niñas por salon
-        // aulas.forEach(aula -> {
-        // getNumeroAlumnosByAula(aula);
-        // });
+                // Cantidad de alumnos total por salon y
+                // cantidad de niños y niñas por salon
+                // aulas.forEach(aula -> {
+                // getNumeroAlumnosByAula(aula);
+                // });
 
-    }
+                // // ESTADISTICAS DE CALIFICACIONES
 
-    private static void getMaxCalificacionByAula(AulaH aula) {
+                // // Calificacion maxima por total de alumnos
+                // getMaxCalificacion();
 
-        List<AlumnoH> allumnosByAula = alumnos
-                .stream()
-                .filter(a -> a.getAula().equals(aula))
-                .collect(Collectors.toList());
+                // // calificaciones maximas por aula
+                // aulas.forEach(aula -> {
+                // getMaxCalificacionByAula(aula);
+                // });
 
-        List<Double> promedios = allumnosByAula
-                .stream()
-                .map(a -> getPromedioAlumno(a))
-                .collect(Collectors.toList());
-
-        Double calificacionMaxima = Collections.max(promedios);
-
-        List<AlumnoH> alumnosMaxPromedio = allumnosByAula
-                .stream()
-                .filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
-                .collect(Collectors.toList());
-
-        System.out.println("Alumnos con mejor promedio del aula " + aula.getNombreAula());
-        alumnosMaxPromedio.forEach(alumno -> {
-            System.out.println(alumno.getNombreCompleto());
-            System.out.println(getPromedioAlumno(alumno));
-        });
-        System.out.println("--------------------------------");
-
-    }
-
-    private static void getMaxCalificacion() {
-
-        List<Double> promedios = alumnos.stream().map(a -> getPromedioAlumno(a)).collect(Collectors.toList());
-        Double calificacionMaxima = Collections.max(promedios);
-
-        List<AlumnoH> alumnosMaxPromedio = alumnos.stream().filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
-                .collect(Collectors.toList());
-
-        System.out.println("Alumnos con mejor promedio");
-        alumnosMaxPromedio.forEach(alumno -> {
-            System.out.println(alumno.getNombreCompleto());
-            System.out.println(getPromedioAlumno(alumno));
-        });
-
-    }
-
-    private static Double getPromedioAlumno(AlumnoH alumno) {
-
-        List<CalificacionH> calificaciones = alumno.getCalificaciones()
-                .stream()
-                .filter(c -> !c.getMes().getNombre().equals("diagnostico"))
-                .collect(Collectors.toList());
-
-        List<MesH> mesesParaEvaluar = meses.stream().filter(m -> !m.getNombre().equals("diagnostico"))
-                .collect(Collectors.toList());
-
-        List<MesH> mesesCalificados = calificaciones
-                .stream()
-                .map(a -> a.getMes())
-                .distinct()
-                .collect(Collectors.toList());
-
-        Integer cantidadMesesCalificados = mesesCalificados.size();
-        Integer cantidadMeses = mesesParaEvaluar.size();
-
-        if (cantidadMesesCalificados != cantidadMeses) {
-            return 0.0;
         }
 
-        Double sumaCalificaciones = calificaciones
-                .stream()
-                .map(c -> c.getResultado())
-                .mapToDouble(Double::valueOf)
-                .sum();
+        private static void getMaxCalificacionByAula(AulaH aula) {
 
-        Double promedio = sumaCalificaciones / calificaciones.size();
+                List<AlumnoH> allumnosByAula = alumnos
+                                .stream()
+                                .filter(a -> a.getAula().equals(aula))
+                                .collect(Collectors.toList());
 
-        return Double.parseDouble(String.format("%.2f", promedio));
+                List<Double> promedios = allumnosByAula
+                                .stream()
+                                .map(a -> getPromedioAlumno(a))
+                                .collect(Collectors.toList());
 
-    }
+                Double calificacionMaxima = Collections.max(promedios);
 
-    private static void getNumeroAlumnosTotal() {
+                List<AlumnoH> alumnosMaxPromedio = allumnosByAula
+                                .stream()
+                                .filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
+                                .collect(Collectors.toList());
 
-        List<AlumnoH> alumnosMujeres = Test.alumnos
-                .stream()
-                .filter(a -> a.getGenero().equals('M'))
-                .collect(Collectors.toList());
+                System.out.println("Alumnos con mejor promedio del aula " + aula.getNombreAula());
+                alumnosMaxPromedio.forEach(alumno -> {
+                        System.out.println(alumno.getNombreCompleto());
+                        System.out.println(getPromedioAlumno(alumno));
+                });
+                System.out.println("--------------------------------");
 
-        List<AlumnoH> alumnosHombres = Test.alumnos
-                .stream()
-                .filter(a -> a.getGenero().equals('H'))
-                .collect(Collectors.toList());
+        }
 
-        System.out.println("Número de alumnos: " + Test.alumnos.size());
-        System.out.println("Número de alumnos mujeres: " + alumnosMujeres.size());
-        System.out.println("Número de alumnos hombres: " + alumnosHombres.size());
+        private static void getMaxCalificacion() {
 
-    }
+                List<Double> promedios = alumnos.stream().map(a -> getPromedioAlumno(a)).collect(Collectors.toList());
+                Double calificacionMaxima = Collections.max(promedios);
 
-    private static void getNumeroAlumnosByAula(AulaH aula) {
+                List<AlumnoH> alumnosMaxPromedio = alumnos.stream()
+                                .filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
+                                .collect(Collectors.toList());
 
-        System.out.println("\n--------------------------------");
-        System.out.println("Aula: " + aula.getGrado().getNombre() + " " +
-                aula.getGrupo().getNombre());
+                System.out.println("Alumnos con mejor promedio");
+                alumnosMaxPromedio.forEach(alumno -> {
+                        System.out.println(alumno.getNombreCompleto());
+                        System.out.println(getPromedioAlumno(alumno));
+                });
 
-        List<AlumnoH> alumnos = aula.getAlumnos();
+        }
 
-        List<AlumnoH> alumnosMujeres = aula.getAlumnos()
-                .stream()
-                .filter(a -> a.getGenero().equals('M'))
-                .collect(Collectors.toList());
+        private static Double getPromedioAlumno(AlumnoH alumno) {
 
-        List<AlumnoH> alumnosHombres = aula.getAlumnos()
-                .stream()
-                .filter(a -> a.getGenero().equals('H'))
-                .collect(Collectors.toList());
+                List<CalificacionH> calificaciones = alumno.getCalificaciones()
+                                .stream()
+                                .filter(c -> !c.getMes().getNombre().equals("diagnostico"))
+                                .collect(Collectors.toList());
 
-        System.out.println("Número de alumnos: " + alumnos.size());
-        System.out.println("Número de alumnos mujeres: " + alumnosMujeres.size());
-        System.out.println("Número de alumnos hombres: " + alumnosHombres.size());
+                List<MesH> mesesParaEvaluar = meses.stream().filter(m -> !m.getNombre().equals("diagnostico"))
+                                .collect(Collectors.toList());
 
-    }
+                List<MesH> mesesCalificados = calificaciones
+                                .stream()
+                                .map(a -> a.getMes())
+                                .distinct()
+                                .collect(Collectors.toList());
 
-    private static void getNumeroAlumnosByGrado(GradoH grado) {
+                Integer cantidadMesesCalificados = mesesCalificados.size();
+                Integer cantidadMeses = mesesParaEvaluar.size();
 
-        List<AlumnoH> alumnosGrado = alumnos.stream()
-                .filter(alumno -> alumno.getAula().getGrado().equals(grado))
-                .collect(Collectors.toList());
+                if (cantidadMesesCalificados != cantidadMeses) {
+                        return 0.0;
+                }
 
-        String mensaje = "Cantidad de alumnos de " + grado.getNombre() + " grado: " + alumnosGrado.size();
+                Double sumaCalificaciones = calificaciones
+                                .stream()
+                                .map(c -> c.getResultado())
+                                .mapToDouble(Double::valueOf)
+                                .sum();
 
-        System.out.println(mensaje);
+                Double promedio = sumaCalificaciones / calificaciones.size();
 
-    }
+                return Double.parseDouble(String.format("%.2f", promedio));
+
+        }
+
+        private static void getNumeroAlumnosTotal() {
+
+                List<AlumnoH> alumnosMujeres = Test.alumnos
+                                .stream()
+                                .filter(a -> a.getGenero().equals('M'))
+                                .collect(Collectors.toList());
+
+                List<AlumnoH> alumnosHombres = Test.alumnos
+                                .stream()
+                                .filter(a -> a.getGenero().equals('H'))
+                                .collect(Collectors.toList());
+
+                System.out.println("Número de alumnos: " + Test.alumnos.size());
+                System.out.println("Número de alumnos mujeres: " + alumnosMujeres.size());
+                System.out.println("Número de alumnos hombres: " + alumnosHombres.size());
+
+        }
+
+        private static void getNumeroAlumnosByAula(AulaH aula) {
+
+                System.out.println("\n--------------------------------");
+                System.out.println("Aula: " + aula.getGrado().getNombre() + " " +
+                                aula.getGrupo().getNombre());
+
+                List<AlumnoH> alumnos = aula.getAlumnos();
+
+                List<AlumnoH> alumnosMujeres = aula.getAlumnos()
+                                .stream()
+                                .filter(a -> a.getGenero().equals('M'))
+                                .collect(Collectors.toList());
+
+                List<AlumnoH> alumnosHombres = aula.getAlumnos()
+                                .stream()
+                                .filter(a -> a.getGenero().equals('H'))
+                                .collect(Collectors.toList());
+
+                System.out.println("Número de alumnos: " + alumnos.size());
+                System.out.println("Número de alumnos mujeres: " + alumnosMujeres.size());
+                System.out.println("Número de alumnos hombres: " + alumnosHombres.size());
+
+        }
+
+        private static Integer getNumeroAlumnosByGrado(GradoH grado) {
+
+                List<AlumnoH> alumnosGrado = alumnos.stream()
+                                .filter(alumno -> alumno.getAula().getGrado().equals(grado))
+                                .collect(Collectors.toList());
+
+                return alumnosGrado.size();
+
+        }
 
 }

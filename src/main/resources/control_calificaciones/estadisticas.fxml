@@ -3,16 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.SesionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.EstadisticasController">
    <children>
       <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
          <children>
@@ -107,64 +105,15 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="546.0" prefWidth="723.0">
                                  <children>
-                                    <HBox prefHeight="221.0" prefWidth="703.0">
+                                    <HBox prefHeight="163.0" prefWidth="703.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
-                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="242.0" prefWidth="192.0">
-                                                   <children>
-                                                      <ImageView fitHeight="172.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@img/icons/student.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Button fx:id="btnAlumnos" mnemonicParsing="false" onAction="#entrarAlumnosSeccion" prefHeight="30.0" prefWidth="192.0" styleClass="btn" text="ALUMNOS">
-                                                         <VBox.margin>
-                                                            <Insets top="20.0" />
-                                                         </VBox.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="16.0" />
-                                                         </font>
-                                                      </Button>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                             <effect>
-                                                <DropShadow blurType="ONE_PASS_BOX" height="10.88" radius="3.47" width="5.0">
-                                                   <color>
-                                                      <Color red="0.6431372761726379" green="0.6431372761726379" blue="0.6431372761726379" />
-                                                   </color>
-                                                </DropShadow>
-                                             </effect>
-                                          </HBox>
-                                          <HBox prefHeight="182.0" prefWidth="80.0" />
-                                          <HBox fx:id="seccionPersonal" alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
-                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="242.0" prefWidth="192.0">
-                                                   <children>
-                                                      <ImageView fitHeight="172.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@img/icons/personal.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <Button fx:id="btnPersonal" mnemonicParsing="false" onAction="#entrarPersonalSeccion" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="PERSONAL">
-                                                         <VBox.margin>
-                                                            <Insets top="20.0" />
-                                                         </VBox.margin>
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Button>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
+                                          <Label prefHeight="69.0" prefWidth="180.0" text="ESTADISTICAS">
+                                             <font>
+                                                <Font name="System Bold" size="25.0" />
+                                             </font>
+                                          </Label>
                                        </children>
-                                       <VBox.margin>
-                                          <Insets left="20.0" right="20.0" top="20.0" />
-                                       </VBox.margin>
                                     </HBox>
-                                    <HBox prefHeight="68.0" prefWidth="703.0" />
                                     <HBox prefHeight="221.0" prefWidth="703.0">
                                        <children>
                                           <HBox fx:id="seccionEstadisticas" alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
@@ -176,7 +125,7 @@
                                                             <Image url="@img/icons/research.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="ESTADISTICAS">
+                                                      <Button mnemonicParsing="false" onAction="#toBasicas" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="BASICAS">
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>
@@ -188,7 +137,7 @@
                                                 </VBox>
                                              </children>
                                           </HBox>
-                                          <HBox prefHeight="221.0" prefWidth="83.0" />
+                                          <HBox prefHeight="265.0" prefWidth="80.0" />
                                           <HBox alignment="CENTER" prefHeight="221.0" prefWidth="295.0" style="-fx-background-radius: 20;" styleClass="container__section">
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="242.0" prefWidth="192.0">
@@ -198,7 +147,7 @@
                                                             <Image url="@img/icons/notepad.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" onAction="#entrarCapturaCalificaciones" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="CAPTURA DE CALIFICACIONES" textAlignment="CENTER">
+                                                      <Button mnemonicParsing="false" onAction="#toCalificaciones" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="CALIFICACIONES" textAlignment="CENTER">
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>
