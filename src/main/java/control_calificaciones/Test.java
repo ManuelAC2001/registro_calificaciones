@@ -39,10 +39,10 @@ public class Test {
                 // System.out.println("Número total de alumnos" + alumnos.size());
 
                 // Numero total de alumnos por cada grado
-                grados.forEach(grado -> {
-                        System.out.println("Numero de alumnos de grado: " + grado.getNombre() + ": "
-                                        + getNumeroAlumnosByGrado(grado));
-                });
+                // grados.forEach(grado -> {
+                // System.out.println("Numero de alumnos de grado: " + grado.getNombre() + ": "
+                // + getNumeroAlumnosByGrado(grado));
+                // });
 
                 // // Cantidad de alumnos total
                 // // cantidad de niños y niñas total
@@ -54,16 +54,47 @@ public class Test {
                 // getNumeroAlumnosByAula(aula);
                 // });
 
-                // // ESTADISTICAS DE CALIFICACIONES
-
-                // // Calificacion maxima por total de alumnos
+                // Calificacion maxima por total de alumnos
                 // getMaxCalificacion();
 
+                // // // ESTADISTICAS DE CALIFICACIONES
                 // // calificaciones maximas por aula
                 // aulas.forEach(aula -> {
                 // getMaxCalificacionByAula(aula);
                 // });
+                
+                // //Promedio general por toda la escuela
+                // System.out.println(getPromedioGeneral());
 
+                //promedios generales por aulas
+                // aulas.forEach( a -> System.out.println(getPromedioGeneralByAula(a)));
+                
+        }
+
+        private static Double getPromedioGeneralByAula(AulaH aula) {
+
+                List<AlumnoH> alumnos = aula.getAlumnos();
+
+                Integer cantidadAlumnos = alumnos.size();
+
+                Double sumatoriaPromedio = alumnos.stream()
+                                .map(a -> getPromedioAlumno(a))
+                                .mapToDouble(Double::valueOf)
+                                .sum();
+
+                return sumatoriaPromedio / cantidadAlumnos;
+        }
+
+        private static Double getPromedioGeneral() {
+
+                Integer cantidadAlumnos = alumnos.size();
+
+                Double sumatoriaPromedio = alumnos.stream()
+                                .map(a -> getPromedioAlumno(a))
+                                .mapToDouble(Double::valueOf)
+                                .sum();
+
+                return sumatoriaPromedio / cantidadAlumnos;
         }
 
         private static void getMaxCalificacionByAula(AulaH aula) {
@@ -91,23 +122,6 @@ public class Test {
                         System.out.println(getPromedioAlumno(alumno));
                 });
                 System.out.println("--------------------------------");
-
-        }
-
-        private static void getMaxCalificacion() {
-
-                List<Double> promedios = alumnos.stream().map(a -> getPromedioAlumno(a)).collect(Collectors.toList());
-                Double calificacionMaxima = Collections.max(promedios);
-
-                List<AlumnoH> alumnosMaxPromedio = alumnos.stream()
-                                .filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
-                                .collect(Collectors.toList());
-
-                System.out.println("Alumnos con mejor promedio");
-                alumnosMaxPromedio.forEach(alumno -> {
-                        System.out.println(alumno.getNombreCompleto());
-                        System.out.println(getPromedioAlumno(alumno));
-                });
 
         }
 
@@ -143,6 +157,23 @@ public class Test {
                 Double promedio = sumaCalificaciones / calificaciones.size();
 
                 return Double.parseDouble(String.format("%.2f", promedio));
+
+        }
+
+        private static void getMaxCalificacion() {
+
+                List<Double> promedios = alumnos.stream().map(a -> getPromedioAlumno(a)).collect(Collectors.toList());
+                Double calificacionMaxima = Collections.max(promedios);
+
+                List<AlumnoH> alumnosMaxPromedio = alumnos.stream()
+                                .filter(a -> getPromedioAlumno(a) >= calificacionMaxima)
+                                .collect(Collectors.toList());
+
+                System.out.println("Alumnos con mejor promedio");
+                alumnosMaxPromedio.forEach(alumno -> {
+                        System.out.println(alumno.getNombreCompleto());
+                        System.out.println(getPromedioAlumno(alumno));
+                });
 
         }
 

@@ -75,10 +75,22 @@ public class EstadisticasBasicasController implements Initializable {
     private TableColumn<EstadisticaBasica, String> columnGradoNombre;
 
     @FXML
+    private TableColumn<EstadisticaBasica, Integer> columnHombresGrado;
+
+    @FXML
+    private TableColumn<EstadisticaBasica, Integer> columnMujeresGrado;
+
+    @FXML
     private TableColumn<EstadisticaBasica, Integer> columnTotalGrado;
 
     @FXML
     private TextField txtTotalAlumnos;
+
+    @FXML
+    private TextField txtTotalHombres;
+
+    @FXML
+    private TextField txtTotalMujeres;
 
     @FXML
     void cerrarSesion(ActionEvent event) throws IOException {
@@ -150,6 +162,12 @@ public class EstadisticasBasicasController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
+        Integer cantidadAlumnosHombres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('H')).collect(Collectors.toList()).size();
+        Integer cantidadAlumnosMujeres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('M')).collect(Collectors.toList()).size();
+
+        txtTotalMujeres.setText(cantidadAlumnosMujeres.toString());
+        txtTotalHombres.setText(cantidadAlumnosHombres.toString());
+
         Integer totalAlumnos = aulas.stream().map(a -> a.getAlumnos().size()).mapToInt(Integer::valueOf).sum();
         txtTotalAlumnos.setText(totalAlumnos.toString());
 
@@ -169,6 +187,8 @@ public class EstadisticasBasicasController implements Initializable {
         
         columnGradoNombre.setCellValueFactory( new PropertyValueFactory<EstadisticaBasica, String>("gradoNombre"));        
         columnTotalGrado.setCellValueFactory( new PropertyValueFactory<EstadisticaBasica, Integer>("cantidadAlumnosGrado"));
+        columnHombresGrado.setCellValueFactory( new PropertyValueFactory<EstadisticaBasica, Integer>("cantidadHombresGrado") );
+        columnMujeresGrado.setCellValueFactory( new PropertyValueFactory<EstadisticaBasica, Integer>("cantidadMujeresGrado") );
 
         tableGrado.setItems( FXCollections.observableArrayList(estadisticasGrados));
 

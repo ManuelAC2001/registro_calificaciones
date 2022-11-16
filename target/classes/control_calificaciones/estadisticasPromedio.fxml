@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.EstadisticasBasicasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control_calificaciones.controllers.estadisticasPromedioController">
    <children>
       <VBox prefHeight="700.0" prefWidth="1000.0" stylesheets="@styles/sesion.css">
          <children>
@@ -111,95 +110,27 @@
                                  <children>
                                     <HBox prefHeight="41.0" prefWidth="703.0">
                                        <children>
-                                          <Label prefHeight="69.0" prefWidth="324.0" text="ESTADISTICAS BASICAS">
+                                          <Label prefHeight="41.0" prefWidth="384.0" text="ESTADISTICAS DE PROMEDIOS">
                                              <font>
                                                 <Font name="System Bold" size="25.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="TOP_CENTER" prefHeight="525.0" prefWidth="703.0">
+                                    <HBox prefHeight="525.0" prefWidth="703.0">
                                        <children>
-                                          <TableView fx:id="tableEstadistica" prefHeight="515.0" prefWidth="373.0">
+                                          <TableView fx:id="tableEstadistica" prefHeight="515.0" prefWidth="461.0">
                                              <columns>
-                                                <TableColumn fx:id="columnGrado" prefWidth="75.0" text="GRADO" />
-                                                <TableColumn fx:id="columnGrupo" prefWidth="75.0" text="GRUPO" />
-                                                <TableColumn fx:id="columnHombres" prefWidth="75.0" text="NIÑOS" />
-                                                <TableColumn fx:id="columnMujeres" prefWidth="75.0" text="NIÑAS" />
-                                                <TableColumn fx:id="columnTotal" prefWidth="75.0" text="TOTAL" />
+                                                <TableColumn fx:id="columnGrado" prefWidth="56.333343505859375" text="GRADO" />
+                                                <TableColumn fx:id="columnGrupo" prefWidth="66.0" text="GRUPO" />
+                                                <TableColumn fx:id="columnHombres" prefWidth="129.33331298828125" text="PROMEDIO GENERAL" />
+                                                <TableColumn fx:id="columnMujeres" prefWidth="137.6666259765625" text="PROMEDIO MAS ALTO" />
+                                                <TableColumn fx:id="columnMujeres1" prefWidth="68.0" text="ALUMNO" />
                                              </columns>
                                              <HBox.margin>
                                                 <Insets top="10.0" />
                                              </HBox.margin>
                                           </TableView>
-                                          <VBox prefHeight="525.0" prefWidth="318.0">
-                                             <children>
-                                                <HBox prefHeight="53.0" prefWidth="318.0">
-                                                   <VBox.margin>
-                                                      <Insets top="10.0" />
-                                                   </VBox.margin>
-                                                   <children>
-                                                      <Label prefHeight="25.0" prefWidth="320.0" text="Numero total de alumnos">
-                                                         <font>
-                                                            <Font size="20.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="txtTotalAlumnos" editable="false" prefHeight="35.0" prefWidth="164.0">
-                                                         <font>
-                                                            <Font size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="32.0" prefWidth="318.0">
-                                                   <children>
-                                                      <Label prefHeight="45.0" prefWidth="318.0" text="Cantidad por grado">
-                                                         <font>
-                                                            <Font size="20.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="TOP_CENTER" prefHeight="266.0" prefWidth="308.0">
-                                                   <children>
-                                                      <TableView fx:id="tableGrado" prefHeight="419.0" prefWidth="199.0">
-                                                        <columns>
-                                                          <TableColumn fx:id="columnGradoNombre" prefWidth="51.0" text="GRADO" />
-                                                          <TableColumn fx:id="columnHombresGrado" prefWidth="49.0" text="NIÑOS" />
-                                                            <TableColumn fx:id="columnMujeresGrado" prefWidth="49.0" text="NIÑAS" />
-                                                            <TableColumn fx:id="columnTotalGrado" prefWidth="49.0" text="TOTAL" />
-                                                        </columns>
-                                                      </TableView>
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" left="10.0" />
-                                                   </VBox.margin>
-                                                </HBox>
-                                                <HBox prefHeight="53.0" prefWidth="318.0">
-                                                   <children>
-                                                      <Label prefHeight="25.0" prefWidth="165.0" text="Numero total de niños">
-                                                         <font>
-                                                            <Font size="15.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="txtTotalHombres" editable="false" prefHeight="25.0" prefWidth="98.0" />
-                                                   </children>
-                                                </HBox>
-                                                <HBox prefHeight="53.0" prefWidth="318.0">
-                                                   <children>
-                                                      <Label prefHeight="25.0" prefWidth="165.0" text="Numero total de niñas">
-                                                         <font>
-                                                            <Font size="15.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <TextField fx:id="txtTotalMujeres" editable="false" prefHeight="25.0" prefWidth="98.0" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </VBox>
                                        </children>
                                     </HBox>
                                  </children>

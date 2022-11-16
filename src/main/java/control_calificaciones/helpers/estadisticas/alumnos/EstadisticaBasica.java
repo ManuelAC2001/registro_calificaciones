@@ -31,13 +31,13 @@ public class EstadisticaBasica {
     public EstadisticaBasica(GradoH grado) {
 
         this.gradoNombre = grado.getNombre();
-        this.cantidadAlumnosGrado = getCatidadAlumnosByGrado(grado);
+        this.cantidadAlumnosGrado = getCantidadAlumnosByGrado(grado);
+        this.cantidadHombresGrado = getCantidadAlumnosHombresByGrado(grado);
+        this.cantidadMujeresGrado = getCantidadAlumnosMujeresByGrado(grado);
         
     }
 
-
-    
-    private static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
+    public static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
 
     private String gradoNombre;
     private String grupoNombre;
@@ -46,6 +46,9 @@ public class EstadisticaBasica {
     private Integer cantidadHombres;
     
     private Integer cantidadAlumnosGrado;
+    private Integer cantidadHombresGrado;
+    private Integer cantidadMujeresGrado;
+
 
     @ToString.Exclude
     private AulaH aula;
@@ -76,10 +79,28 @@ public class EstadisticaBasica {
 
     }
 
-    public Integer getCatidadAlumnosByGrado(GradoH grado) { 
+    public Integer getCantidadAlumnosByGrado(GradoH grado) { 
 
         List<AlumnoH> alumnosGrado = alumnos.stream()
                 .filter(alumno -> alumno.getAula().getGrado().equals(grado))
+                .collect(Collectors.toList());
+
+        return alumnosGrado.size();
+    }
+
+    public Integer getCantidadAlumnosMujeresByGrado(GradoH grado) { 
+
+        List<AlumnoH> alumnosGrado = alumnos.stream()
+                .filter(alumno -> alumno.getAula().getGrado().equals(grado) && alumno.getGenero().equals('M'))
+                .collect(Collectors.toList());
+
+        return alumnosGrado.size();
+    }
+
+    public Integer getCantidadAlumnosHombresByGrado(GradoH grado) { 
+
+        List<AlumnoH> alumnosGrado = alumnos.stream()
+                .filter(alumno -> alumno.getAula().getGrado().equals(grado) && alumno.getGenero().equals('H'))
                 .collect(Collectors.toList());
 
         return alumnosGrado.size();
