@@ -3,6 +3,7 @@ package control_calificaciones.models;
 import javax.persistence.*;
 import lombok.*;
 
+@ToString
 @Getter @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 

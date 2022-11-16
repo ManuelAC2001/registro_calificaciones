@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -119,18 +120,37 @@
                                     </HBox>
                                     <HBox prefHeight="525.0" prefWidth="703.0">
                                        <children>
-                                          <TableView fx:id="tableEstadistica" prefHeight="515.0" prefWidth="461.0">
+                                          <TableView fx:id="tableEstadistica" prefHeight="515.0" prefWidth="623.0">
                                              <columns>
                                                 <TableColumn fx:id="columnGrado" prefWidth="56.333343505859375" text="GRADO" />
-                                                <TableColumn fx:id="columnGrupo" prefWidth="66.0" text="GRUPO" />
-                                                <TableColumn fx:id="columnHombres" prefWidth="129.33331298828125" text="PROMEDIO GENERAL" />
-                                                <TableColumn fx:id="columnMujeres" prefWidth="137.6666259765625" text="PROMEDIO MAS ALTO" />
-                                                <TableColumn fx:id="columnMujeres1" prefWidth="68.0" text="ALUMNO" />
+                                                <TableColumn fx:id="columnGrupo" prefWidth="47.333343505859375" text="GRUPO" />
+                                                <TableColumn fx:id="columnPromedioGeneral" prefWidth="125.0" text="PROMEDIO GENERAL" />
+                                                <TableColumn fx:id="columnPromedioMax" prefWidth="131.33331298828125" text="PROMEDIO MAS ALTO" />
+                                                <TableColumn fx:id="columnAlumno" prefWidth="176.0" text="ALUMNO" />
                                              </columns>
                                              <HBox.margin>
                                                 <Insets top="10.0" />
                                              </HBox.margin>
                                           </TableView>
+                                          <VBox alignment="CENTER" prefHeight="525.0" prefWidth="249.0">
+                                             <children>
+                                                <Label prefHeight="25.0" prefWidth="163.0" text="PROMEDIO GENERAL">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="27.0" prefWidth="128.0" text="DE LA ESCUELA">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <HBox alignment="CENTER" prefHeight="68.0" prefWidth="243.0">
+                                                   <children>
+                                                      <TextField fx:id="txtPromedioEscuela" alignment="CENTER" editable="false" prefHeight="31.0" prefWidth="125.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </HBox>
                                  </children>
@@ -152,5 +172,6 @@
             </HBox>
          </children>
       </VBox>
+      <VBox layoutX="-288.0" layoutY="-257.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
