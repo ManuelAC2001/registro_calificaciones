@@ -31,7 +31,6 @@ public class estadisticasPromedioController implements Initializable {
     private Scene scene;
 
     // sesion
-    private Usuario usuario;
     private String nombreUsuario;
     private LocalDateTime fechaSesion;
     private LocalDateTime fechaSalida;
@@ -84,16 +83,15 @@ public class estadisticasPromedioController implements Initializable {
     }
 
     @FXML
-    void seccionBitacora(ActionEvent event) throws IOException {
+    void toPanelPrincipal(ActionEvent event) throws IOException {
 
-        usuario = new DirectorDAO().buscar(nombreUsuario);
-        if (usuario == null) {
-            return;
-        }
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
-        // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("bitacoraUsuarios.fxml"));
+        // Enviar información a la ventana de sesion
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
         root = loader.load();
+        SesionController controller = loader.getController();
+        controller.iniciarSesion(usuario);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -115,21 +113,9 @@ public class estadisticasPromedioController implements Initializable {
         stage.show();
     }
 
-    public void iniciarSesion(Usuario usuario) {
-
-        nombreUsuario = usuario.nombreUsuario;
-
-        this.fechaSesion = LocalDateTime.now();
-        Sesion.fechaSesion = this.fechaSesion; // aaaa
-        Sesion.nombreUsuario = nombreUsuario;
-
-        lblNombreUsuario.setText(nombreUsuario);
-
-        // Esto viola los principios SOLID :(
-        if (!usuario.nombreRol.equals("director")) {
-            return;
-        }
-
+    public void iniciarSesion() {
+        nombreUsuario = Sesion.nombreUsuario;
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
     @Override

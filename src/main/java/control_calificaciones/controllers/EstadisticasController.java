@@ -20,7 +20,6 @@ public class EstadisticasController {
     private Scene scene;
 
     // sesion
-    private Usuario usuario;
     private String nombreUsuario;
     private LocalDateTime fechaSesion;
     private LocalDateTime fechaSalida;
@@ -47,30 +46,15 @@ public class EstadisticasController {
     }
 
     @FXML
-    public void seccionBitacora(ActionEvent event) throws IOException{
-        
-        usuario = new DirectorDAO().buscar(nombreUsuario);
-        if (usuario == null) {
-            return;
-        }
-        
-        // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("bitacoraUsuarios.fxml"));
+    private void toPanelPrincipal(ActionEvent event) throws IOException {
+
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
+
+        // Enviar información a la ventana de sesion
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
         root = loader.load();
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void seccionListaAlumnos(ActionEvent event) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("listaAlumnos.fxml"));
-        root = loader.load();
-        ListaAlumnosController controller = loader.getController();
-        controller.iniciarSesion();
+        SesionController controller = loader.getController();
+        controller.iniciarSesion(usuario);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -83,8 +67,8 @@ public class EstadisticasController {
     public void toBasicas(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(App.class.getResource("estadisticasBasicas.fxml"));
         root = loader.load();
-        // EstadisticasBasicasController controller = loader.getController();
-        // controller.iniciarSesion(usuario);
+        EstadisticasBasicasController controller = loader.getController();
+        controller.iniciarSesion();
         
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -94,25 +78,20 @@ public class EstadisticasController {
 
     @FXML
     public void toCalificaciones(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("estadisticasPromedio.fxml"));
+        root = loader.load();
+        estadisticasPromedioController controller = loader.getController();
+        controller.iniciarSesion();
         
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
     }
 
 
-    public void iniciarSesion(Usuario usuario) {
-        
-        nombreUsuario = usuario.nombreUsuario;
-
-        this.fechaSesion = LocalDateTime.now();
-        Sesion.fechaSesion = this.fechaSesion; //aaaa
-        Sesion.nombreUsuario = nombreUsuario;
-
-        lblNombreUsuario.setText(nombreUsuario);
-
-        // Esto viola los principios SOLID :(
-        if (!usuario.nombreRol.equals("director")) {
-            return;
-        }
-
+    public void iniciarSesion() {
+        nombreUsuario = Sesion.nombreUsuario;
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
 }

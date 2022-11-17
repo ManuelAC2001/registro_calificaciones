@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import control_calificaciones.App;
 import control_calificaciones.data.AulaDAOH;
-import control_calificaciones.data.usuarios.DirectorDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.estadisticas.alumnos.EstadisticaBasica;
 import control_calificaciones.models.AulaH;
@@ -36,7 +35,6 @@ public class EstadisticasBasicasController implements Initializable {
     private Scene scene;
 
     // sesion
-    private Usuario usuario;
     private String nombreUsuario;
     private LocalDateTime fechaSesion;
     private LocalDateTime fechaSalida;
@@ -107,34 +105,17 @@ public class EstadisticasBasicasController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
-    void seccionBitacora(ActionEvent event) throws IOException {
+    void toPanelPrincipal(ActionEvent event) throws IOException {
+        Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
-        usuario = new DirectorDAO().buscar(nombreUsuario);
-        if (usuario == null) {
-            return;
-        }
-        
-        // IR A LA SIGUIENTE VENTANA DE SECCION PERSONAL
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("bitacoraUsuarios.fxml"));
+        // Enviar información a la ventana de sesion
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("sesion.fxml"));
         root = loader.load();
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    void seccionListaAlumnos(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("listaAlumnos.fxml"));
-        root = loader.load();
-        ListaAlumnosController controller = loader.getController();
-        controller.iniciarSesion();
+        SesionController controller = loader.getController();
+        controller.iniciarSesion(usuario);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -142,20 +123,10 @@ public class EstadisticasBasicasController implements Initializable {
         stage.show();
     }
 
-    public void iniciarSesion(Usuario usuario) {
+    public void iniciarSesion() {
 
-        nombreUsuario = usuario.nombreUsuario;
-
-        this.fechaSesion = LocalDateTime.now();
-        Sesion.fechaSesion = this.fechaSesion; // aaaa
-        Sesion.nombreUsuario = nombreUsuario;
-
-        lblNombreUsuario.setText(nombreUsuario);
-
-        // Esto viola los principios SOLID :(
-        if (!usuario.nombreRol.equals("director")) {
-            return;
-        }
+        nombreUsuario = Sesion.nombreUsuario;
+        lblNombreUsuario.setText(Sesion.nombreUsuario);
 
     }
 

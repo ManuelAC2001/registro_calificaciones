@@ -145,6 +145,22 @@ public class SesionController {
 
     }
 
+    @FXML
+    private void toEstadisticas(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("estadisticas.fxml"));
+        root = loader.load();
+
+        EstadisticasController controller = loader.getController();
+        controller.iniciarSesion();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
     public void iniciarSesion(Usuario usuario) {
         
         nombreUsuario = usuario.nombreUsuario;

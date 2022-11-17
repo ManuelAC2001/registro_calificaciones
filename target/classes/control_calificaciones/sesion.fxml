@@ -176,7 +176,7 @@
                                                             <Image url="@img/icons/research.png" />
                                                          </image>
                                                       </ImageView>
-                                                      <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="ESTADISTICAS">
+                                                      <Button mnemonicParsing="false" onAction="#toEstadisticas" prefHeight="30.0" prefWidth="400.0" styleClass="btn" text="ESTADISTICAS">
                                                          <VBox.margin>
                                                             <Insets top="20.0" />
                                                          </VBox.margin>
