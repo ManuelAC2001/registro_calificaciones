@@ -125,7 +125,7 @@ CREATE TABLE `bitacora_sesion_usuarios` (
   `hora_entrada` varchar(50) NOT NULL,
   `hora_salida` varchar(50) NOT NULL,
   PRIMARY KEY (`id_bitacora_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +134,7 @@ CREATE TABLE `bitacora_sesion_usuarios` (
 
 LOCK TABLES `bitacora_sesion_usuarios` WRITE;
 /*!40000 ALTER TABLE `bitacora_sesion_usuarios` DISABLE KEYS */;
-INSERT INTO `bitacora_sesion_usuarios` VALUES (10,'secre1',5,2022,'OCTOBER','23:3','23:3'),(11,'direc',6,2022,'OCTOBER','17:23','17:23'),(12,'direc',6,2022,'OCTOBER','17:23','17:23'),(13,'direc',6,2022,'OCTOBER','17:24','17:24'),(14,'manuel',6,2022,'OCTOBER','17:25','17:25'),(15,'direc',6,2022,'OCTOBER','17:25','17:25'),(16,'direc',6,2022,'OCTOBER','17:38','17:38'),(17,'direc',6,2022,'OCTOBER','22:35','22:35'),(18,'secretaria1',6,2022,'OCTOBER','22:38','22:38'),(19,'secretaria1',6,2022,'OCTOBER','22:39','22:39'),(20,'direc',6,2022,'OCTOBER','22:39','22:39'),(21,'direc',6,2022,'OCTOBER','23:32','23:32'),(22,'direc',6,2022,'OCTOBER','23:34','23:34'),(23,'direc',7,2022,'OCTOBER','10:35','10:35'),(24,'direc',13,2022,'OCTOBER','18:4','18:4'),(25,'direc',13,2022,'OCTOBER','18:4','18:4'),(26,'direc',13,2022,'OCTOBER','18:8','18:8'),(27,'direc',13,2022,'OCTOBER','18:9','18:9'),(28,'direc',13,2022,'OCTOBER','18:13','18:13'),(29,'direc',13,2022,'OCTOBER','18:14','18:14'),(30,'direc',13,2022,'OCTOBER','18:16','18:16'),(31,'direc',13,2022,'OCTOBER','18:17','18:17'),(32,'direc',13,2022,'OCTOBER','18:19','18:19'),(33,'direc',13,2022,'OCTOBER','18:19','18:20'),(34,'direc',13,2022,'OCTOBER','18:44','18:44'),(35,'direc',13,2022,'OCTOBER','22:14','22:15'),(36,'direc',14,2022,'OCTOBER','1:38','1:38'),(37,'direc',14,2022,'OCTOBER','1:38','1:38'),(38,'direc',21,2022,'OCTOBER','16:32','16:33'),(39,'margarita',24,2022,'OCTOBER','16:49','16:49'),(40,'direc',30,2022,'OCTOBER','22:55','22:55'),(41,'direc',30,2022,'OCTOBER','22:59','22:59');
+INSERT INTO `bitacora_sesion_usuarios` VALUES (10,'secre1',5,2022,'OCTOBER','23:3','23:3'),(11,'direc',6,2022,'OCTOBER','17:23','17:23'),(12,'direc',6,2022,'OCTOBER','17:23','17:23'),(13,'direc',6,2022,'OCTOBER','17:24','17:24'),(14,'manuel',6,2022,'OCTOBER','17:25','17:25'),(15,'direc',6,2022,'OCTOBER','17:25','17:25'),(16,'direc',6,2022,'OCTOBER','17:38','17:38'),(17,'direc',6,2022,'OCTOBER','22:35','22:35'),(18,'secretaria1',6,2022,'OCTOBER','22:38','22:38'),(19,'secretaria1',6,2022,'OCTOBER','22:39','22:39'),(20,'direc',6,2022,'OCTOBER','22:39','22:39'),(21,'direc',6,2022,'OCTOBER','23:32','23:32'),(22,'direc',6,2022,'OCTOBER','23:34','23:34'),(23,'direc',7,2022,'OCTOBER','10:35','10:35'),(24,'direc',13,2022,'OCTOBER','18:4','18:4'),(25,'direc',13,2022,'OCTOBER','18:4','18:4'),(26,'direc',13,2022,'OCTOBER','18:8','18:8'),(27,'direc',13,2022,'OCTOBER','18:9','18:9'),(28,'direc',13,2022,'OCTOBER','18:13','18:13'),(29,'direc',13,2022,'OCTOBER','18:14','18:14'),(30,'direc',13,2022,'OCTOBER','18:16','18:16'),(31,'direc',13,2022,'OCTOBER','18:17','18:17'),(32,'direc',13,2022,'OCTOBER','18:19','18:19'),(33,'direc',13,2022,'OCTOBER','18:19','18:20'),(34,'direc',13,2022,'OCTOBER','18:44','18:44'),(35,'direc',13,2022,'OCTOBER','22:14','22:15'),(36,'direc',14,2022,'OCTOBER','1:38','1:38'),(37,'direc',14,2022,'OCTOBER','1:38','1:38'),(38,'direc',21,2022,'OCTOBER','16:32','16:33'),(39,'margarita',24,2022,'OCTOBER','16:49','16:49'),(40,'direc',30,2022,'OCTOBER','22:55','22:55'),(41,'direc',30,2022,'OCTOBER','22:59','22:59'),(42,'direc',17,2022,'NOVEMBER','3:50','3:50'),(43,'secretaria1',17,2022,'NOVEMBER','3:50','3:50');
 /*!40000 ALTER TABLE `bitacora_sesion_usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -598,4 +598,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-17  3:35:11
+-- Dump completed on 2022-11-17  4:13:34

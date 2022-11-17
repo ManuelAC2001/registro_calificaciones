@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class DataBase {
+public class Respaldo {
 
     private static Dotenv env = Dotenv.configure().load();
 

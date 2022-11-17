@@ -83,6 +83,27 @@ public class SesionController {
     }
 
     @FXML
+    private void seccionRespaldo(ActionEvent event) throws IOException {
+
+        usuario = new DirectorDAO().buscar(nombreUsuario);
+        if (usuario == null) {
+            return;
+        }
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("panelRespaldo.fxml"));
+        root = loader.load();
+        PanelRespaldoController controller = loader.getController();
+        controller.iniciarSesion();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+
+    }
+
+    @FXML
     public void seccionBitacora(ActionEvent event) throws IOException{
         
         usuario = new DirectorDAO().buscar(nombreUsuario);
@@ -166,12 +187,11 @@ public class SesionController {
         nombreUsuario = usuario.nombreUsuario;
 
         this.fechaSesion = LocalDateTime.now();
-        Sesion.fechaSesion = this.fechaSesion; //aaaa
+        Sesion.fechaSesion = this.fechaSesion;
         Sesion.nombreUsuario = nombreUsuario;
 
         lblNombreUsuario.setText(nombreUsuario);
 
-        // Esto viola los principios SOLID :(
         if (!usuario.nombreRol.equals("director")) {
             seccionPersonal.setDisable(true);
             seccionEstadisticas.setDisable(true);

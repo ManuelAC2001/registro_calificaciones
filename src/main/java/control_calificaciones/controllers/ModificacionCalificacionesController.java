@@ -254,12 +254,11 @@ public class ModificacionCalificacionesController implements Initializable {
             String contenido = "Fecha de envio: " + LocalDate.now();
 
             new EnviarEmails(
-                correo.getCorreo(),
-                asunto,
-                contenido,
-                boletaInterna,
-                boletaExterna
-            );
+                    correo.getCorreo(),
+                    asunto,
+                    contenido,
+                    boletaInterna,
+                    boletaExterna);
 
         }
 
@@ -463,15 +462,17 @@ public class ModificacionCalificacionesController implements Initializable {
         // llenar la informacion que anteriormente se guardo
         // para las materias academicas
         for (int i = 0; i < getCalificacionesAcademicasMensuales(mesNombre).size(); i++) {
-            txtMateriasAcademicas.get(i)
-                    .setText(getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().toString());
+
+            Integer calificacion = getCalificacionesAcademicasMensuales(mesNombre).get(i).getResultado().intValue();
+
+            txtMateriasAcademicas.get(i).setText(calificacion.toString());
             txtMateriasAcademicas.get(i).setEditable(true);
         }
 
         // para las materias complementarias
         for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
-            txtMateriasComplementarias.get(i)
-                    .setText(getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().toString());
+            Integer calificacion = getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().intValue();
+            txtMateriasComplementarias.get(i).setText(calificacion.toString());
             txtMateriasComplementarias.get(i).setEditable(true);
         }
 
@@ -620,6 +621,7 @@ public class ModificacionCalificacionesController implements Initializable {
 
             CalificacionDAOH calificacionDAO = new CalificacionDAOH();
             CalificacionH calificacion = calificacionesMensual.get(i);
+
             calificacion.setResultado(calificacionMateria);
             calificacionDAO.actualizar(calificacion);
 
