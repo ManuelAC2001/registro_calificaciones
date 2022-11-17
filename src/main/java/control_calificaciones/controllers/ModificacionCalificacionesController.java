@@ -471,7 +471,8 @@ public class ModificacionCalificacionesController implements Initializable {
 
         // para las materias complementarias
         for (int i = 0; i < getCalificacionesComplementariasMensuales(mesNombre).size(); i++) {
-            Integer calificacion = getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado().intValue();
+            Integer calificacion = getCalificacionesComplementariasMensuales(mesNombre).get(i).getResultado()
+                    .intValue();
             txtMateriasComplementarias.get(i).setText(calificacion.toString());
             txtMateriasComplementarias.get(i).setEditable(true);
         }
@@ -727,6 +728,7 @@ public class ModificacionCalificacionesController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
         lblMateriasAcademicas.add(lblAsignatura1);
         lblMateriasAcademicas.add(lblAsignatura2);
         lblMateriasAcademicas.add(lblAsignatura3);

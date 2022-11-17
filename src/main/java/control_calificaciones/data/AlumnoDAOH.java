@@ -38,11 +38,7 @@ public class AlumnoDAOH extends GenericDAO {
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        } 
     }
 
     public void eliminar(AlumnoH alumno) {

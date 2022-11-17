@@ -17,9 +17,7 @@ public abstract class GenericDAO {
     }
 
     protected EntityManager getEntityManager(){
-        if(entityManager == null){
-            entityManager = entityManagerFactory.createEntityManager();
-        }
+        entityManager = entityManagerFactory.createEntityManager();
         return entityManager;
     }
 
