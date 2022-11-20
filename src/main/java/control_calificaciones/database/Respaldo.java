@@ -21,10 +21,6 @@ public class Respaldo {
     public static void respaldar() {
         try {
             /* El nombre o ruta a donde se guardara el archivo de volcado .sql */
-
-            /* La linea de comando completa que ejecutara el programa */
-            // String command = "bin\\mysqldump -u root --port=3306 registro_calificaciones
-            // -r " + sqlFile;
             String command = "bin\\mysqldump" +
                     " -u " + USERNAME +
                     " --password=" + PASSWORD + " -h " + HOST +

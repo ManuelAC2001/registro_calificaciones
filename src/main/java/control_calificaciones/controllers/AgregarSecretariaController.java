@@ -52,6 +52,9 @@ public class AgregarSecretariaController {
     private Usuario usuario;
     private String nombreUsuario;
 
+    String regexUserName = "^[A-Za-z][A-Za-z0-9_]{4,29}$";
+    String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
+
     public void iniciarSesion(Usuario usuario) {
         nombreUsuario = usuario.nombreUsuario;
         lblNombreUsuario.setText(nombreUsuario);
@@ -75,30 +78,40 @@ public class AgregarSecretariaController {
         camposValores.add(contraseniaValue);
         camposValores.add(correoValue);
 
+        // Cechamos el la maxima cantidad de secretarias
+        Integer numeroUsuarios = dao.getUsuarios().size();
+
+        if (numeroUsuarios >= 3) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Ya no se permiten ingresar mas usuarios");
+            alert.showAndWait();
+            return;
+        }
+
+
         if (camposValores.contains("")) {
             msgNombreUsuario.setVisible(true);
             lblCorreo.setVisible(true);
             lblContrasenia.setVisible(true);
-            
+
             txtNombreUsuario.getStyleClass().add("input-error");
             txtCorreo.getStyleClass().add("input-error");
             txtContrasenia.getStyleClass().add("input-error");
             return;
         }
-        
-        if(txtCorreo.getText().contains("1") || txtCorreo.getText().contains("2")
-        || txtCorreo.getText().contains("3") || txtCorreo.getText().contains("4")){
+
+        if (!correoValue.matches(regexGmail)) {
             txtCorreo.getStyleClass().add("input-error");
             lblCorreo.setVisible(true);
-            lblCorreo.setText("No se permite ingresar numeros como correo");
+            lblCorreo.setText("Formato de correo no valido");
             return;
         }
 
-        if(txtNombreUsuario.getText().contains("1") || txtNombreUsuario.getText().contains("2")
-        || txtNombreUsuario.getText().contains("3") || txtNombreUsuario.getText().contains("4")){
+        if (!nombreUsuarioValue.matches(regexUserName)) {
             txtNombreUsuario.getStyleClass().add("input-error");
             msgNombreUsuario.setVisible(true);
-            msgNombreUsuario.setText("No se permite ingresar numeros como nombre de usuario");
+            msgNombreUsuario.setText("Formato de nombre de usuario no valido");
             return;
         }
 
@@ -146,7 +159,7 @@ public class AgregarSecretariaController {
     }
 
     @FXML
-    public void toPanelPrincipal(ActionEvent event) throws IOException{
+    public void toPanelPrincipal(ActionEvent event) throws IOException {
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
 
         // Enviar información a la ventana de sesion
@@ -159,7 +172,7 @@ public class AgregarSecretariaController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    } 
+    }
 
     @FXML
     public void cerrarSesion(ActionEvent event) throws IOException {

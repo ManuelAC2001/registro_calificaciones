@@ -273,11 +273,15 @@ public class BoletaExterna {
 
         Element divMarcaAgua = documentHTML.getElementById("marca_agua");
         Element divMarcaAgua2 = documentHTML.getElementById("marca_agua2");
-
+        Element folio = documentHTML.getElementById("folio");
+        
         if (esBoletaOficial) {
             divMarcaAgua.addClass("hide");
             divMarcaAgua2.addClass("hide");
+            return;
         }
-    }
+        folio.addClass("hide");
 
+    }
+    
 }

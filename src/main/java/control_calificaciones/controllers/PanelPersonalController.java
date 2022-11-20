@@ -60,6 +60,64 @@ public class PanelPersonalController {
     }
 
     @FXML
+    public void toConsultar(ActionEvent event) throws IOException {
+
+        usuario = new DirectorDAO().buscar(nombreUsuario);
+        if (usuario == null) {
+            return;
+        }
+
+        Director director = (Director) usuario;
+        
+        //vamos a la ventana de de agregar personal
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("consultarSecretaria.fxml"));
+        root = loader.load();
+        // AgregarSecretariaController controller = loader.getController();
+        ConsultarSecretariaController controller = loader.getController();
+        controller.iniciarSesion(director);
+
+        stage =  (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    public void toEliminar(ActionEvent event) throws IOException {
+
+        usuario = new DirectorDAO().buscar(nombreUsuario);
+        if (usuario == null) {
+            return;
+        }
+
+        Director director = (Director) usuario;
+        
+        //vamos a la ventana de de agregar personal
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("eliminarSecretaria.fxml"));
+        root = loader.load();
+
+        EliminarSecretariaController controller = loader.getController();
+        controller.iniciarSesion(director);
+
+        stage =  (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+
+    @FXML
+    public void toModificar(ActionEvent event) throws Exception {
+        
+    }
+
+
+
+    @FXML
     public void toSeccionPersonal(ActionEvent event) throws IOException {
 
         Usuario usuario = new UsuarioDAO().buscar(Sesion.nombreUsuario);
