@@ -55,11 +55,12 @@ public class InasistenciaDAOH extends GenericDAO{
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        } 
+        // finally {
+        //     if (entityManager != null) {
+        //         entityManager.close();
+        //     }
+        // }
     }
 
     public InasistenciaH buscarPorId(InasistenciaH inacistencia) {

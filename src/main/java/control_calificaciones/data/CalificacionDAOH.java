@@ -20,6 +20,7 @@ public class CalificacionDAOH extends GenericDAO{
             entityManager.getTransaction().begin();
 
             entityManager.persist(calificacion);
+            // entityManager.merge(calificacion);
             entityManager.getTransaction().commit();
         } 
         catch (Exception ex) {
@@ -56,11 +57,12 @@ public class CalificacionDAOH extends GenericDAO{
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        } 
+        // finally {
+        //     if (entityManager != null) {
+        //         entityManager.close();
+        //     }
+        // }
     }
 
     public CalificacionH buscarPorId(CalificacionH calificacion){

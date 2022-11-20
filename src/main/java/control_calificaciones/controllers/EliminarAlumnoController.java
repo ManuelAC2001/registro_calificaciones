@@ -3,12 +3,17 @@ package control_calificaciones.controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import control_calificaciones.App;
 import control_calificaciones.data.AlumnoDAO;
+import control_calificaciones.data.AlumnoDAOH;
+import control_calificaciones.data.CalificacionDAOH;
+import control_calificaciones.data.InasistenciaDAOH;
 import control_calificaciones.data.TutorDAO;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.models.Alumno;
+import control_calificaciones.models.AlumnoH;
 import control_calificaciones.models.Aula;
 import control_calificaciones.models.CorreoTutor;
 import control_calificaciones.models.Tutor;
@@ -22,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -37,6 +43,7 @@ public class EliminarAlumnoController {
 
     private Alert alert;
     private Alumno alumno;
+    AlumnoH alumnoH;
 
     String regexCurp = "[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}" +
             "(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])" +
@@ -97,7 +104,7 @@ public class EliminarAlumnoController {
     @FXML
     private TextField txtNombreTutor;
 
-    public void iniciarSesion(){
+    public void iniciarSesion() {
         lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
@@ -193,12 +200,20 @@ public class EliminarAlumnoController {
         Tutor tutor = new Tutor();
         ArrayList<CorreoTutor> correosTutor = new ArrayList<>();
 
+        // AlumnoH alumnoH = new AlumnoDAOH().buscarNombre();
+
         alumno = new Alumno();
         alumno.setNombre(alumnoNombre);
         alumno.setApellido_paterno(alumnoApellidoP);
         alumno.setApellido_materno(alumnoApellidoM);
 
         alumno = alumnoDAO.buscarByNombreCompleto(alumno);
+
+        alumnoH = new AlumnoH();
+        alumnoH.setNombre(alumnoNombre);
+        alumnoH.setApellidoPaterno(alumnoApellidoP);
+        alumnoH.setApellidoMaterno(alumnoApellidoM);
+        alumnoH = new AlumnoDAOH().buscarNombre(alumnoH);
 
         if (alumno == null) {
 
@@ -261,13 +276,36 @@ public class EliminarAlumnoController {
             alert.showAndWait();
             return;
         }
+
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de la eliminacion del alumno");
+        alert.setContentText("¿Esta seguro que desea eliminar a este alumno?");
+        Optional<ButtonType> btnRespuesta = alert.showAndWait();
+
+        if (btnRespuesta.get() != ButtonType.OK) {
+            alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Operación cancelada");
+            alert.setContentText("El alumno no fue eliminado");
+            alert.showAndWait();
+            return;
+        }
+
         AlumnoDAO alumnoDAO = new AlumnoDAO();
+        CalificacionDAOH calificacionDAO = new CalificacionDAOH();
+        InasistenciaDAOH inasistenciaDAO = new InasistenciaDAOH();
+
+        alumnoH.getCalificaciones().forEach(calificacion -> {
+            calificacionDAO.eliminar(calificacion);
+        });
+
+        alumnoH.getInasistencias().forEach(inasistencia -> {
+            inasistenciaDAO.eliminar(inasistencia);
+        });
+
         alumnoDAO.eliminar(alumno);
 
-        //eliminamos sus calificaciones tambien
-
         // vamos a la siguiente ventana
-        alert = new Alert(AlertType.CONFIRMATION);
+        alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("alumno eliminado correctamente");
         alert.showAndWait();
