@@ -21,7 +21,7 @@ public class BitacoraSesionH {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "hhhh ")
+    @Column(name = "id_bitacora")
     private Integer idBitacoraUsuario;
     
     private String usuario;

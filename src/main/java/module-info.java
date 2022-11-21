@@ -1,11 +1,14 @@
 open module control_calificaciones {
-    
+
     requires javafx.controls;
     requires javafx.fxml;
+    requires transitive javafx.graphics;
     requires java.sql;
     requires java.mail;
+
     requires java.dotenv;
     requires itextpdf;
+    
     requires openhtmltopdf.core;
     requires openhtmltopdf.java2d;
     requires openhtmltopdf.mathml.support;
@@ -13,6 +16,7 @@ open module control_calificaciones {
     requires openhtmltopdf.rtl.support;
     requires openhtmltopdf.slf4j;
     requires openhtmltopdf.svg.support;
+    
     requires org.jsoup;
     requires lombok;
 
