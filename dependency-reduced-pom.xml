@@ -25,15 +25,10 @@
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.6</version>
-        <executions>
-          <execution>
-            <id>default-cli</id>
-            <configuration>
-              <mainClass>control_calificaciones.App</mainClass>
-            </configuration>
-          </execution>
-        </executions>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>control_calificaciones.App</mainClass>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -44,6 +39,11 @@
             </goals>
             <configuration>
               <shadedArtifactAttached>true</shadedArtifactAttached>
+              <archive>
+                <manifestEntries>
+                  <Automatic-Module-Name>io.github.cdimascio.dotenv</Automatic-Module-Name>
+                </manifestEntries>
+              </archive>
               <transformers>
                 <transformer>
                   <mainClass>control_calificaciones.Main</mainClass>

@@ -16,7 +16,6 @@ control_calificaciones\helpers\pdf\BoletaExterna.class
 control_calificaciones\database\Respaldo.class
 control_calificaciones\data\Conexion.class
 control_calificaciones\controllers\EstadisticasBasicasController.class
-module-info.class
 control_calificaciones\helpers\pdf\BoletaInterna.class
 control_calificaciones\controllers\AgregarSecretariaController.class
 control_calificaciones\models\usuarios\Sesion.class
