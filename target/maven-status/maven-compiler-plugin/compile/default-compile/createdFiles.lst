@@ -46,7 +46,6 @@ control_calificaciones\helpers\pdf\ListaPDF.class
 control_calificaciones\models\InasistenciaH.class
 control_calificaciones\models\AlumnoH.class
 control_calificaciones\helpers\CurpValidador.class
-control_calificaciones\controllers\ModificarSecretaria.class
 control_calificaciones\data\GrupoDAOH.class
 control_calificaciones\models\Alumno.class
 control_calificaciones\models\usuarios\UsuarioH.class
@@ -72,6 +71,7 @@ control_calificaciones\controllers\ListaAlumnosController.class
 control_calificaciones\models\TipoAsignaturaH.class
 control_calificaciones\data\BitacoraSesionDAOH.class
 control_calificaciones\controllers\EliminarSecretariaController.class
+control_calificaciones\controllers\ModificarSecretariaController.class
 control_calificaciones\models\usuarios\Usuario.class
 control_calificaciones\data\usuarios\PrivilegioDAOH.class
 control_calificaciones\controllers\EstadisticasController.class

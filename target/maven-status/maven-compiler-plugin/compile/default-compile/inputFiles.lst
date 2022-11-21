@@ -23,6 +23,7 @@ c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\data\
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\data\usuarios\UsuarioDAOH.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\EliminarSecretariaController.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\data\CorreoTutorDAO.java
+c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\ModificarSecretariaController.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\data\usuarios\RolDAOH.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\data\AulaDAO.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\models\Tutor.java
@@ -67,7 +68,6 @@ c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\helpe
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\models\InasistenciaH.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\PanelPersonalController.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\models\Alumno.java
-c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\ModificarSecretaria.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\Main.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\EliminarAlumnoController.java
 c:\java_vscode\control_calificaciones\src\main\java\control_calificaciones\controllers\ModificarAlumnoController.java

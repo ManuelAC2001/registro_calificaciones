@@ -112,7 +112,29 @@ public class PanelPersonalController {
 
     @FXML
     public void toModificar(ActionEvent event) throws Exception {
+    
+
+        usuario = new DirectorDAO().buscar(nombreUsuario);
+        if (usuario == null) {
+            return;
+        }
+
+        Director director = (Director) usuario;
         
+        //vamos a la ventana de de agregar personal
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarSecretaria.fxml"));
+        root = loader.load();
+
+        ModificarSecretariaController controller = loader.getController();
+        controller.iniciarSesion(director);
+
+        stage =  (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
     }
 
 
