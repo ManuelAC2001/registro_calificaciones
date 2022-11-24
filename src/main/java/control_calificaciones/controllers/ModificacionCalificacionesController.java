@@ -243,8 +243,12 @@ public class ModificacionCalificacionesController implements Initializable {
         List<CorreoTutorH> correos = alumno.getTutor().getCorreos();
 
         String filePath = System.getProperty("user.dir");
+        
         String boletaInternaPath = filePath + "\\boletasCorreos\\boletaInterna" + alumno.getCurp();
         String boletaExternaPath = filePath + "\\boletasCorreos\\boletaExterna" + alumno.getCurp();
+
+        System.out.println("TEST");
+        System.out.println(filePath);
 
         File boletaInterna = getBoletaInterna(boletaInternaPath);
         File boletaExterna = getBoletaExterna(boletaExternaPath);

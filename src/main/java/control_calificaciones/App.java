@@ -14,6 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        // scene = new Scene(loadFXML("estadisticasBasicas"), 1000, 700);
         scene = new Scene(loadFXML("login"), 1000, 700);
         stage.setScene(scene);
         stage.show();
@@ -28,7 +29,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
+    
     public static void main(String[] args) {
         launch();
     }

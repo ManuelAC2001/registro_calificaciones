@@ -159,12 +159,12 @@
                <children>
                   <VBox alignment="CENTER" minWidth="1000.0" prefHeight="97.0" prefWidth="556.0">
                      <children>
-                        <Label text="¿Olvidaste tu contraseña?">
+                        <Label text="¿Olvidaste tu contraseña?" visible="false">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <Hyperlink onAction="#btnRecuperar" text="Recuperar" textFill="#001d72">
+                        <Hyperlink onAction="#btnRecuperar" text="Recuperar" textFill="#001d72" visible="false">
                            <font>
                               <Font size="20.0" />
                            </font>

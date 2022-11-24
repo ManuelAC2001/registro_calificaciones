@@ -1,5 +1,6 @@
 package control_calificaciones.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import control_calificaciones.App;
 import control_calificaciones.data.AulaDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.helpers.estadisticas.alumnos.EstadisticaBasica;
+import control_calificaciones.helpers.pdf.GenerarPDF;
 import control_calificaciones.models.AulaH;
 import control_calificaciones.models.GradoH;
 import control_calificaciones.models.usuarios.Sesion;
@@ -21,11 +23,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class EstadisticasBasicasController implements Initializable {
@@ -130,17 +135,42 @@ public class EstadisticasBasicasController implements Initializable {
 
     }
 
+    @FXML
+    public void generarPDF(ActionEvent event) {
+
+        String workPath = System.getProperty("user.dir");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(workPath));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Acción cancelada");
+            alert.setContentText("La estadistica basica no se generaron");
+            alert.showAndWait();
+            return;
+        }
+
+        List<EstadisticaBasica> estadisticas = aulas.stream().map(a -> new EstadisticaBasica(a)).collect(Collectors.toList());
+
+        List<GradoH> grados = aulas.stream().map(a -> a.getGrado()).distinct().collect(Collectors.toList());
+        List<EstadisticaBasica> estadisticasGrados = grados.stream().map( g -> new EstadisticaBasica(g)).collect(Collectors.toList());  
+        Integer totalAlumnos = aulas.stream().map(a -> a.getAlumnos().size()).mapToInt(Integer::valueOf).sum();
+        
+
+        GenerarPDF.generarEstadisticasBasicas(file, estadisticas, estadisticasGrados, totalAlumnos);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Acción exitosa");
+        alert.setContentText("La estadistica basica se guardo correctamente");
+        alert.showAndWait();
+
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
-        Integer cantidadAlumnosHombres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('H')).collect(Collectors.toList()).size();
-        Integer cantidadAlumnosMujeres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('M')).collect(Collectors.toList()).size();
-
-        txtTotalMujeres.setText(cantidadAlumnosMujeres.toString());
-        txtTotalHombres.setText(cantidadAlumnosHombres.toString());
-
-        Integer totalAlumnos = aulas.stream().map(a -> a.getAlumnos().size()).mapToInt(Integer::valueOf).sum();
-        txtTotalAlumnos.setText(totalAlumnos.toString());
 
         List<EstadisticaBasica> estadisticas = aulas.stream().map(a -> new EstadisticaBasica(a)).collect(Collectors.toList());  
 
@@ -162,6 +192,15 @@ public class EstadisticasBasicasController implements Initializable {
         columnMujeresGrado.setCellValueFactory( new PropertyValueFactory<EstadisticaBasica, Integer>("cantidadMujeresGrado") );
 
         tableGrado.setItems( FXCollections.observableArrayList(estadisticasGrados));
+
+        Integer cantidadAlumnosHombres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('H')).collect(Collectors.toList()).size();
+        Integer cantidadAlumnosMujeres = EstadisticaBasica.alumnos.stream().filter(a -> a.getGenero().equals('M')).collect(Collectors.toList()).size();
+
+        txtTotalMujeres.setText(cantidadAlumnosMujeres.toString());
+        txtTotalHombres.setText(cantidadAlumnosHombres.toString());
+
+        Integer totalAlumnos = aulas.stream().map(a -> a.getAlumnos().size()).mapToInt(Integer::valueOf).sum();
+        txtTotalAlumnos.setText(totalAlumnos.toString());
 
     }
 

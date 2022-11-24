@@ -11,11 +11,13 @@ public class Respaldo {
 
     private static Dotenv env = Dotenv.configure().load();
 
-    private static final String HOST = env.get("DB_HOST");
-    private static final String DB_NAME = env.get("DB_NAME");
+    private static final String HOST     = env.get("DB_HOST");
+    private static final String DB_NAME  = env.get("DB_NAME");
     private static final String USERNAME = env.get("DB_USERNAME");
     private static final String PASSWORD = env.get("DB_PASSWORD");
-    private static final String PORT = env.get("DB_PORT");
+    private static final String PORT     = env.get("DB_PORT");
+
+    //Linea de codigo que genera el errror en el JAR
     private static final String SQL_FILE = "respaldo\\respaldo.sql";
 
     public static void respaldar() {

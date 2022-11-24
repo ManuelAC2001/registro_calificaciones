@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
+// import org.jsoup.Jsoup;
 import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
+import control_calificaciones.App;
 import control_calificaciones.data.AlumnoDAOH;
 import control_calificaciones.data.MesDAOH;
 import control_calificaciones.data.PeriodoDAOH;
@@ -28,16 +30,22 @@ public class BoletaInterna {
         BoletaInterna.calificacionesBoleta = calificacionesBoleta;
 
         final String RUTA_LISTA_PDF = file.toString() + ".pdf";
-
-        String filePath = System.getProperty("user.dir");
-        File templateHTML = new File(filePath + "\\boletaInterna.html");
-        File boletaHTML = new File(filePath + "\\boletaInternaGenerada.html");
         File boletaPDF = new File(RUTA_LISTA_PDF);
 
         try {
-            // Document documentHTML;
 
-            documentHTML = Jsoup.parse(templateHTML);
+            InputStream inputStream = App.class.getResourceAsStream("boletaInterna.html");
+            BufferedReader reader;
+
+            reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+            StringBuilder htmlBuilder = new StringBuilder();
+
+            for (String line : reader.lines().collect(Collectors.toList())) {
+                htmlBuilder.append(line);
+            }
+
+            documentHTML = Jsoup.parse(htmlBuilder.toString());
             documentHTML.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
 
             // manipulando el DOM
@@ -49,7 +57,6 @@ public class BoletaInterna {
             addAllCalificacionesAcademicasMensuales();
             agregarPromedioTrimestralAcademico();
 
-
             // Modificaciion del DOM para materias complementarias
             agregarMateriasComplementarias();
             addAllCalificacionesComplementariasMensuales();
@@ -59,7 +66,8 @@ public class BoletaInterna {
             String contenidoHTML = documentHTML.html();
 
             // Escribiendo en el archivo boleta HTML
-            BufferedWriter bfr = new BufferedWriter(new FileWriter(boletaHTML));
+            File boleta = File.createTempFile("boleta", "html");
+            BufferedWriter bfr = new BufferedWriter(new FileWriter(boleta));
             bfr.write(contenidoHTML);
             bfr.close();
 
@@ -86,27 +94,26 @@ public class BoletaInterna {
 
     private static void addAllCalificacionesAcademicasMensuales() {
 
-        List<Element> tbodys =  documentHTML.getElementsByClass("tbody__materias_academicas");
+        List<Element> tbodys = documentHTML.getElementsByClass("tbody__materias_academicas");
         Iterator<Element> iterator = tbodys.iterator();
-        
+
         meses.forEach(mes -> {
             Element tbodyMes = iterator.next();
             agregarCalificacionesAcademicasMensual(mes.getNombre(), tbodyMes.id());
         });
-        
+
     }
 
     private static void addAllCalificacionesComplementariasMensuales() {
 
-        List<Element> tbodys =  documentHTML.getElementsByClass("tbody__materias_complementarias");
+        List<Element> tbodys = documentHTML.getElementsByClass("tbody__materias_complementarias");
         Iterator<Element> iterator = tbodys.iterator();
-        
+
         meses.forEach(mes -> {
             Element tbodyMes = iterator.next();
             agregarCalificacionesComplementariasMensual(mes.getNombre(), tbodyMes.id());
         });
 
-        
     }
 
     private static void agregarInformacioPersonal() {
@@ -212,8 +219,7 @@ public class BoletaInterna {
 
         List<CalificacionH> calificacionesMensuales = calificacionesBoleta
                 .stream()
-                .filter(c -> 
-                        c.getAsignatura().getTipoAsignatura().getNombre().equals("academica")
+                .filter(c -> c.getAsignatura().getTipoAsignatura().getNombre().equals("academica")
                         &&
                         c.getMes().getNombre().equals(mesNombre))
                 .collect(Collectors.toList());

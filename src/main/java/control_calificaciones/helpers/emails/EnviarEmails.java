@@ -6,7 +6,6 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-
 public class EnviarEmails {
     private static String emailFrom = "tovi.rob20@gmail.com";
     private static String password = "pjjlumumotjbdcxn";
@@ -57,14 +56,13 @@ public class EnviarEmails {
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(contenido);
 
-            //archivos de boleta interna a enviar
+            // archivos de boleta interna a enviar
             MimeBodyPart attachmentPartInterna = new MimeBodyPart();
             attachmentPartInterna.attachFile(boletaInterna);
-            
-            //archivos de boleta interna a enviar
+
+            // archivos de boleta interna a enviar
             MimeBodyPart attachmentPartExterna = new MimeBodyPart();
             attachmentPartExterna.attachFile(boletaExterna);
-
 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
@@ -99,5 +97,5 @@ public class EnviarEmails {
         }
 
     }
-    
+
 }

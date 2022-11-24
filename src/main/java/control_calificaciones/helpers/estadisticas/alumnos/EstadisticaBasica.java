@@ -29,7 +29,8 @@ public class EstadisticaBasica {
     }
 
     public EstadisticaBasica(GradoH grado) {
-
+        alumnos = new AlumnoDAOH().listar();
+        this.grado = grado; 
         this.gradoNombre = grado.getNombre();
         this.cantidadAlumnosGrado = getCantidadAlumnosByGrado(grado);
         this.cantidadHombresGrado = getCantidadAlumnosHombresByGrado(grado);
@@ -37,7 +38,7 @@ public class EstadisticaBasica {
         
     }
 
-    public static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
+    public static List<AlumnoH> alumnos;
 
     private String gradoNombre;
     private String grupoNombre;
@@ -52,6 +53,9 @@ public class EstadisticaBasica {
 
     @ToString.Exclude
     private AulaH aula;
+
+    @ToString.Exclude
+    private GradoH grado;
 
     private Integer getCantidadMujeresAlumnos() {
 
