@@ -15,7 +15,7 @@ public class EstadisticaPromedio {
         this.aula = aula;
     }
 
-    public static List<AlumnoH> alumnos = new AlumnoDAOH().listar();
+    public static List<AlumnoH> alumnos;
     public static List<MesH> meses = new MesDAOH().listar();
 
     private static Double promedioEscuela;
@@ -46,7 +46,8 @@ public class EstadisticaPromedio {
     }
 
     public static Double getPromedioEscuela() {
-
+        
+        alumnos = new AlumnoDAOH().listar();
         Integer cantidadAlumnos = alumnos.size();
 
         Double sumatoriaPromedio = alumnos.stream()

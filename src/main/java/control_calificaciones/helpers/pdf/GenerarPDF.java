@@ -23,8 +23,93 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import control_calificaciones.data.Conexion;
 import control_calificaciones.helpers.estadisticas.alumnos.EstadisticaBasica;
+import control_calificaciones.helpers.estadisticas.alumnos.EstadisticaPromedio;
 
 public class GenerarPDF {
+
+    public static void generarEstadisticasPromedio(File file, List<EstadisticaPromedio> estadisticas) {
+
+        try {
+
+            String NOMBRE_ARCHIVO = file.toString() + ".pdf";
+            Document documento = new Document();
+            PdfWriter.getInstance(documento, new FileOutputStream(new File(NOMBRE_ARCHIVO)));
+            documento.open();
+
+            // agregando imagen
+            String nombreLogo = "logo.png";
+            String rutaLogo = new File(nombreLogo).getAbsolutePath();
+            Image logo = Image.getInstance(rutaLogo);
+            logo.setAlignment(Image.ALIGN_CENTER);
+            logo.scalePercent(5f);
+            documento.add(logo);
+
+            Paragraph informacion1 = new Paragraph("C.C.T: 12PR0396H         Instituto Hispanoamericano Mexicano",
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            informacion1.setAlignment(Element.ALIGN_LEFT);
+            informacion1.setSpacingBefore(10);
+            documento.add(informacion1);
+
+            Paragraph informacion2 = new Paragraph(
+                    "Turno: 100         Domicilio: C. VICENTE GUERRERO NO 49         ZONA:048",
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            informacion2.setAlignment(Element.ALIGN_LEFT);
+            informacion2.setSpacingBefore(10);
+            documento.add(informacion2);
+
+            Paragraph informacion3 = new Paragraph("Localidad: ACAPULCO DE JUAREZ       Ciclo Escolar: 2022 - 2023",
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            informacion3.setAlignment(Element.ALIGN_LEFT);
+            informacion3.setSpacingBefore(10);
+            documento.add(informacion3);
+
+            Paragraph informacion4 = new Paragraph(
+                    "Municipio: ACAPULCO DE JUAREZ       id.Docto: " + ((Math.random() * 2001) + 1),
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            informacion4.setAlignment(Element.ALIGN_LEFT);
+            informacion4.setSpacingBefore(10);
+            documento.add(informacion4);
+
+            // Creamos la tabla (Bitacora)
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.setSpacingBefore(30);
+
+            // Le damos titulo a cada columna
+            tabla.addCell(new Paragraph("GRADO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tabla.addCell(new Paragraph("GRUPO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tabla.addCell(new Paragraph("PROMEDIO GENERAL", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tabla.addCell(new Paragraph("PROMEDIO MÁS ALTO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tabla.addCell(new Paragraph("ALUMNO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+
+            estadisticas.forEach(e -> {
+                tabla.addCell(e.getGradoNombre());
+                tabla.addCell(e.getGrupoNombre());
+                tabla.addCell(String.format("%.2f", e.getPromedioGeneral()));
+                tabla.addCell(String.format("%.2f", e.getPromedioMaximo()));
+                tabla.addCell(e.getNombreAlumnoPromedioMaximo());
+            });
+            documento.add(tabla);
+
+            Paragraph promedioGeneralInfo = new Paragraph(
+                    "PROMEDIO GENERAL DE LA ESCUELA: " + String.format("%.2f", EstadisticaPromedio.getPromedioEscuela()),
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            promedioGeneralInfo.setAlignment(Element.ALIGN_CENTER);
+            promedioGeneralInfo.setSpacingBefore(30);
+            documento.add(promedioGeneralInfo);
+
+            Paragraph informacion5 = new Paragraph("SUPERVISOR (A)              DIRECTOR (A)",
+                    FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
+            informacion5.setAlignment(Element.ALIGN_CENTER);
+            informacion5.setSpacingBefore(50);
+            documento.add(informacion5);
+
+            documento.close();
+
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static void generarEstadisticasBasicas(File file, List<EstadisticaBasica> estadisticas,
             List<EstadisticaBasica> estadisticasGrados, Integer totalAlumnos) {
@@ -62,7 +147,7 @@ public class GenerarPDF {
             informacion3.setAlignment(Element.ALIGN_LEFT);
             informacion3.setSpacingBefore(10);
             documento.add(informacion3);
-            
+
             Paragraph informacion4 = new Paragraph(
                     "Municipio: ACAPULCO DE JUAREZ       id.Docto: " + ((Math.random() * 2001) + 1),
                     FontFactory.getFont("Arial", 10, Font.NORMAL, BaseColor.BLACK));
@@ -75,11 +160,11 @@ public class GenerarPDF {
             tablaBitacora.setSpacingBefore(30);
 
             // Le damos titulo a cada columna
-            tablaBitacora.addCell(new Paragraph("GRADO",    FontFactory.getFont("Arial", 12, Font.BOLD)));
-            tablaBitacora.addCell(new Paragraph("GRUPO",    FontFactory.getFont("Arial", 12, Font.BOLD)));
-            tablaBitacora.addCell(new Paragraph("HOMBRES",  FontFactory.getFont("Arial", 12, Font.BOLD)));
-            tablaBitacora.addCell(new Paragraph("MUJERES",  FontFactory.getFont("Arial", 12, Font.BOLD)));
-            tablaBitacora.addCell(new Paragraph("TOTAL",    FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tablaBitacora.addCell(new Paragraph("GRADO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tablaBitacora.addCell(new Paragraph("GRUPO", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tablaBitacora.addCell(new Paragraph("HOMBRES", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tablaBitacora.addCell(new Paragraph("MUJERES", FontFactory.getFont("Arial", 12, Font.BOLD)));
+            tablaBitacora.addCell(new Paragraph("TOTAL", FontFactory.getFont("Arial", 12, Font.BOLD)));
 
             estadisticas.forEach(estadistica -> {
                 tablaBitacora.addCell(estadistica.getGradoNombre());
@@ -153,7 +238,7 @@ public class GenerarPDF {
             documento.add(nombreInstituto);
             documento.add(subtitulo);
 
-            // Creamos la tabla (Bitacora)
+            // Creamos la tabla
             PdfPTable tablaBitacora = new PdfPTable(6);
             tablaBitacora.setSpacingBefore(30);
             // Le damos titulo a cada columna

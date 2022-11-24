@@ -54,6 +54,9 @@ public class RegistrarAlumnoController implements Initializable {
     String regexNombre = "[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?(( |\\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?)*";
 
     String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
+    String regexHotmail = "[^@ \\t\\r\\n]+@hotmail\\.com";
+    String regexYahoo = "[^@ \\t\\r\\n]+@yahoo\\.com";
+    String regexTecMail = "[^@ \\t\\r\\n]+@acapulco.tecnm.mx\\.com";
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -395,7 +398,7 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
-        if (!correo1.matches(regexGmail)) {
+        if (!correo1.matches(regexGmail) || !correo1.matches(regexHotmail) || !correo1.matches(regexYahoo) || !correo1.matches(regexTecMail)) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Es necesario agregar un correo valido para el correo obligatorio");
@@ -403,7 +406,7 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
-        if (!correo2.matches(regexGmail) && !correo2.isEmpty()) {
+        if (!correo1.matches(regexGmail) || !correo1.matches(regexHotmail) || !correo1.matches(regexYahoo) || !correo1.matches(regexTecMail) && !correo2.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Es necesario agregar un correo valido para el correo opcional");

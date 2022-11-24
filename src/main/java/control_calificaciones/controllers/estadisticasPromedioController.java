@@ -1,5 +1,6 @@
 package control_calificaciones.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import control_calificaciones.App;
 import control_calificaciones.data.AulaDAOH;
 import control_calificaciones.data.usuarios.*;
 import control_calificaciones.helpers.estadisticas.alumnos.EstadisticaPromedio;
+import control_calificaciones.helpers.pdf.GenerarPDF;
 import control_calificaciones.models.AulaH;
 import control_calificaciones.models.usuarios.*;
 import javafx.collections.FXCollections;
@@ -17,11 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class estadisticasPromedioController implements Initializable {
@@ -118,10 +123,44 @@ public class estadisticasPromedioController implements Initializable {
         lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
+    @FXML
+    public void generarPDF(ActionEvent event) {
+
+        String workPath = System.getProperty("user.dir");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(workPath));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Acción cancelada");
+            alert.setContentText("La estadistica basica no se generaron");
+            alert.showAndWait();
+            return;
+        }
+
+        List<EstadisticaPromedio> estadisticas = aulas.stream()
+                .map(a -> new EstadisticaPromedio(a))
+                .collect(Collectors.toList());
+
+
+        GenerarPDF.generarEstadisticasPromedio(file, estadisticas);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Acción exitosa");
+        alert.setContentText("La estadistica basica se guardo correctamente");
+        alert.showAndWait();
+
+        
+
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-        String promedioEscuela = EstadisticaPromedio.getPromedioEscuela().toString();
+        String promedioEscuela = String.format("%.2f", EstadisticaPromedio.getPromedioEscuela());
         txtPromedioEscuela.setText(promedioEscuela);
 
         List<EstadisticaPromedio> estadisticas = aulas.stream()
@@ -131,7 +170,6 @@ public class estadisticasPromedioController implements Initializable {
         columnGrado.setCellValueFactory(new PropertyValueFactory<EstadisticaPromedio, String>("gradoNombre"));
         columnGrupo.setCellValueFactory(new PropertyValueFactory<EstadisticaPromedio, String>("grupoNombre"));
         columnAlumno.setCellValueFactory(new PropertyValueFactory<EstadisticaPromedio, String>("nombreAlumnoPromedioMaximo"));
-        
         columnPromedioMax.setCellValueFactory(new PropertyValueFactory<EstadisticaPromedio, Double>("promedioMaximo"));
         columnPromedioGeneral.setCellValueFactory(new PropertyValueFactory<EstadisticaPromedio, Double>("promedioGeneral"));
         
