@@ -4,6 +4,10 @@ public class BitacoraSesion {
     
     private Integer anio;
     private Integer dia;
+    private String horaEntrada;
+    private String horaSalida;
+    private String mes;
+    private String nombreUsuario;
 
     
     public Integer getDia() {
@@ -45,13 +49,6 @@ public class BitacoraSesion {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-
-    private String horaEntrada;
-    private String horaSalida;
-    private String mes;
-    private String nombreUsuario;
-
-
 
     public Integer getAnio(){
         return this.anio; 

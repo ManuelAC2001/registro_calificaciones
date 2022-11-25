@@ -160,7 +160,7 @@ public class UsuarioDAO {
             csmt.setInt(3, fechaSalida.getYear());
             csmt.setString(4, fechaSalida.getMonth().toString());
             csmt.setString(5, fechaSesion.getHour() + ":" + fechaSesion.getMinute());
-            csmt.setString(6, fechaSalida.getHour() + ":" + fechaSesion.getMinute());
+            csmt.setString(6, fechaSalida.getHour() + ":" + fechaSalida.getMinute());
             
             csmt.executeUpdate();
         } 
