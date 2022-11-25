@@ -23,11 +23,12 @@ public class CorreoTutorDAOH extends GenericDAO {
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
         }
+        // finally {
+        // if (entityManager != null) {
+        // entityManager.close();
+        // }
+        // }
     }
 
     public void actualizar(CorreoTutorH correo) {
@@ -38,11 +39,12 @@ public class CorreoTutorDAOH extends GenericDAO {
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
         }
+        // finally {
+        // if (entityManager != null) {
+        // entityManager.close();
+        // }
+        // }
     }
 
     public void eliminar(CorreoTutorH correo) {
@@ -53,11 +55,25 @@ public class CorreoTutorDAOH extends GenericDAO {
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
         }
+        // finally {
+        // if (entityManager != null) {
+        // entityManager.close();
+        // }
+        // }
+    }
+
+    public CorreoTutorH buscarPorCorreo(CorreoTutorH correo) {
+        String consulta = "SELECT c FROM CorreoTutorH c WHERE" +
+                " c.correo = " + "'" + correo.getCorreo() + "'";
+
+        entityManager = getEntityManager();
+        Query query = entityManager.createQuery(consulta);
+        
+        if (query.getResultList().isEmpty()) {
+            return null;
+        }
+        return (CorreoTutorH) query.getSingleResult();
     }
 
     public CorreoTutorH buscarPorId(CorreoTutorH correo) {

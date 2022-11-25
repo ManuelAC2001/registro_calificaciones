@@ -398,7 +398,15 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
-        if (!correo1.matches(regexGmail) || !correo1.matches(regexHotmail) || !correo1.matches(regexYahoo) || !correo1.matches(regexTecMail)) {
+        if(correo1.equalsIgnoreCase(correo2)){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("No es posible tener el mismo correo dos veces");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!correo1.matches(regexGmail) && !correo1.matches(regexHotmail) && !correo1.matches(regexYahoo) && !correo1.matches(regexTecMail)) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Es necesario agregar un correo valido para el correo obligatorio");
@@ -406,7 +414,7 @@ public class RegistrarAlumnoController implements Initializable {
             return;
         }
 
-        if (!correo1.matches(regexGmail) || !correo1.matches(regexHotmail) || !correo1.matches(regexYahoo) || !correo1.matches(regexTecMail) && !correo2.isEmpty()) {
+        if (!correo2.matches(regexGmail) && !correo2.matches(regexHotmail) && !correo2.matches(regexYahoo) && !correo2.matches(regexTecMail) && !correo2.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("Es necesario agregar un correo valido para el correo opcional");

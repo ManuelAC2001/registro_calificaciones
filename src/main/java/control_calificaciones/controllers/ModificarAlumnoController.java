@@ -4,16 +4,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import control_calificaciones.App;
 import control_calificaciones.data.AlumnoDAO;
+import control_calificaciones.data.CorreoTutorDAOH;
 import control_calificaciones.data.TutorDAO;
+import control_calificaciones.data.TutorDAOH;
 import control_calificaciones.data.usuarios.UsuarioDAO;
 import control_calificaciones.models.Alumno;
 import control_calificaciones.models.Aula;
 import control_calificaciones.models.CorreoTutor;
+import control_calificaciones.models.CorreoTutorH;
 import control_calificaciones.models.Tutor;
+import control_calificaciones.models.TutorH;
 import control_calificaciones.models.usuarios.Sesion;
 import control_calificaciones.models.usuarios.Usuario;
 import javafx.event.ActionEvent;
@@ -51,7 +56,10 @@ public class ModificarAlumnoController implements Initializable {
     String regexNombre = "[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?(( |\\-)[a-zA-ZÀ-ÖØ-öø-ÿ]+\\.?)*";
 
     String regexGmail = "[^@ \\t\\r\\n]+@gmail\\.com";
-    
+    String regexHotmail = "[^@ \\t\\r\\n]+@hotmail\\.com";
+    String regexYahoo = "[^@ \\t\\r\\n]+@yahoo\\.com";
+    String regexTecMail = "[^@ \\t\\r\\n]+@acapulco.tecnm.mx\\.com";
+
     @FXML
     private DatePicker DateAlumnoFecha;
 
@@ -100,7 +108,7 @@ public class ModificarAlumnoController implements Initializable {
     @FXML
     private TextField txtNombreTutor;
 
-    public void iniciarSesion(){
+    public void iniciarSesion() {
         lblNombreUsuario.setText(Sesion.nombreUsuario);
     }
 
@@ -122,7 +130,7 @@ public class ModificarAlumnoController implements Initializable {
             return;
         }
 
-        if(!alumnoNombre.matches(regexNombre)){
+        if (!alumnoNombre.matches(regexNombre)) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
             alert.setContentText("El campo nombre solo debe contener letras");
@@ -247,8 +255,10 @@ public class ModificarAlumnoController implements Initializable {
         String tutorNombre = txtNombreTutor.getText().trim();
         String tutorApellidoP = txtApellidoPaTutor.getText().trim();
         String tutorApellidoM = txtMaTutor.getText().trim();
+        String correo1 = txtCorreoTutor.getText().trim();
+        String correo2 = txtCorreoTutor2.getText().trim();
 
-        //validando datos de alumno desde la UI
+        // validando datos de alumno desde la UI
         if (alumnoNombre.isEmpty()) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Mensaje");
@@ -345,11 +355,54 @@ public class ModificarAlumnoController implements Initializable {
             return;
         }
 
-        
+        if (correo1.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("El campo de correo es requerido");
+            alert.showAndWait();
+            return;
+        }
+
+        if (correo1.equalsIgnoreCase(correo2)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("No es posible tener el mismo correo dos veces");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!correo1.matches(regexGmail) && !correo1.matches(regexHotmail) && !correo1.matches(regexYahoo)
+                && !correo1.matches(regexTecMail)) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Es necesario agregar un correo valido para el correo obligatorio");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!correo2.matches(regexGmail) && !correo2.matches(regexHotmail) && !correo2.matches(regexYahoo)
+                && !correo2.matches(regexTecMail) && !correo2.isEmpty()) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Mensaje");
+            alert.setContentText("Es necesario agregar un correo valido para el correo opcional");
+            alert.showAndWait();
+            return;
+        }
 
         AlumnoDAO alumnoDAO = new AlumnoDAO();
         TutorDAO tutorDAO = new TutorDAO();
+        TutorDAOH tutorDAOH = new TutorDAOH();
+        CorreoTutorDAOH correoDAO = new CorreoTutorDAOH();
+
         Tutor tutor = tutorDAO.buscarById(alumno.getId_tutor());
+        TutorH tutorH = new TutorH(alumno.getId_tutor());
+        tutorH = tutorDAOH.buscarPorId(tutorH);
+
+        List<CorreoTutorH> correosTutor = tutorH.getCorreos();
+        CorreoTutorH correoTutor = correosTutor.get(0);
+        CorreoTutorH correoTutor2 = null;
+
+        
 
         // empezando la modificacion del alumno
         alumno.setNombre(alumnoNombre);
@@ -361,6 +414,14 @@ public class ModificarAlumnoController implements Initializable {
         tutor.setNombre(tutorNombre);
         tutor.setApellido_paterno(tutorApellidoP);
         tutor.setApellido_materno(tutorApellidoM);
+        correoTutor.setCorreo(correo1);
+
+        if (correosTutor.size() > 1) {
+            correoTutor2 = tutorH.getCorreos().get(1);
+            correoTutor2.setCorreo(correo2);
+        }
+
+
 
         if (alumnoDAO.esNombreRepetido(alumno)) {
 
@@ -385,10 +446,89 @@ public class ModificarAlumnoController implements Initializable {
             }
         }
 
+        if (correoDAO.buscarPorCorreo(correoTutor) != null) {
+
+            TutorH tutorEncontrado = correoDAO.buscarPorCorreo(correoTutor).getTutor();
+
+            if (!tutorEncontrado.equals(tutorH)) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Mensaje");
+                alert.setContentText("El correo ya esta en uso");
+                alert.showAndWait();
+                return;
+            }
+
+        }
+
+        if (correoTutor2 != null) {
+
+            CorreoTutorH correoEncontrado = correoDAO.buscarPorCorreo(correoTutor2);
+
+            if(correoEncontrado != null) {
+                TutorH tutorEncontrado = correoEncontrado.getTutor();
+
+
+                if (tutorEncontrado != null && !tutorEncontrado.equals(tutorH) ) {
+
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Mensaje");
+                    alert.setContentText("El correo ya esta en uso");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+        }
+
+
         tutorDAO.modificar(tutor);
         alumnoDAO.modificar(alumno);
+        correoDAO.actualizar(correoTutor);
 
-        //acceder a la siguiente ventana
+        if(correoTutor2 == null){
+
+            correoTutor2 = new CorreoTutorH();
+            correoTutor2.setCorreo(correo2);
+            correoTutor2.setTutor(tutorH);;
+
+            CorreoTutorH correoEncontrado = correoDAO.buscarPorCorreo(correoTutor2);
+
+            if(correoEncontrado != null){
+
+                TutorH tutorEncontrado = correoEncontrado.getTutor();
+
+                if (tutorEncontrado != null && !tutorEncontrado.equals(tutorH) ) {
+
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Mensaje");
+                    alert.setContentText("El correo ya esta en uso");
+                    alert.showAndWait();
+                    return;
+                }
+                correoDAO.insertar(correoTutor2); 
+            }
+
+        }
+
+        
+
+        // // validaciones de insercion del segundo correo
+        // if (correoTutor2 == null) {
+        //     correoTutor2 = new CorreoTutorH();
+        //     correoTutor2.setTutor(tutorH);
+        //     correoTutor2.setCorreo(correo2);
+        //     correoDAO.insertar(correoTutor2);
+        // }
+
+        if (correoTutor2 != null && !correo2.isEmpty()) {
+            correoTutor2.setCorreo(correo2);
+            correoDAO.actualizar(correoTutor2);
+        }
+
+        if (correoTutor2 != null && correo2.isEmpty()) {
+            correoDAO.eliminar(correoTutor2);
+        }
+
+        // acceder a la siguiente ventana
         alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Mensaje");
         alert.setContentText("Alumno modificado perfectamente");

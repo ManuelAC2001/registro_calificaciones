@@ -60,7 +60,7 @@ public class EnviarEmails {
             MimeBodyPart attachmentPartInterna = new MimeBodyPart();
             attachmentPartInterna.attachFile(boletaInterna);
 
-            // archivos de boleta interna a enviar
+            // archivos de boletaExterna interna a enviar
             MimeBodyPart attachmentPartExterna = new MimeBodyPart();
             attachmentPartExterna.attachFile(boletaExterna);
 

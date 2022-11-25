@@ -1,28 +1,36 @@
 package control_calificaciones;
+
 public class Main {
 
     public static void main(String[] args) {
-        
+
+        // Respaldo.respaldar();
+
+
+
+
+        // CODIGO IMPORTANTE PARA LA GENERACION DE ARCHIVOS PDF
         // try {
 
-        //     InputStream inputStream = App.class.getResourceAsStream("boletaInterna.html");
-            
-        //     BufferedReader reader;
-        //     reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        // InputStream inputStream =
+        // App.class.getResourceAsStream("boletaInterna.html");
 
-        //     StringBuilder htmlBuilder = new StringBuilder();
+        // BufferedReader reader;
+        // reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
-        //     for (String line : reader.lines().collect(Collectors.toList())) {
-        //         htmlBuilder.append(line);
-        //     }
+        // StringBuilder htmlBuilder = new StringBuilder();
 
-        //     Document documentHTML = Jsoup.parse(htmlBuilder.toString());
-        //     documentHTML.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
-        //     String contenidoHTML = documentHTML.html();
+        // for (String line : reader.lines().collect(Collectors.toList())) {
+        // htmlBuilder.append(line);
+        // }
 
-        //     System.out.println(contenidoHTML);
+        // Document documentHTML = Jsoup.parse(htmlBuilder.toString());
+        // documentHTML.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+        // String contenidoHTML = documentHTML.html();
+
+        // System.out.println(contenidoHTML);
         // } catch (UnsupportedEncodingException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
 
         App.main(args);

@@ -1,2 +1,4 @@
 .env
 ./src/main/resources/META-INF/persistence.xml
+./target/control_calificaciones-1.0-SNAPSHOT.jar
+./target/control_calificaciones-1.0-SNAPSHOT-shaded.jar
