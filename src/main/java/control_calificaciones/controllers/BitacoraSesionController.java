@@ -111,8 +111,6 @@ public class BitacoraSesionController implements Initializable {
 
         tablaUsuarios.setItems(listaUsuarios);
 
-        System.out.println(Sesion.fechaSesion);
-
     }
 
     @FXML

@@ -158,7 +158,7 @@
                                                       </HBox>
                                                    </children>
                                                 </HBox>
-                                                <Button fx:id="btnCrearPersonal1" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="ELIMINAR" textFill="#f5f0f0">
+                                                <Button fx:id="btnCrearPersonal1" mnemonicParsing="false" onAction="#toEliminar" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="ELIMINAR" textFill="#f5f0f0">
                                                    <VBox.margin>
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
@@ -196,7 +196,7 @@
                                                       </HBox>
                                                    </children>
                                                 </HBox>
-                                                <Button fx:id="btnCrearPersonal2" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="MODIFICAR" textFill="#f5f0f0">
+                                                <Button fx:id="btnCrearPersonal2" mnemonicParsing="false" onAction="#toModificar" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="MODIFICAR" textFill="#f5f0f0">
                                                    <VBox.margin>
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
@@ -234,7 +234,7 @@
                                                       </HBox>
                                                    </children>
                                                 </HBox>
-                                                <Button fx:id="btnCrearPersonal3" mnemonicParsing="false" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="CONSULTAR" textFill="#f5f0f0">
+                                                <Button fx:id="btnCrearPersonal3" mnemonicParsing="false" onAction="#toConsultar" prefHeight="37.0" prefWidth="160.0" style="-fx-background-color: #F5A836;" text="CONSULTAR" textFill="#f5f0f0">
                                                    <VBox.margin>
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
